@@ -21,7 +21,7 @@ public class Swinging : MonoBehaviour {
 		// net is located at the average position of PLAYER and AnchorPoint.Current
 		_rope.transform.position = (transform.position + AnchorPoint.Current.transform.position) / 2;
 		// stretches Y scale to _ropeLength
-		_rope.transform.localScale = new Vector3 (transform.localScale.x, _ropeLength, transform.localScale.z);
+		_rope.transform.localScale = new Vector2 (transform.localScale.x, _ropeLength);
 		// rotates the rope accordingly
 		_rope.transform.rotation = Quaternion.FromToRotation (Vector2.up, v2);
 
