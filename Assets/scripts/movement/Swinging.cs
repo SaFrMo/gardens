@@ -74,13 +74,11 @@ public class Swinging : MonoBehaviour {
 		*/
 	}
 
-<<<<<<< HEAD
+
 
 
 	void FixedUpdate () {
-=======
-	void Update () {
->>>>>>> be68143b150ad506fd0ab9f67c70074e6713b70e
+
 		if (_rope != null) {
 			DrawRope();
 			Swing ();
