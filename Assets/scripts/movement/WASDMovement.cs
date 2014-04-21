@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -43,21 +43,41 @@ public class WASDMovement : MonoBehaviour {
 	// ===================
 
 	// how fast the character will move while grounded
-	public float groundedSpeed = 40f;
+	public float maxSpeed = 4f;
 	// jumps, but still has grounded controls apply (ie, A/D move left and right)
 	public KeyCode jumpKey = KeyCode.Space;
 	public float jumpForce = 3f;
 
+	private bool facingRight = true;
+
 	private void GroundedControls () {
-		// left/right movement - MovePosition is more forgiving than AddForce
-		//rigidbody.AddForce (Vector3.right * Input.GetAxis ("Horizontal") * groundedSpeed);
-		rigidbody.MovePosition (transform.position + (Vector3.right * Input.GetAxis ("Horizontal") * groundedSpeed));
+		float move = Input.GetAxis("Horizontal");
+		rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
 
 		// ground-based jumping (no anchor points involved)
 		if (Input.GetKeyDown (jumpKey) && CurrentType != MovementType.Jumping) {
 			CurrentType = MovementType.Jumping;
-			rigidbody.AddForce (Vector3.up * jumpForce, ForceMode.Impulse);
+			rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce);
 		}
+
+		//make sure the character is facing the right direction
+		if (move > 0 && !facingRight)
+		{
+			Flip();
+		}
+		else if (move < 0 && facingRight)
+		{
+			Flip();
+		}
+	}
+
+	//Change which way the character is facing. 
+	private void Flip() 
+	{
+		facingRight = !facingRight;
+		Vector3 theScale = transform.localScale;
+		theScale.x *= -1; //inverts x scale to flip sprite
+		transform.localScale = theScale;
 	}
 
 	private void OnCollisionEnter (Collision c) {
