@@ -24,6 +24,8 @@ public class WASDMovement : MonoBehaviour {
 	// break from airborne controls
 	public KeyCode jumpBreak = KeyCode.Space;
 	public KeyCode fallBreak = KeyCode.LeftControl;
+	// lengthen/shorten rope
+	public float lengthChangeRate = 1f;
 
 	private void AirborneControls() {
 
@@ -31,7 +33,9 @@ public class WASDMovement : MonoBehaviour {
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
 
-
+		if (Input.GetAxis ("Vertical") != 0) {
+			GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+		}
 	}
 
 
@@ -75,6 +79,7 @@ public class WASDMovement : MonoBehaviour {
 		}
 		else if (CurrentType == MovementType.Swinging) {
 			AirborneControls();
+			GroundedControls();
 		}
 	}
 }
