@@ -46,7 +46,7 @@ public class WASDMovement : MonoBehaviour {
 	public float groundedSpeed = 40f;
 	// jumps, but still has grounded controls apply (ie, A/D move left and right)
 	public KeyCode jumpKey = KeyCode.Space;
-	public float jumpForce = 2f;
+	public float jumpForce = 3f;
 
 	private void GroundedControls () {
 		// left/right movement - MovePosition is more forgiving than AddForce
