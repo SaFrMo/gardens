@@ -17,13 +17,13 @@ public class Swinging : MonoBehaviour {
 	/// </summary>
 	public void DrawRope () {
 
-		Vector3 v3 = transform.position - AnchorPoint.Current.transform.position;
+		Vector2 v2 = transform.position - AnchorPoint.Current.transform.position;
 		// net is located at the average position of PLAYER and AnchorPoint.Current
 		_rope.transform.position = (transform.position + AnchorPoint.Current.transform.position) / 2;
 		// stretches Y scale to _ropeLength
 		_rope.transform.localScale = new Vector3 (transform.localScale.x, _ropeLength, transform.localScale.z);
 		// rotates the rope accordingly
-		_rope.transform.rotation = Quaternion.FromToRotation (Vector3.up, v3);
+		_rope.transform.rotation = Quaternion.FromToRotation (Vector2.up, v2);
 
 		// it's done setting up, so make it visible if it's not already
 		if (!_rope.renderer.enabled)
