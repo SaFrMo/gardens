@@ -32,7 +32,7 @@ public class Swinging : MonoBehaviour {
 
 	public void AttachToAnchor () {
 		// change movement type to Swinging
-		GameManager.PLAYER.GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Swinging;
+		GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Swinging;
 
 		if (_rope == null) {
 			_rope = GameObject.Instantiate (ropePrefab) as GameObject;
