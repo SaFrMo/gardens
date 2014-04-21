@@ -66,7 +66,7 @@ public class Swinging : MonoBehaviour {
 
 
 
-	void Update () {
+	void FixedUpdate () {
 		if (_rope != null) {
 			DrawRope();
 			Swing ();

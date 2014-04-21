@@ -37,7 +37,7 @@ public class AnchorPointCreation : MonoBehaviour {
 		}
 	}
 
-	protected void Update () {
+	protected void FixedUpdate () {
 		CreateAnchorPoint();
 	}
 }
