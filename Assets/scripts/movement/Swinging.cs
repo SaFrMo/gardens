@@ -17,9 +17,9 @@ public class Swinging : MonoBehaviour {
 	/// </summary>
 	public void DrawRope () {
 
-		Vector3 v3 = GameManager.PLAYER.transform.position - AnchorPoint.Current.transform.position;
+		Vector3 v3 = transform.position - AnchorPoint.Current.transform.position;
 		// net is located at the average position of PLAYER and AnchorPoint.Current
-		_rope.transform.position = (GameManager.PLAYER.transform.position + AnchorPoint.Current.transform.position) / 2;
+		_rope.transform.position = (transform.position + AnchorPoint.Current.transform.position) / 2;
 		// stretches Y scale to _ropeLength
 		_rope.transform.localScale = new Vector3 (transform.localScale.x, _ropeLength, transform.localScale.z);
 		// rotates the rope accordingly
@@ -41,7 +41,7 @@ public class Swinging : MonoBehaviour {
 		}
 
 		// sets initial length of rope
-		_ropeLength = (GameManager.PLAYER.transform.position - AnchorPoint.Current.transform.position).magnitude;
+		_ropeLength = (transform.position - AnchorPoint.Current.transform.position).magnitude;
 
 		// parents anchor point to player
 		//transform.parent = AnchorPoint.Current;
@@ -50,7 +50,7 @@ public class Swinging : MonoBehaviour {
 	}
 
 	public void DetachFromAnchor () {
-		GameManager.PLAYER.GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Jumping;
+		GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Jumping;
 		Destroy (_rope);
 
 	}
