@@ -49,6 +49,7 @@ public class WASDMovement : MonoBehaviour {
 
 		}
 
+		/*
 		//Figure out where player will end up if current velocity is applied
 		Vector2 testPosition = (Vector2)rigidbody2D.transform.position + rigidbody2D.velocity;
 		float distance = Vector2.Distance(testPosition, anchorPosition);
@@ -59,6 +60,7 @@ public class WASDMovement : MonoBehaviour {
 		}
 		rigidbody2D.velocity = (testPosition - (Vector2)rigidbody2D.transform.position);
 		rigidbody2D.transform.position = testPosition;
+		*/
 	}
 
 

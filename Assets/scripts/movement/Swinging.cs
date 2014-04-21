@@ -12,6 +12,8 @@ public class Swinging : MonoBehaviour {
 		set { _ropeLength = value; }
 	}
 
+	private SpringJoint2D springJoint = null;
+
 	/// <summary>
 	/// Resizes and rotates the swinging rope to fit between player and AnchorPoint.Current
 	/// </summary>
@@ -47,11 +49,19 @@ public class Swinging : MonoBehaviour {
 		//transform.parent = AnchorPoint.Current;
 
 
+		if (springJoint == null) {
+			springJoint = gameObject.AddComponent<SpringJoint2D>();
+		}
+		springJoint.connectedBody = AnchorPoint.Current.rigidbody2D;
+
+
+
 	}
 
 	public void DetachFromAnchor () {
 		GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Jumping;
 		Destroy (_rope);
+		Destroy (springJoint);
 
 	}
 
@@ -63,8 +73,6 @@ public class Swinging : MonoBehaviour {
 		}
 		*/
 	}
-
-
 
 	void Update () {
 		if (_rope != null) {
