@@ -28,6 +28,8 @@ public class WASDMovement : MonoBehaviour {
 	public float lengthChangeRate = 1f;
 
 	private void AirborneControls() {
+		Vector2 anchorPosition = AnchorPoint.Current.transform.position; //store position of the current anchor point
+
 
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
 			GetComponent<Swinging>().DetachFromAnchor();
@@ -36,6 +38,17 @@ public class WASDMovement : MonoBehaviour {
 		if (Input.GetAxis ("Vertical") != 0) {
 			GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
 		}
+
+		//Figure out where player will end up if current velocity is applied
+		Vector2 testPosition = (Vector2)rigidbody2D.transform.position + rigidbody2D.velocity;
+		float distance = Vector2.Distance(testPosition, anchorPosition);
+
+
+		if (distance > GetComponent<Swinging>().RopeLength) {
+			testPosition = (testPosition - anchorPosition).normalized * GetComponent<Swinging>().RopeLength;
+		}
+		rigidbody2D.velocity = (testPosition - (Vector2)rigidbody2D.transform.position);
+		rigidbody2D.transform.position = testPosition;
 	}
 
 
