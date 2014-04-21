@@ -106,7 +106,7 @@ public class WASDMovement : MonoBehaviour {
 	// Update ()
 	// ==============
 
-	private void Update () {
+	private void FixedUpdate () {
 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
 			GroundedControls();
 		}
