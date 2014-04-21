@@ -9,7 +9,7 @@ public class WASDMovement : MonoBehaviour {
 	public enum MovementType {
 		Grounded,
 		Jumping,
-		Airborne
+		Swinging
 	};
 	
 	private MovementType _currentType = MovementType.Grounded;
@@ -18,18 +18,34 @@ public class WASDMovement : MonoBehaviour {
 		set { _currentType = value; }
 	}
 
+	// AIRBORNE CONTROLS
+	// ==================
+
+	// break from airborne controls
+	public KeyCode jumpBreak = KeyCode.Space;
+	public KeyCode fallBreak = KeyCode.LeftControl;
+
+	private void AirborneControls() {
+
+		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
+			GetComponent<Swinging>().DetachFromAnchor();
+		}
+
+
+	}
+
+
+	// GROUNDED CONTROLS
+	// ===================
+
 	// how fast the character will move while grounded
 	public float groundedSpeed = 40f;
 	// jumps, but still has grounded controls apply (ie, A/D move left and right)
 	public KeyCode jumpKey = KeyCode.Space;
 	public float jumpForce = 2f;
 
-
-	// TODO
-	private void AirborneControls() {}
-
 	private void GroundedControls () {
-		// left/right movement
+		// left/right movement - MovePosition is more forgiving than AddForce
 		//rigidbody.AddForce (Vector3.right * Input.GetAxis ("Horizontal") * groundedSpeed);
 		rigidbody.MovePosition (transform.position + (Vector3.right * Input.GetAxis ("Horizontal") * groundedSpeed));
 
@@ -57,7 +73,7 @@ public class WASDMovement : MonoBehaviour {
 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
 			GroundedControls();
 		}
-		else if (CurrentType == MovementType.Airborne) {
+		else if (CurrentType == MovementType.Swinging) {
 			AirborneControls();
 		}
 	}
