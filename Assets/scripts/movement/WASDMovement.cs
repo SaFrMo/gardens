@@ -5,8 +5,10 @@ using System.Collections;
 public class WASDMovement : MonoBehaviour {
 
 	// differentiation between grounded and aerial controls
+	// also includes jumping controls - let the player jump while grounded
 	public enum MovementType {
 		Grounded,
+		Jumping,
 		Airborne
 	};
 	
@@ -16,26 +18,43 @@ public class WASDMovement : MonoBehaviour {
 		set { _currentType = value; }
 	}
 
-	// changes max speed and how quickly player slows down after letting 
-	public float groundedDrag = 4.5f;
 	// how fast the character will move while grounded
 	public float groundedSpeed = 40f;
+	// jumps, but still has grounded controls apply (ie, A/D move left and right)
+	public KeyCode jumpKey = KeyCode.Space;
+	public float jumpForce = 2f;
+
 
 	// TODO
 	private void AirborneControls() {}
 
 	private void GroundedControls () {
-		if (rigidbody.drag != groundedDrag) {
-			rigidbody.drag = groundedDrag;
+		// left/right movement
+		//rigidbody.AddForce (Vector3.right * Input.GetAxis ("Horizontal") * groundedSpeed);
+		rigidbody.MovePosition (transform.position + (Vector3.right * Input.GetAxis ("Horizontal") * groundedSpeed));
+
+		// ground-based jumping (no anchor points involved)
+		if (Input.GetKeyDown (jumpKey) && CurrentType != MovementType.Jumping) {
+			CurrentType = MovementType.Jumping;
+			rigidbody.AddForce (Vector3.up * jumpForce, ForceMode.Impulse);
 		}
-		rigidbody.AddForce (Vector3.right * Input.GetAxis ("Horizontal") * groundedSpeed);
+	}
+
+	private void OnCollisionEnter (Collision c) {
+		// tag all garden boxes and anything else the player can run/jump on as "Ground"
+		if (c.gameObject.CompareTag ("Ground")) {
+			// lets the player jump again after landing on ground
+			if (CurrentType == MovementType.Jumping) {
+				CurrentType = MovementType.Grounded;
+			}
+		}
 	}
 	
 	// Update ()
 	// ==============
 
 	private void Update () {
-		if (CurrentType == MovementType.Grounded) {
+		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
 			GroundedControls();
 		}
 		else if (CurrentType == MovementType.Airborne) {
