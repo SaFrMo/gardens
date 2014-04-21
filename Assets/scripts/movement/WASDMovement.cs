@@ -3,7 +3,9 @@ using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 public class WASDMovement : MonoBehaviour {
-
+	// Maximum Speed
+	public float maxSpeedX = 5;
+	public float maxSpeedY = 5;
 	// differentiation between grounded and aerial controls
 	// also includes jumping controls - let the player jump while grounded
 	public enum MovementType {
@@ -29,26 +31,36 @@ public class WASDMovement : MonoBehaviour {
 
 	private void AirborneControls() {
 		Vector2 anchorPosition = AnchorPoint.Current.transform.position; //store position of the current anchor point
-
+		float ropeLength = GetComponent<Swinging>().RopeLength;
 
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
 
-		if (Input.GetAxis ("Vertical") != 0) {
-			GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+		if (Input.GetAxis ("Vertical") > 0) {
+
+			if (ropeLength > 0){
+			 ropeLength += lengthChangeRate * Input.GetAxis ("Vertical");
+			}
+		}
+		if (Input.GetAxis ("Vertical") < 0) {
+
+				ropeLength += lengthChangeRate * Input.GetAxis ("Vertical");
+
 		}
 
+		/*
 		//Figure out where player will end up if current velocity is applied
 		Vector2 testPosition = (Vector2)rigidbody2D.transform.position + rigidbody2D.velocity;
 		float distance = Vector2.Distance(testPosition, anchorPosition);
 
 
 		if (distance > GetComponent<Swinging>().RopeLength) {
-			testPosition = (testPosition - anchorPosition).normalized * GetComponent<Swinging>().RopeLength;
+			testPosition = (testPosition - anchorPosition * GetComponent<Swinging>().RopeLength).normalized;
 		}
 		rigidbody2D.velocity = (testPosition - (Vector2)rigidbody2D.transform.position);
 		rigidbody2D.transform.position = testPosition;
+		*/
 	}
 
 
@@ -93,6 +105,19 @@ public class WASDMovement : MonoBehaviour {
 		transform.localScale = theScale;
 	}
 
+	//make sure the player is not moving too fast
+	private void CheckSpeed ()
+	{
+		if (rigidbody2D.velocity.x > maxSpeedX)
+		{
+			rigidbody2D.velocity = new Vector2(maxSpeedX, rigidbody2D.velocity.y);
+		}
+		if (rigidbody2D.velocity.y > maxSpeedY)
+		{
+			rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, maxSpeedY);
+		}
+	}
+
 	private void OnCollisionEnter (Collision c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
 		if (c.gameObject.CompareTag ("Ground")) {
@@ -114,5 +139,6 @@ public class WASDMovement : MonoBehaviour {
 			AirborneControls();
 			GroundedControls();
 		}
+		CheckSpeed ();
 	}
 }
