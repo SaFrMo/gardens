@@ -130,6 +130,7 @@ public class WASDMovement : MonoBehaviour {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
 		if (c.gameObject.tag == "Ground") {
 			Debug.Log ("collision");
+			GetComponent<Swinging>().swingCount = 0;
 			// lets the player jump again after landing on ground
 			if (CurrentType != MovementType.Grounded) {
 

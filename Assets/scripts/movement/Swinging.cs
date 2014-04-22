@@ -4,7 +4,8 @@ using System.Collections;
 public class Swinging : MonoBehaviour {
 
 	public GameObject ropePrefab;
-
+	public int swingCount = 0; //store how many times player has swung since landing
+	public int maxSwings = 2; //store how many times the player can swing between landings
 	private GameObject _rope;
 	private float _ropeLength;
 	public float RopeLength {
@@ -34,29 +35,27 @@ public class Swinging : MonoBehaviour {
 	}
 
 	public void AttachToAnchor () {
-		// change movement type to Swinging
-		GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Swinging;
 
-		if (_rope == null) {
-			_rope = GameObject.Instantiate (ropePrefab) as GameObject;
-			// prevent box from drawing in middle of the screen
-			_rope.renderer.enabled = false;
+		if (swingCount < maxSwings) {
+			swingCount++;
+			// change movement type to Swinging
+			GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Swinging;
+
+			if (_rope == null) {
+				_rope = GameObject.Instantiate (ropePrefab) as GameObject;
+				// prevent box from drawing in middle of the screen
+				_rope.renderer.enabled = false;
+			}
+
+			// sets initial length of rope
+			_ropeLength = (transform.position - AnchorPoint.Current.transform.position).magnitude;
+
+			// creates a new spring joint if there's none existing
+			if (springJoint == null) {
+				springJoint = gameObject.AddComponent<SpringJoint2D>();
+			}
+			springJoint.connectedBody = AnchorPoint.Current.rigidbody2D;
 		}
-
-		// sets initial length of rope
-		_ropeLength = (transform.position - AnchorPoint.Current.transform.position).magnitude;
-
-		// creates a new spring joint if there's none existing
-		if (springJoint == null) {
-			springJoint = gameObject.AddComponent<SpringJoint2D>();
-		}
-		springJoint.connectedBody = AnchorPoint.Current.rigidbody2D;
-
-
-
-
-
-
 	}
 
 	public void DetachFromAnchor () {
@@ -64,6 +63,7 @@ public class Swinging : MonoBehaviour {
 		Destroy (_rope);
 		Destroy (_constantForce);
 		Destroy (springJoint);
+
 
 	}
 
