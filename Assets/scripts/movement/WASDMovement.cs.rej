@@ -1,0 +1,20 @@
+diff a/Assets/scripts/movement/WASDMovement.cs b/Assets/scripts/movement/WASDMovement.cs	(rejected hunks)
+@@ -128,17 +128,17 @@
+ 		}
+ 	}
+ 	
+ 	// Update ()
+ 	// ==============
+ 
+ 	private void FixedUpdate () {
+ 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
+ 			GroundedControls();
+ 		}
+ 		else if (CurrentType == MovementType.Swinging) {
+ 			AirborneControls();
+-			//GroundedControls();
++			GroundedControls();
+ 		}
+ 		CheckSpeed ();
+ 	}
+ }
