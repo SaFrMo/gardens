@@ -35,8 +35,8 @@ public class WASDMovement : MonoBehaviour {
 	public float swingForce = .8f;
 
 	private void AirborneControls() {
-		Vector2 anchorPosition = AnchorPoint.Current.transform.position; //store position of the current anchor point
-		float ropeLength = GetComponent<Swinging>().RopeLength;
+		//Vector2 anchorPosition = AnchorPoint.Current.transform.position; //store position of the current anchor point
+		//float ropeLength = GetComponent<Swinging>().RopeLength;
 
 		// break rope
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
