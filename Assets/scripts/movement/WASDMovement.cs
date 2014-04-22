@@ -30,6 +30,8 @@ public class WASDMovement : MonoBehaviour {
 	public float lengthChangeRate = 5f;
 	// minimum rope length
 	public float minRopeLength = 1f;
+	// force applied to swinging: higher the force, faster player can swing (TODO: upgrades to this value as player continues?)
+	public float swingForce = .8f;
 
 	private void AirborneControls() {
 		Vector2 anchorPosition = AnchorPoint.Current.transform.position; //store position of the current anchor point
@@ -41,7 +43,7 @@ public class WASDMovement : MonoBehaviour {
 		}
 
 		// rope length change
-		// you can always increase rope length...
+		// you can always increase rope length... (TODO: make a max length)
 		if (Input.GetAxis ("Vertical") <= 0) {
 			GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
 		}
@@ -52,32 +54,14 @@ public class WASDMovement : MonoBehaviour {
 			}
 		}
 
-		/*
-
-		if (Input.GetAxis ("Vertical") > 0) {
-
-			//if (ropeLength > 0){
-				GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical");
-			//}
+		// swing!
+		if (Input.GetAxis ("Horizontal") != 0) {
+			rigidbody2D.AddForce (Vector2.right * Input.GetAxis("Horizontal") * swingForce);
 		}
-		if (Input.GetAxis ("Vertical") < 0) {
-
-				GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical");
-
-		}
-*/
-		/*
-		//Figure out where player will end up if current velocity is applied
-		Vector2 testPosition = (Vector2)rigidbody2D.transform.position + rigidbody2D.velocity;
-		float distance = Vector2.Distance(testPosition, anchorPosition);
+		// try to reset to 0
+		else {}
 
 
-		if (distance > GetComponent<Swinging>().RopeLength) {
-			testPosition = (testPosition - anchorPosition * GetComponent<Swinging>().RopeLength).normalized;
-		}
-		rigidbody2D.velocity = (testPosition - (Vector2)rigidbody2D.transform.position);
-		rigidbody2D.transform.position = testPosition;
-		*/
 	}
 
 
@@ -144,7 +128,7 @@ public class WASDMovement : MonoBehaviour {
 	private void OnCollisionEnter2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
 		if (c.gameObject.tag == "Ground") {
-			Debug.Log ("collision");
+			//Debug.Log ("collision");
 			// lets the player jump again after landing on ground
 			if (CurrentType != MovementType.Grounded) {
 
@@ -169,7 +153,7 @@ public class WASDMovement : MonoBehaviour {
 	// Update ()
 	// ==============
 
-	private void FixedUpdate () {
+	private void Update () {
 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
 			GroundedControls();
 		}
@@ -177,7 +161,6 @@ public class WASDMovement : MonoBehaviour {
 			AirborneControls();
 			//GroundedControls();
 		}
-		CheckSpeed ();
-		//Debug.Log (CurrentType);
+		//CheckSpeed ();
 	}
 }
