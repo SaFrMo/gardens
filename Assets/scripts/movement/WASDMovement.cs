@@ -3,7 +3,9 @@ using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 public class WASDMovement : MonoBehaviour {
-
+	// Maximum Speed
+	public float maxSpeedX = 5;
+	public float maxSpeedY = 5;
 	// differentiation between grounded and aerial controls
 	// also includes jumping controls - let the player jump while grounded
 	public enum MovementType {
@@ -25,17 +27,57 @@ public class WASDMovement : MonoBehaviour {
 	public KeyCode jumpBreak = KeyCode.Space;
 	public KeyCode fallBreak = KeyCode.LeftControl;
 	// lengthen/shorten rope
-	public float lengthChangeRate = 1f;
+	public float lengthChangeRate = 5f;
+	// minimum rope length
+	public float minRopeLength = 1f;
 
 	private void AirborneControls() {
+		Vector2 anchorPosition = AnchorPoint.Current.transform.position; //store position of the current anchor point
+		float ropeLength = GetComponent<Swinging>().RopeLength;
 
+		// break rope
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
 
-		if (Input.GetAxis ("Vertical") != 0) {
-			GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+		// rope length change
+		// you can always increase rope length...
+		if (Input.GetAxis ("Vertical") <= 0) {
+			GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
 		}
+		// ...but there's a minimum rope length you can't pass
+		else if (Input.GetAxis ("Vertical") > 0) {
+			if (GetComponent<Swinging>().RopeLength > minRopeLength) {
+				GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+			}
+		}
+
+		/*
+
+		if (Input.GetAxis ("Vertical") > 0) {
+
+			//if (ropeLength > 0){
+				GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical");
+			//}
+		}
+		if (Input.GetAxis ("Vertical") < 0) {
+
+				GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical");
+
+		}
+*/
+		/*
+		//Figure out where player will end up if current velocity is applied
+		Vector2 testPosition = (Vector2)rigidbody2D.transform.position + rigidbody2D.velocity;
+		float distance = Vector2.Distance(testPosition, anchorPosition);
+
+
+		if (distance > GetComponent<Swinging>().RopeLength) {
+			testPosition = (testPosition - anchorPosition * GetComponent<Swinging>().RopeLength).normalized;
+		}
+		rigidbody2D.velocity = (testPosition - (Vector2)rigidbody2D.transform.position);
+		rigidbody2D.transform.position = testPosition;
+		*/
 	}
 
 
@@ -80,6 +122,19 @@ public class WASDMovement : MonoBehaviour {
 		transform.localScale = theScale;
 	}
 
+	//make sure the player is not moving too fast
+	private void CheckSpeed ()
+	{
+		if (rigidbody2D.velocity.x > maxSpeedX)
+		{
+			rigidbody2D.velocity = new Vector2(maxSpeedX, rigidbody2D.velocity.y);
+		}
+		if (rigidbody2D.velocity.y > maxSpeedY)
+		{
+			rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, maxSpeedY);
+		}
+	}
+
 	private void OnCollisionEnter (Collision c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
 		if (c.gameObject.CompareTag ("Ground")) {
@@ -93,13 +148,14 @@ public class WASDMovement : MonoBehaviour {
 	// Update ()
 	// ==============
 
-	private void Update () {
+	private void FixedUpdate () {
 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
 			GroundedControls();
 		}
 		else if (CurrentType == MovementType.Swinging) {
 			AirborneControls();
-			GroundedControls();
+			//GroundedControls();
 		}
+		CheckSpeed ();
 	}
 }

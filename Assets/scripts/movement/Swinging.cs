@@ -12,18 +12,21 @@ public class Swinging : MonoBehaviour {
 		set { _ropeLength = value; }
 	}
 
+	private SpringJoint2D springJoint = null;
+	private ConstantForce _constantForce = null;
+
 	/// <summary>
 	/// Resizes and rotates the swinging rope to fit between player and AnchorPoint.Current
 	/// </summary>
 	public void DrawRope () {
 
-		Vector3 v3 = transform.position - AnchorPoint.Current.transform.position;
+		Vector2 v2 = transform.position - AnchorPoint.Current.transform.position;
 		// net is located at the average position of PLAYER and AnchorPoint.Current
 		_rope.transform.position = (transform.position + AnchorPoint.Current.transform.position) / 2;
 		// stretches Y scale to _ropeLength
-		_rope.transform.localScale = new Vector3 (transform.localScale.x, _ropeLength, transform.localScale.z);
+		_rope.transform.localScale = new Vector2 (transform.localScale.x, _ropeLength);
 		// rotates the rope accordingly
-		_rope.transform.rotation = Quaternion.FromToRotation (Vector3.up, v3);
+		_rope.transform.rotation = Quaternion.FromToRotation (Vector2.up, v2);
 
 		// it's done setting up, so make it visible if it's not already
 		if (!_rope.renderer.enabled)
@@ -43,8 +46,15 @@ public class Swinging : MonoBehaviour {
 		// sets initial length of rope
 		_ropeLength = (transform.position - AnchorPoint.Current.transform.position).magnitude;
 
-		// parents anchor point to player
-		//transform.parent = AnchorPoint.Current;
+		// creates a new spring joint if there's none existing
+		if (springJoint == null) {
+			springJoint = gameObject.AddComponent<SpringJoint2D>();
+		}
+		springJoint.connectedBody = AnchorPoint.Current.rigidbody2D;
+
+
+
+
 
 
 	}
@@ -52,6 +62,8 @@ public class Swinging : MonoBehaviour {
 	public void DetachFromAnchor () {
 		GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Jumping;
 		Destroy (_rope);
+		Destroy (_constantForce);
+		Destroy (springJoint);
 
 	}
 
@@ -64,9 +76,11 @@ public class Swinging : MonoBehaviour {
 		*/
 	}
 
-
-
-	void Update () {
+	void FixedUpdate () {
+		if (springJoint != null) {
+			//springJoint.connectedAnchor = new Vector2 (0, -5);//transform.position as Vector2 + _ropeLength;
+			springJoint.distance = _ropeLength;
+		}
 		if (_rope != null) {
 			DrawRope();
 			Swing ();

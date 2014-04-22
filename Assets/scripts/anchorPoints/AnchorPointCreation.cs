@@ -12,20 +12,20 @@ public class AnchorPointCreation : MonoBehaviour {
 		if (Input.GetMouseButtonUp(1)) {
 			// select preexisting anchor point if one exists
 			// TODO: Drag preexisting anchor point to new location?
-			Ray mouseRay = new Ray (Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
-			RaycastHit mouseHit;
-			if (Physics.Raycast (mouseRay, out mouseHit, Mathf.Infinity)) {
-				if (mouseHit.transform.gameObject.CompareTag ("Anchor")) {
-					mouseHit.collider.gameObject.GetComponent<AnchorPoint>().SelectThisAnchorPoint();
-				}
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+
+			if (hit.collider != null && hit.collider.gameObject.CompareTag ("Anchor"))
+			{
+				hit.collider.gameObject.GetComponent<AnchorPoint>().SelectThisAnchorPoint();
 			}
+
 			// create new anchor if player clicked on an empty space
 			else {
 				GameObject newPoint = GameObject.Instantiate (anchorPointPrefab) as GameObject;
 				newPoint.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				newPoint.transform.position = new Vector3 (newPoint.transform.position.x,
-				                                           newPoint.transform.position.y,
-				                                           0);
+				newPoint.transform.position = new Vector2 (newPoint.transform.position.x,
+				                                           newPoint.transform.position.y);
 
 
 				// set new anchor point as AnchorPoint.Current
