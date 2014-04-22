@@ -3,7 +3,7 @@ using System.Collections;
 
 public class cameraController : MonoBehaviour {
 	private float cameraDepth = -10; //store the Z position of the camera
-	private float cameraX = 0; // in case we want to move the camera later
+
 	public GameObject player;
 	// Use this for initialization
 	void Start () {
@@ -14,8 +14,8 @@ public class cameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () { 
-		//Update the camera to follow the player's Y position while staying still horizontally and vertically
-		transform.position = new Vector3(cameraX, player.transform.position.y, cameraDepth);
+		//Update the camera to follow the player's X and Y position while maintaining the same depth
+		transform.position = new Vector3(player.transform.position.x, player.transform.position.y, cameraDepth);
 
 	}
 }
