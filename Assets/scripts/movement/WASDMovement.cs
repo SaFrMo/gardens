@@ -37,15 +37,15 @@ public class WASDMovement : MonoBehaviour {
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
 
-		if (Input.GetAxis ("Vertical") > 0) {
+		if (Input.GetAxis("Vertical") > 0) {
 
-			if (ropeLength > 0){
-			 ropeLength += lengthChangeRate * Input.GetAxis ("Vertical");
-			}
+
+				GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical");
+
 		}
-		if (Input.GetAxis ("Vertical") < 0) {
+		if (Input.GetAxis("Vertical") < 0) {
 
-				ropeLength += lengthChangeRate * Input.GetAxis ("Vertical");
+			GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical");
 
 		}
 
@@ -80,8 +80,8 @@ public class WASDMovement : MonoBehaviour {
 		rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
 
 		// ground-based jumping (no anchor points involved)
-		if (Input.GetKeyDown (jumpKey) && CurrentType != MovementType.Jumping) {
-			CurrentType = MovementType.Jumping;
+		if (Input.GetKeyDown (jumpKey)) {
+			//CurrentType = MovementType.Jumping;
 			rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce);
 		}
 

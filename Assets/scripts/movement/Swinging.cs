@@ -83,5 +83,7 @@ public class Swinging : MonoBehaviour {
 			DrawRope();
 			Swing ();
 		}
+		springJoint.distance = _ropeLength;
+
 	}
 }
