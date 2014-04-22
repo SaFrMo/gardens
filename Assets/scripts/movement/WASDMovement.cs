@@ -3,6 +3,8 @@ using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 public class WASDMovement : MonoBehaviour {
+
+
 	// Maximum Speed
 	public float maxSpeedX = 5;
 	public float maxSpeedY = 5;
@@ -11,7 +13,8 @@ public class WASDMovement : MonoBehaviour {
 	public enum MovementType {
 		Grounded,
 		Jumping,
-		Swinging
+		Swinging,
+		Dead
 	};
 	
 	private MovementType _currentType = MovementType.Grounded;
@@ -102,7 +105,9 @@ public class WASDMovement : MonoBehaviour {
 			rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce);
 		}
 			else if (CurrentType != MovementType.Swinging) {
-				GetComponent<Swinging>().DetachFromAnchor();
+				//if the player happens to land on the ground while swinging jumping will still detach them
+				GetComponent<Swinging>().DetachFromAnchor(); 
+				
 				}
 				 
 
@@ -171,11 +176,17 @@ public class WASDMovement : MonoBehaviour {
 
 	private void FixedUpdate () {
 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
+			this.renderer.enabled = true; // this hides the player sprite when dead, there's probably a better way around but this will do for now
 			GroundedControls();
 		}
 		else if (CurrentType == MovementType.Swinging) {
+			this.renderer.enabled = true;
 			AirborneControls();
 			//GroundedControls();
+		}
+
+		else if (CurrentType == MovementType.Dead) {
+			this.renderer.enabled = false; //hide the player when you die
 		}
 		CheckSpeed ();
 		//Debug.Log (CurrentType);
