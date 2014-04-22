@@ -27,28 +27,45 @@ public class WASDMovement : MonoBehaviour {
 	public KeyCode jumpBreak = KeyCode.Space;
 	public KeyCode fallBreak = KeyCode.LeftControl;
 	// lengthen/shorten rope
-	public float lengthChangeRate = 1f;
+	public float lengthChangeRate = 5f;
+	// minimum rope length
+	public float minRopeLength = 1f;
 
 	private void AirborneControls() {
 		Vector2 anchorPosition = AnchorPoint.Current.transform.position; //store position of the current anchor point
 		float ropeLength = GetComponent<Swinging>().RopeLength;
 
+		// break rope
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
 
-		if (Input.GetAxis("Vertical") > 0) {
+		// rope length change
+		// you can always increase rope length...
+		if (Input.GetAxis ("Vertical") <= 0) {
+			GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+		}
+		// ...but there's a minimum rope length you can't pass
+		else if (Input.GetAxis ("Vertical") > 0) {
+			if (GetComponent<Swinging>().RopeLength > minRopeLength) {
+				GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+			}
+		}
 
+		/*
+
+		if (Input.GetAxis ("Vertical") > 0) {
+
+			//if (ropeLength > 0){
+				GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical");
+			//}
+		}
+		if (Input.GetAxis ("Vertical") < 0) {
 
 				GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical");
 
 		}
-		if (Input.GetAxis("Vertical") < 0) {
-
-			GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical");
-
-		}
-
+*/
 		/*
 		//Figure out where player will end up if current velocity is applied
 		Vector2 testPosition = (Vector2)rigidbody2D.transform.position + rigidbody2D.velocity;
@@ -137,7 +154,7 @@ public class WASDMovement : MonoBehaviour {
 		}
 		else if (CurrentType == MovementType.Swinging) {
 			AirborneControls();
-			GroundedControls();
+			//GroundedControls();
 		}
 		CheckSpeed ();
 	}
