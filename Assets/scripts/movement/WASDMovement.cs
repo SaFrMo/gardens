@@ -11,7 +11,8 @@ public class WASDMovement : MonoBehaviour {
 	public enum MovementType {
 		Grounded,
 		Jumping,
-		Swinging
+		Swinging,
+		Dead
 	};
 	
 	private MovementType _currentType = MovementType.Grounded;
@@ -128,7 +129,7 @@ public class WASDMovement : MonoBehaviour {
 	private void OnCollisionEnter2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
 		if (c.gameObject.tag == "Ground") {
-			//Debug.Log ("collision");
+			Debug.Log ("collision");
 			// lets the player jump again after landing on ground
 			if (CurrentType != MovementType.Grounded) {
 
@@ -153,14 +154,21 @@ public class WASDMovement : MonoBehaviour {
 	// Update ()
 	// ==============
 
-	private void Update () {
+	private void FixedUpdate () {
 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
+			this.renderer.enabled = true; // this hides the player sprite when dead, there's probably a better way around but this will do for now
 			GroundedControls();
 		}
 		else if (CurrentType == MovementType.Swinging) {
+			this.renderer.enabled = true;
 			AirborneControls();
 			//GroundedControls();
 		}
-		//CheckSpeed ();
+
+		else if (CurrentType == MovementType.Dead) {
+			this.renderer.enabled = false; //hide the player when you die
+		}
+		CheckSpeed ();
+		//Debug.Log (CurrentType);
 	}
 }
