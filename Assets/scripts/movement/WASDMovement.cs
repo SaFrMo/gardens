@@ -35,13 +35,17 @@ public class WASDMovement : MonoBehaviour {
 		Vector2 anchorPosition = AnchorPoint.Current.transform.position; //store position of the current anchor point
 		float ropeLength = GetComponent<Swinging>().RopeLength;
 
+		// break rope
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
 
+		// rope length change
+		// you can always increase rope length...
 		if (Input.GetAxis ("Vertical") <= 0) {
 			GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
 		}
+		// ...but there's a minimum rope length you can't pass
 		else if (Input.GetAxis ("Vertical") > 0) {
 			if (GetComponent<Swinging>().RopeLength > minRopeLength) {
 				GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
@@ -150,7 +154,7 @@ public class WASDMovement : MonoBehaviour {
 		}
 		else if (CurrentType == MovementType.Swinging) {
 			AirborneControls();
-			GroundedControls();
+			//GroundedControls();
 		}
 		CheckSpeed ();
 	}
