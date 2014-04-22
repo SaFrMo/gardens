@@ -27,7 +27,9 @@ public class WASDMovement : MonoBehaviour {
 	public KeyCode jumpBreak = KeyCode.Space;
 	public KeyCode fallBreak = KeyCode.LeftControl;
 	// lengthen/shorten rope
-	public float lengthChangeRate = 1f;
+	public float lengthChangeRate = 5f;
+	// minimum rope length
+	public float minRopeLength = 1f;
 
 	private void AirborneControls() {
 		Vector2 anchorPosition = AnchorPoint.Current.transform.position; //store position of the current anchor point
@@ -37,18 +39,29 @@ public class WASDMovement : MonoBehaviour {
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
 
+		if (Input.GetAxis ("Vertical") <= 0) {
+			GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+		}
+		else if (Input.GetAxis ("Vertical") > 0) {
+			if (GetComponent<Swinging>().RopeLength > minRopeLength) {
+				GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+			}
+		}
+
+		/*
+
 		if (Input.GetAxis ("Vertical") > 0) {
 
-			if (ropeLength > 0){
-			 ropeLength += lengthChangeRate * Input.GetAxis ("Vertical");
-			}
+			//if (ropeLength > 0){
+				GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical");
+			//}
 		}
 		if (Input.GetAxis ("Vertical") < 0) {
 
-				ropeLength += lengthChangeRate * Input.GetAxis ("Vertical");
+				GetComponent<Swinging>().RopeLength += lengthChangeRate * Input.GetAxis ("Vertical");
 
 		}
-
+*/
 		/*
 		//Figure out where player will end up if current velocity is applied
 		Vector2 testPosition = (Vector2)rigidbody2D.transform.position + rigidbody2D.velocity;
