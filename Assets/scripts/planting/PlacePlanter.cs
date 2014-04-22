@@ -49,6 +49,7 @@ public class PlacePlanter : MonoBehaviour {
 				CreatePlanter();
 			}
 			else {
+				// cancel creation and destroy the placer guide
 				Destroy (planterPlacer);
 			}
 		}
