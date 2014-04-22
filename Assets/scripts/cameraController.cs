@@ -15,7 +15,7 @@ public class cameraController : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () { 
 		//Update the camera to follow the player's X and Y position while maintaining the same depth
-		transform.position = new Vector3(player.transform.position.x, player.transform.position.y, cameraDepth);
+		transform.position = new Vector3(player.transform.position.x, player.transform.position.y +1, cameraDepth);
 
 	}
 }
