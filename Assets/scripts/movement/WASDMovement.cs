@@ -97,8 +97,8 @@ public class WASDMovement : MonoBehaviour {
 		rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
 
 		// ground-based jumping (no anchor points involved)
-		if (Input.GetKeyDown (jumpKey)) {
-			//CurrentType = MovementType.Jumping;
+		if (Input.GetKeyDown (jumpKey) && CurrentType != MovementType.Jumping ) {
+			CurrentType = MovementType.Jumping;
 			rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce);
 		}
 
@@ -135,11 +135,11 @@ public class WASDMovement : MonoBehaviour {
 		}
 	}
 
-	private void OnCollisionEnter (Collision c) {
+	private void OnCollisionEnter2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
-		if (c.gameObject.CompareTag ("Ground")) {
+		if (c.gameObject.tag == "Ground") {
 			// lets the player jump again after landing on ground
-			if (CurrentType == MovementType.Jumping) {
+			if (CurrentType != MovementType.Grounded) {
 				CurrentType = MovementType.Grounded;
 			}
 		}
