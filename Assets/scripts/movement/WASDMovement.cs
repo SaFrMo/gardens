@@ -40,6 +40,8 @@ public class WASDMovement : MonoBehaviour {
 
 		// break rope
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
+			// gives you a boost if you jump
+			if (Input.GetKeyDown (jumpBreak)) { rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce * 2); }
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
 
@@ -59,8 +61,7 @@ public class WASDMovement : MonoBehaviour {
 		if (Input.GetAxis ("Horizontal") != 0) {
 			rigidbody2D.AddForce (Vector2.right * Input.GetAxis("Horizontal") * swingForce);
 		}
-		// try to reset to 0
-		else {}
+
 
 
 	}

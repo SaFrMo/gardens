@@ -76,7 +76,7 @@ public class Swinging : MonoBehaviour {
 		*/
 	}
 
-	void FixedUpdate () {
+	void Update () {
 		if (springJoint != null) {
 			//springJoint.connectedAnchor = new Vector2 (0, -5);//transform.position as Vector2 + _ropeLength;
 			springJoint.distance = _ropeLength;

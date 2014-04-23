@@ -4,7 +4,7 @@ using System.Collections;
 public class SlowTime : MonoBehaviour {
 
 	//the factor used to slow down time
-	private float slowFactor = 10f;
+	private float slowFactor = 20f;
 	//the new time scale
 	private float newTimeScale;
 	
