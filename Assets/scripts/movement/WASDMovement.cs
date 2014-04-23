@@ -153,7 +153,7 @@ public class WASDMovement : MonoBehaviour {
 	// Update ()
 	// ==============
 
-	private void FixedUpdate () {
+	private void Update () {
 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
 			this.renderer.enabled = true; // this hides the player sprite when dead, there's probably a better way around but this will do for now
 			GroundedControls();

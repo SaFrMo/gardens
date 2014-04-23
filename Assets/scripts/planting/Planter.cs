@@ -17,7 +17,6 @@ public class Planter : MonoBehaviour {
 
 	// plant something if there's nothing there
 	public KeyCode catalogAccess = KeyCode.Q;
-	private bool playerIsHere = false;
 	private bool showPlantCatalog = false;
 
 	private void PlantSomething () {
