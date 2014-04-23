@@ -35,8 +35,8 @@ public class WASDMovement : MonoBehaviour {
 	public float swingForce = .8f;
 
 	private void AirborneControls() {
-		Vector2 anchorPosition = AnchorPoint.Current.transform.position; //store position of the current anchor point
-		float ropeLength = GetComponent<Swinging>().RopeLength;
+		//Vector2 anchorPosition = AnchorPoint.Current.transform.position; //store position of the current anchor point
+		//float ropeLength = GetComponent<Swinging>().RopeLength;
 
 		// break rope
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
@@ -129,7 +129,6 @@ public class WASDMovement : MonoBehaviour {
 	private void OnCollisionEnter2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
 		if (c.gameObject.tag == "Ground") {
-			Debug.Log ("collision");
 			// lets the player jump again after landing on ground
 			if (CurrentType != MovementType.Grounded) {
 
@@ -154,7 +153,7 @@ public class WASDMovement : MonoBehaviour {
 	// Update ()
 	// ==============
 
-	private void FixedUpdate () {
+	private void Update () {
 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
 			this.renderer.enabled = true; // this hides the player sprite when dead, there's probably a better way around but this will do for now
 			GroundedControls();
