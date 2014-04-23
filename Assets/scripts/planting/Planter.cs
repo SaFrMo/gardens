@@ -15,13 +15,31 @@ public class Planter : MonoBehaviour {
 		set { _contents = value; }
 	}
 
+	// how much water is there in this planter?
+	private int _waterLevel = 100;
+	public int WaterLevel {
+		get { return _waterLevel; }
+		set { _waterLevel = value; }
+	}
+
+	// decrease water level every X seconds
+	public float waterDelay = 5f;
+	private IEnumerator WaterDrain () {
+		for (;;) {
+			WaterLevel--;
+			yield return new WaitForSeconds (waterDelay);
+		}
+	}
+
 	// plant something if there's nothing there
+	// ==========================================
 	public KeyCode catalogAccess = KeyCode.Q;
-	private bool playerIsHere = false;
 	private bool showPlantCatalog = false;
 
-	private void PlantSomething () {
-
+	private void OnCollisionEnter2D (Collision2D c) {
+		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
+			SELECTED_PLANTER = this;
+		}
 	}
 
 	private void OnCollisionStay2D (Collision2D c) {
@@ -34,18 +52,21 @@ public class Planter : MonoBehaviour {
 		SELECTED_PLANTER = null;
 		showPlantCatalog = false;
 	}
-
-
-
+	
 	// glow when planting is available
 	// TODO: spruce this up
 	private void ShowPlantingAvailable () {
 		spriteRender.material.color = Color.green;
 	}
+
+	// START() and UPDATE()
+	// =======================
 	
 	private void Start () {
 		spriteRender = GetComponent<SpriteRenderer>();
 		originalColor = spriteRender.material.color;
+		spriteRender.color = originalColor;
+		StartCoroutine (WaterDrain());
 	}
 
 	void Update () {
