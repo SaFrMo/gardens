@@ -22,11 +22,15 @@ public class Planter : MonoBehaviour {
 		set { _waterLevel = value; }
 	}
 
+	// auto water?
+	public static bool AUTO_WATER = true;
+
 	// decrease water level every X seconds
 	public float waterDelay = 5f;
 	private IEnumerator WaterDrain () {
-		for (;;) {
+		while (WaterLevel > 0) {
 			WaterLevel--;
+			print (string.Format ("{0} water level: {1}", gameObject.name, WaterLevel));
 			yield return new WaitForSeconds (waterDelay);
 		}
 	}
@@ -36,7 +40,13 @@ public class Planter : MonoBehaviour {
 	public KeyCode catalogAccess = KeyCode.Q;
 	private bool showPlantCatalog = false;
 
+
 	private void OnCollisionEnter2D (Collision2D c) {
+		if (AUTO_WATER) {
+			if (c.collider.gameObject.name == "Player") {
+				WaterLevel = 100;
+			}
+		}
 		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
 			SELECTED_PLANTER = this;
 		}
