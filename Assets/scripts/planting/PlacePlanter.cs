@@ -41,10 +41,10 @@ public class PlacePlanter : MonoBehaviour {
 	}
 
 	protected void Update () {
-		if (Input.GetMouseButton(0)) {
+		if (Input.GetMouseButton(0) && GUIUtility.hotControl == 0) {
 			SelectPlanterLocation();
 		}
-		if (Input.GetMouseButtonUp(0)) {
+		if (Input.GetMouseButtonUp(0) && GUIUtility.hotControl == 0) {
 			if (!Input.GetKey(cancelKey)) {
 				CreatePlanter();
 			}

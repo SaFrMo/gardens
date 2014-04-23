@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Planter : MonoBehaviour {
 
@@ -9,10 +10,14 @@ public class Planter : MonoBehaviour {
 	private SpriteRenderer spriteRender;
 
 	// what plant is contained inside the planter?
-	private GrowingPlant _contents = null;
-	public GrowingPlant Contents {
+	private GameObject _contents = null;
+	public GameObject Contents {
 		get { return _contents; }
-		set { _contents = value; }
+		set { 
+			_contents = value; 
+			if (spriteRender.material.color != originalColor)
+				spriteRender.material.color = originalColor;
+		}
 	}
 
 	// how much water is there in this planter?
@@ -30,7 +35,7 @@ public class Planter : MonoBehaviour {
 	private IEnumerator WaterDrain () {
 		while (WaterLevel > 0) {
 			WaterLevel--;
-			print (string.Format ("{0} water level: {1}", gameObject.name, WaterLevel));
+			//print (string.Format ("{0} water level: {1}", gameObject.name, WaterLevel));
 			yield return new WaitForSeconds (waterDelay);
 		}
 	}
@@ -40,6 +45,24 @@ public class Planter : MonoBehaviour {
 	public KeyCode catalogAccess = KeyCode.Q;
 	private bool showPlantCatalog = false;
 
+	public void Plant (GameObject gp) {
+		// uproot old plant, TODO: "warning, you're about to lose the old plant!"
+		if (Contents != null) {
+
+		}
+
+		Contents = gp;
+		GameObject newPlant = Instantiate (gp) as GameObject;
+		// TODO: move it into position more flexibly (take into account sprite size rather than straight Vector2.up)
+		newPlant.transform.position = new Vector2 (transform.position.x, transform.position.y) + Vector2.up;
+		newPlant.transform.parent = transform;
+
+		showPlantCatalog = false;
+	}
+
+
+	// planter selection
+	// ====================
 
 	private void OnCollisionEnter2D (Collision2D c) {
 		if (AUTO_WATER) {
@@ -69,6 +92,35 @@ public class Planter : MonoBehaviour {
 		spriteRender.material.color = Color.green;
 	}
 
+	// plant catalog
+	public float plantCatalogSide = 200f;
+	private Vector2 scrollPos = Vector2.zero;
+	public List<GameObject> plantsList;
+
+	private void PlantCatalog () {
+		GUILayout.BeginArea (new Rect (Screen.width / 2 - plantCatalogSide,
+		                               Screen.height / 2 - plantCatalogSide,
+		                               plantCatalogSide,
+		                               plantCatalogSide));
+		scrollPos = GUILayout.BeginScrollView (scrollPos);
+		foreach (GameObject go in plantsList) {
+			if (GUILayout.Button (go.name)) {
+				Plant (go);
+			}
+		}
+		GUILayout.EndScrollView();
+		GUILayout.EndArea();
+	}
+
+	// ONGUI ()
+	// =========
+
+	private void OnGUI () {
+		if (showPlantCatalog) {
+			PlantCatalog();
+		}
+	}
+
 	// START() and UPDATE()
 	// =======================
 	
@@ -84,7 +136,7 @@ public class Planter : MonoBehaviour {
 			if (Input.GetKeyDown (catalogAccess)) {
 				showPlantCatalog = !showPlantCatalog;
 			}
-			if (!showPlantCatalog) {
+			if (!showPlantCatalog && Contents == null) {
 				ShowPlantingAvailable();
 			}
 			else {
