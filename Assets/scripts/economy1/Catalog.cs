@@ -11,17 +11,38 @@ public class Catalog : MonoBehaviour {
 	public float plantCatalogSide = 200f;
 	private Vector2 scrollPos = Vector2.zero;
 	public List<GameObject> plantsList;
+
+	private void PlantInfoCell (GameObject go) {
+		// displays information for each plant prefab in the Catalog list
+		GUILayout.BeginHorizontal();
+		int cost = go.GetComponent<GrowingPlant>().Cost;
+		if (GUILayout.Button (go.name)) {
+			// do you have enough money for this plant?
+			if (GetComponent<PlayerInventory>().Dollars >= cost) {
+				// plant the selected plant
+				Planter.SELECTED_PLANTER.Plant (go);
+				// hide the catalog
+				showPlantCatalog = false;
+				// deduct the cost
+				GetComponent<PlayerInventory>().Dollars -= cost;
+			}
+			// TODO: error message: not enough money!
+			else {}
+		}
+		// displays the cost of the plant in question
+		GUILayout.Box ("$" + cost.ToString());
+		GUILayout.EndHorizontal();
+	}
 	
 	private void PlantCatalog () {
 		GUILayout.BeginArea (new Rect (Screen.width / 2 - plantCatalogSide,
 		                               Screen.height / 2 - plantCatalogSide,
 		                               plantCatalogSide,
 		                               plantCatalogSide));
+		// should the scroll position reset when the window closes?
 		scrollPos = GUILayout.BeginScrollView (scrollPos);
 		foreach (GameObject go in plantsList) {
-			if (GUILayout.Button (go.name)) {
-				Planter.SELECTED_PLANTER.Plant (go);
-			}
+			PlantInfoCell (go);
 		}
 		GUILayout.EndScrollView();
 		GUILayout.EndArea();
