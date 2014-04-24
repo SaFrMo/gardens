@@ -42,8 +42,6 @@ public class Planter : MonoBehaviour {
 
 	// plant something if there's nothing there
 	// ==========================================
-	public KeyCode catalogAccess = KeyCode.Q;
-	private bool showPlantCatalog = false;
 
 	public void Plant (GameObject gp) {
 		// uproot old plant, TODO: "warning, you're about to lose the old plant!"
@@ -56,8 +54,6 @@ public class Planter : MonoBehaviour {
 		// TODO: move it into position more flexibly (take into account sprite size rather than straight Vector2.up)
 		newPlant.transform.position = new Vector2 (transform.position.x, transform.position.y) + Vector2.up;
 		newPlant.transform.parent = transform;
-
-		showPlantCatalog = false;
 	}
 
 
@@ -83,7 +79,6 @@ public class Planter : MonoBehaviour {
 
 	private void OnCollisionExit2D () {
 		SELECTED_PLANTER = null;
-		showPlantCatalog = false;
 	}
 	
 	// glow when planting is available
@@ -92,34 +87,9 @@ public class Planter : MonoBehaviour {
 		spriteRender.material.color = Color.green;
 	}
 
-	// plant catalog
-	public float plantCatalogSide = 200f;
-	private Vector2 scrollPos = Vector2.zero;
-	public List<GameObject> plantsList;
 
-	private void PlantCatalog () {
-		GUILayout.BeginArea (new Rect (Screen.width / 2 - plantCatalogSide,
-		                               Screen.height / 2 - plantCatalogSide,
-		                               plantCatalogSide,
-		                               plantCatalogSide));
-		scrollPos = GUILayout.BeginScrollView (scrollPos);
-		foreach (GameObject go in plantsList) {
-			if (GUILayout.Button (go.name)) {
-				Plant (go);
-			}
-		}
-		GUILayout.EndScrollView();
-		GUILayout.EndArea();
-	}
 
-	// ONGUI ()
-	// =========
 
-	private void OnGUI () {
-		if (showPlantCatalog) {
-			PlantCatalog();
-		}
-	}
 
 	// START() and UPDATE()
 	// =======================
@@ -133,14 +103,16 @@ public class Planter : MonoBehaviour {
 
 	void Update () {
 		if (SELECTED_PLANTER == this) {
+			/*
 			if (Input.GetKeyDown (catalogAccess)) {
 				showPlantCatalog = !showPlantCatalog;
 			}
 			if (!showPlantCatalog && Contents == null) {
 				ShowPlantingAvailable();
 			}
-			else {
-				print (string.Format ("Catalog from {0} being displayed", gameObject.name));
+			*/
+			if (Contents == null) {
+				ShowPlantingAvailable();
 			}
 		}
 		else {
