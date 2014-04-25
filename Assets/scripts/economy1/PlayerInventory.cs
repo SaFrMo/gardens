@@ -18,7 +18,7 @@ public class PlayerInventory : MonoBehaviour {
 	// floating "you gained/lost some money" notification
 	private void MoneyChange (int amount) {
 		GameObject changeAmount = Instantiate (notificationPrefab) as GameObject;
-		notificationPrefab.GetComponent<MoneyChangeNotification>().SetAmount(amount);
+		changeAmount.GetComponent<MoneyChangeNotification>().SetAmount(amount);
 	}
 
 	public List<Object> inventory = new List<Object>();
