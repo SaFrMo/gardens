@@ -127,6 +127,8 @@ public class WASDMovement : MonoBehaviour {
 		}
 	}
 
+	// TODO: Neater way to handle switching back to Grounded type
+	/*
 	private void OnCollisionEnter2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
 		if (c.gameObject.tag == "Ground") {
@@ -138,6 +140,8 @@ public class WASDMovement : MonoBehaviour {
 			}
 		}
 	}
+*/
+
 
 	private void OnCollisionStay2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
@@ -150,6 +154,7 @@ public class WASDMovement : MonoBehaviour {
 			}
 		}
 	}
+
 	
 	// Update ()
 	// ==============

@@ -8,7 +8,7 @@ public class AnchorPointCreation : MonoBehaviour {
 	private void CreateAnchorPoint () {
 
 		// create anchor point on R mouse button up
-		// TODO: R mouse button held down = slow time and choose location?
+		// TODO: R mouse button held down = choose location?
 		if (Input.GetMouseButtonUp(1)) {
 			// select preexisting anchor point if one exists
 			// TODO: Drag preexisting anchor point to new location?
