@@ -8,6 +8,8 @@ public class SlowTime : MonoBehaviour {
 	//the new time scale
 	private float newTimeScale;
 
+	public static bool SLOW_MOTION = false;
+
 	// timer for time slow activation
 	Timer t = null;
 	
@@ -42,6 +44,7 @@ public class SlowTime : MonoBehaviour {
 			if (Time.timeScale == 1.0f)
 			{
 				SlowDown();
+				SLOW_MOTION = true;
 				//StartCoroutine(SlowDown());
 			}
 		}
@@ -52,6 +55,7 @@ public class SlowTime : MonoBehaviour {
 				Time.timeScale = 1.0f;
 				Time.fixedDeltaTime = Time.fixedDeltaTime*slowFactor;
 				Time.maximumDeltaTime = Time.maximumDeltaTime*slowFactor;
+				SLOW_MOTION = false;
 				//StopCoroutine("SlowDown");
 			}
 			t = null;
