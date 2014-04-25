@@ -9,7 +9,7 @@ public class AnchorPointCreation : MonoBehaviour {
 
 		// create anchor point on R mouse button up
 		// TODO: R mouse button held down = choose location?
-		if (Input.GetMouseButtonUp(1)) {
+		if (Input.GetMouseButtonUp(1) && GetComponent<WASDMovement>().CurrentType != WASDMovement.MovementType.Ziplining) {
 			// select preexisting anchor point if one exists
 			// TODO: Drag preexisting anchor point to new location?
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

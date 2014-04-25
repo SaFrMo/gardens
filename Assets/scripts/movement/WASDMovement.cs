@@ -12,7 +12,8 @@ public class WASDMovement : MonoBehaviour {
 		Grounded,
 		Jumping,
 		Swinging,
-		Dead
+		Dead,
+		Ziplining
 	};
 	
 	private MovementType _currentType = MovementType.Grounded;
@@ -61,8 +62,34 @@ public class WASDMovement : MonoBehaviour {
 		if (Input.GetAxis ("Horizontal") != 0) {
 			rigidbody2D.AddForce (Vector2.right * Input.GetAxis("Horizontal") * swingForce);
 		}
+	}
 
+	// ZIPLINING CONTROLS
+	// =====================
+	private Vector2 goal;
+	private Vector2 offset;
+	private Vector2 ziplinePosition;
+	public float ziplineRate = 1f;
 
+	public void ZiplineToPoint (Vector2 start, Vector2 end) {
+		CurrentType = MovementType.Ziplining;
+		offset = (Vector2)transform.position - start;
+		ziplinePosition = start;
+		goal = end;
+	}
+	private void ZiplineMovement() {
+		transform.position = Vector3.MoveTowards (transform.position, goal, ziplineRate * Time.deltaTime);
+		//transform.position = ziplinePosition + offset;
+		rigidbody2D.gravityScale = 0;
+		rigidbody2D.drag = 0;
+		rigidbody2D.velocity = Vector2.zero;
+		// zipline is close enough to goal, so reset it
+		if (Vector2.Distance (transform.position, goal) <= .1f) {
+			CurrentType = MovementType.Jumping;
+			GetComponent<Zipline>().ResetZipline();
+			rigidbody2D.gravityScale = 1;
+			rigidbody2D.drag = .1f;
+		}
 
 	}
 
@@ -169,11 +196,14 @@ public class WASDMovement : MonoBehaviour {
 			AirborneControls();
 			//GroundedControls();
 		}
+		else if (CurrentType == MovementType.Ziplining) {
+			this.renderer.enabled = true;
+			ZiplineMovement();
+		}
 
 		else if (CurrentType == MovementType.Dead) {
 			this.renderer.enabled = false; //hide the player when you die
 		}
 		CheckSpeed ();
-		//Debug.Log (CurrentType);
 	}
 }
