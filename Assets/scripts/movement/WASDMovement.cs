@@ -72,6 +72,9 @@ public class WASDMovement : MonoBehaviour {
 	public float ziplineRate = 1f;
 
 	public void ZiplineToPoint (Vector2 start, Vector2 end) {
+		if (CurrentType == MovementType.Swinging) {
+			GetComponent<Swinging>().DetachFromAnchor();
+		}
 		CurrentType = MovementType.Ziplining;
 		rigidbody2D.gravityScale = 0;
 		rigidbody2D.drag = 0;
