@@ -73,16 +73,24 @@ public class WASDMovement : MonoBehaviour {
 
 	public void ZiplineToPoint (Vector2 start, Vector2 end) {
 		CurrentType = MovementType.Ziplining;
+		rigidbody2D.gravityScale = 0;
+		rigidbody2D.drag = 0;
+		rigidbody2D.velocity = Vector2.zero;
 		offset = (Vector2)transform.position - start;
 		ziplinePosition = start;
 		goal = end;
 	}
 	private void ZiplineMovement() {
+		// move the player toward the goal
 		transform.position = Vector3.MoveTowards (transform.position, goal, ziplineRate * Time.deltaTime);
-		//transform.position = ziplinePosition + offset;
-		rigidbody2D.gravityScale = 0;
-		rigidbody2D.drag = 0;
-		rigidbody2D.velocity = Vector2.zero;
+		// break zipline
+		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
+			// gives you a boost if you jump
+			if (Input.GetKeyDown (jumpBreak)) { rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce * 2); }
+			goal = transform.position;
+		}
+
+
 		// zipline is close enough to goal, so reset it
 		if (Vector2.Distance (transform.position, goal) <= .1f) {
 			CurrentType = MovementType.Jumping;
@@ -199,6 +207,7 @@ public class WASDMovement : MonoBehaviour {
 		else if (CurrentType == MovementType.Ziplining) {
 			this.renderer.enabled = true;
 			ZiplineMovement();
+			AirborneControls();
 		}
 
 		else if (CurrentType == MovementType.Dead) {
