@@ -40,6 +40,7 @@ public class PlacePlanter : MonoBehaviour {
 		Destroy (planterPlacer);
 	}
 
+
 	protected void Update () {
 		if (Input.GetMouseButton(0) && GUIUtility.hotControl == 0) {
 			SelectPlanterLocation();

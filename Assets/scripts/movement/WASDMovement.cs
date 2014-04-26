@@ -67,8 +67,6 @@ public class WASDMovement : MonoBehaviour {
 	// ZIPLINING CONTROLS
 	// =====================
 	private Vector2 goal;
-	private Vector2 offset;
-	private Vector2 ziplinePosition;
 	public float ziplineRate = 1f;
 
 	public void ZiplineToPoint (Vector2 start, Vector2 end) {
@@ -79,8 +77,6 @@ public class WASDMovement : MonoBehaviour {
 		rigidbody2D.gravityScale = 0;
 		rigidbody2D.drag = 0;
 		rigidbody2D.velocity = Vector2.zero;
-		offset = (Vector2)transform.position - start;
-		ziplinePosition = start;
 		goal = end;
 	}
 	private void ZiplineMovement() {
@@ -96,12 +92,15 @@ public class WASDMovement : MonoBehaviour {
 
 		// zipline is close enough to goal, so reset it
 		if (Vector2.Distance (transform.position, goal) <= .1f) {
-			CurrentType = MovementType.Jumping;
-			GetComponent<Zipline>().ResetZipline();
-			rigidbody2D.gravityScale = 1;
-			rigidbody2D.drag = .1f;
+			LeaveZipline();
 		}
+	}
 
+	private void LeaveZipline () {
+		CurrentType = MovementType.Jumping;
+		GetComponent<Zipline>().ResetZipline();
+		rigidbody2D.gravityScale = 1;
+		rigidbody2D.drag = .1f;
 	}
 
 
@@ -186,8 +185,10 @@ public class WASDMovement : MonoBehaviour {
 		if (c.gameObject.tag == "Ground") {
 			// lets the player jump again after landing on ground
 			if (CurrentType != MovementType.Grounded) {
-				//Debug.Log ("collision");
-					CurrentType = MovementType.Grounded;
+				if (CurrentType == MovementType.Ziplining) {
+					LeaveZipline();
+				}
+				CurrentType = MovementType.Grounded;
 
 			}
 		}
