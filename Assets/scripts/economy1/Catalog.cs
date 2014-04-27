@@ -15,7 +15,8 @@ public class Catalog : MonoBehaviour {
 	private void PlantInfoCell (GameObject go) {
 		// displays information for each plant prefab in the Catalog list
 		GUILayout.BeginHorizontal();
-		int cost = go.GetComponent<GrowingPlant>().Cost;
+		// must refer to startingCost rather than Cost b/c Cost is set on Start(), but prefab hasn't been instantiated yet
+		int cost = go.GetComponent<GrowingPlant>().startingCost;
 		if (GUILayout.Button (go.name)) {
 			// do you have enough money for this plant?
 			if (GetComponent<PlayerInventory>().Dollars >= cost) {
