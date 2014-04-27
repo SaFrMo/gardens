@@ -20,25 +20,33 @@ public class Planter : MonoBehaviour {
 		}
 	}
 
+
+
+
+	/*
 	// how much water is there in this planter?
 	private int _waterLevel = 100;
 	public int WaterLevel {
 		get { return _waterLevel; }
 		set { _waterLevel = value; }
 	}
+	*/
 
 	// auto water?
 	public static bool AUTO_WATER = true;
 
 	// decrease water level every X seconds
 	public float waterDelay = 5f;
+	/*
 	private IEnumerator WaterDrain () {
+
 		while (WaterLevel > 0) {
 			WaterLevel--;
 			//print (string.Format ("{0} water level: {1}", gameObject.name, WaterLevel));
 			yield return new WaitForSeconds (waterDelay);
 		}
 	}
+	*/
 
 	// plant something if there's nothing there
 	// ==========================================
@@ -60,22 +68,28 @@ public class Planter : MonoBehaviour {
 	// planter selection
 	// ====================
 
+	/*
 	private void OnCollisionEnter2D (Collision2D c) {
 		if (AUTO_WATER) {
 			if (c.collider.gameObject.name == "Player") {
-				WaterLevel = 100;
+				//WaterLevel = 100;
 			}
 		}
-		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
+		if (c.collider.gameObject.name == "Player") {
 			SELECTED_PLANTER = this;
 		}
 	}
+	*/
+
 
 	private void OnCollisionStay2D (Collision2D c) {
-		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
+
+		if (c.collider.gameObject.name == "Player" && SELECTED_PLANTER != this) {
 			SELECTED_PLANTER = this;
 		}
+
 	}
+
 
 	private void OnCollisionExit2D () {
 		SELECTED_PLANTER = null;
@@ -90,6 +104,24 @@ public class Planter : MonoBehaviour {
 
 
 
+	// planter water level display
+	// =============================
+	public bool showWaterLevel = false;
+	Rect thisObjectRect;
+	private void GetRect () 
+	{
+		thisObjectRect = SaFrMo.GUIOverObject (SELECTED_PLANTER.gameObject);
+	}
+
+	private void OnGUI () {
+		if (showWaterLevel)
+		{
+			GUI.Box (thisObjectRect, "test");
+			//print (
+		}
+	}
+
+
 
 	// START() and UPDATE()
 	// =======================
@@ -98,11 +130,13 @@ public class Planter : MonoBehaviour {
 		spriteRender = GetComponent<SpriteRenderer>();
 		originalColor = spriteRender.material.color;
 		spriteRender.color = originalColor;
-		StartCoroutine (WaterDrain());
+		//StartCoroutine (WaterDrain());
 	}
 
 	void Update () {
+		showWaterLevel = true;
 		if (SELECTED_PLANTER == this) {
+			GetRect ();
 			/*
 			if (Input.GetKeyDown (catalogAccess)) {
 				showPlantCatalog = !showPlantCatalog;
@@ -114,10 +148,15 @@ public class Planter : MonoBehaviour {
 			if (Contents == null) {
 				ShowPlantingAvailable();
 			}
+			else
+			{
+				showWaterLevel = true;
+			}
 		}
 		else {
 			if (spriteRender.material.color != originalColor)
 				spriteRender.material.color = originalColor;
+			showWaterLevel = false;
 		}
 	}
 }

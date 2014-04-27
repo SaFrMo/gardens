@@ -30,6 +30,7 @@ public class GrowingPlant : MonoBehaviour {
 	public PlantColor startingColor = PlantColor.Green;
 	public int startingCurrentHP = 10;
 	public int startingMaxHP = 10;
+	public int maxWaterLevel = 50;
 	
 	protected virtual void Start ()
 	{
@@ -40,6 +41,8 @@ public class GrowingPlant : MonoBehaviour {
 		_thisColor = startingColor;
 		_hp = startingCurrentHP;
 		_maxHP = startingMaxHP;
+		_maxWaterLevel = maxWaterLevel;
+		_currentWaterLevel = maxWaterLevel;
 	}
 
 	public string information;
@@ -104,4 +107,26 @@ public class GrowingPlant : MonoBehaviour {
 		get { return _maxHP; }
 		set { _maxHP = value; }
 	}
+
+	// water level: higher-maintenance plants have lower levels
+	protected int _maxWaterLevel;
+	public int MaxWaterLevel
+	{
+		get { return _maxWaterLevel; }
+		set { _maxWaterLevel = value; }
+	}
+
+	protected int _currentWaterLevel;
+	public int CurrentWaterLevel
+	{
+		get { return _currentWaterLevel; }
+		set { _currentWaterLevel = value; }
+	}
+
+	// for GUI display purposes
+	public float CurrentWater
+	{
+		get { return _currentWaterLevel / _maxWaterLevel; }
+	}
+
 }
