@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class Catalog : MonoBehaviour {
 
+	// tutorial purposes
+	public static bool TUT_SHOW_PLANT_CATALOG;
+
 	private bool showPlantCatalog = false;
 	public KeyCode catalogAccess = KeyCode.Q;
 
@@ -60,6 +63,7 @@ public class Catalog : MonoBehaviour {
 	}
 
 	private void Update () {
+		TUT_SHOW_PLANT_CATALOG = showPlantCatalog;
 		if (Planter.SELECTED_PLANTER != null && Input.GetKeyDown (catalogAccess)) {
 			showPlantCatalog = !showPlantCatalog;
 		}
