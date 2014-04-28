@@ -16,12 +16,12 @@ public class Tutorial : MonoBehaviour {
 	}
 
 	// tutorial box size details
-	private float screenMidX, screenMidY;
+	//private float screenMidX, screenMidY;
 	public float boxWidth = 200f;
 	private void Start ()
 	{
-		screenMidX = Screen.width / 2;
-		screenMidY = Screen.height / 2;
+		//screenMidX = Screen.width / 2;
+		//screenMidY = Screen.height / 2;
 	}
 
 
