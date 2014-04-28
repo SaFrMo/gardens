@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Planter : MonoBehaviour {
 
 	public static Planter SELECTED_PLANTER = null;
+	public static List<GrowingPlant> ALL_PLANTS = new List<GrowingPlant>();
 
 	private Color originalColor;
 	private SpriteRenderer spriteRender;
@@ -54,6 +55,7 @@ public class Planter : MonoBehaviour {
 		// TODO: move it into position more flexibly (take into account sprite size rather than straight Vector2.up)
 		newPlant.transform.position = new Vector2 (transform.position.x, transform.position.y) + Vector2.up;
 		newPlant.transform.parent = transform;
+		ALL_PLANTS.Add (gameObject.GetComponent<GrowingPlant>());
 	}
 
 
@@ -86,6 +88,8 @@ public class Planter : MonoBehaviour {
 	private void ShowPlantingAvailable () {
 		spriteRender.material.color = Color.green;
 	}
+
+
 
 
 
