@@ -44,6 +44,9 @@ public class GrowingPlant : MonoBehaviour {
 		_hp = startingCurrentHP;
 		_maxHP = startingMaxHP;
 		_maxWater = startingMaxWater;
+		_currentWater = startingMaxWater;
+
+		StartCoroutine(WaterDrain());
 	}
 
 	public string information;
@@ -126,7 +129,7 @@ public class GrowingPlant : MonoBehaviour {
 
 	public float CurrentWaterLevel
 	{
-		get { return (float)CurrentWater / (float)MaxWater; }
+		get { return ((float)CurrentWater / (float)MaxWater); }
 	}
 
 	// show water levels
@@ -137,9 +140,30 @@ public class GrowingPlant : MonoBehaviour {
 		if (showWaterLevels)
 		{
 			_containingPlanter = SaFrMo.GUIOverObject (transform.parent.gameObject);
-			GUI.Box (_containingPlanter, "test");
+			GUI.DrawTexture (new Rect (_containingPlanter), SaFrMo.CreateColor(Color.black));
+			GUI.DrawTexture (new Rect (_containingPlanter.x,
+			                           _containingPlanter.y,
+			                           _containingPlanter.width * CurrentWaterLevel,
+			                           _containingPlanter.height), SaFrMo.CreateColor (Color.blue));
 		}
 	}
 
+	// auto water?
+	public static bool AUTO_WATER = true;
 
+
+	public void FillWater ()
+	{
+		CurrentWater = MaxWater;
+	}
+	
+	// decrease water level every X seconds
+	public static float WATER_DELAY = 5f;
+	private IEnumerator WaterDrain () {
+		for(;;) {
+			CurrentWater--;
+			//print (string.Format ("{0} water level: {1}", gameObject.name, WaterLevel));
+			yield return new WaitForSeconds (WATER_DELAY);
+		}
+	}
 }

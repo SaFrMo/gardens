@@ -21,25 +21,7 @@ public class Planter : MonoBehaviour {
 		}
 	}
 
-	// how much water is there in this planter?
-	private int _waterLevel = 100;
-	public int WaterLevel {
-		get { return _waterLevel; }
-		set { _waterLevel = value; }
-	}
 
-	// auto water?
-	public static bool AUTO_WATER = true;
-
-	// decrease water level every X seconds
-	public float waterDelay = 5f;
-	private IEnumerator WaterDrain () {
-		while (WaterLevel > 0) {
-			WaterLevel--;
-			//print (string.Format ("{0} water level: {1}", gameObject.name, WaterLevel));
-			yield return new WaitForSeconds (waterDelay);
-		}
-	}
 
 	// plant something if there's nothing there
 	// ==========================================
@@ -62,9 +44,13 @@ public class Planter : MonoBehaviour {
 	// ====================
 
 	private void OnCollisionEnter2D (Collision2D c) {
-		if (AUTO_WATER) {
+		if (GrowingPlant.AUTO_WATER) {
 			if (c.collider.gameObject.name == "Player") {
-				WaterLevel = 100;
+				try
+				{
+					GetComponentInChildren<GrowingPlant>().FillWater();
+				}
+				catch {}
 			}
 		}
 		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
@@ -77,7 +63,7 @@ public class Planter : MonoBehaviour {
 	}
 
 	private void OnCollisionStay2D (Collision2D c) {
-		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
+		if (c.collider.gameObject.name == "Player" && SELECTED_PLANTER == null) {
 			SELECTED_PLANTER = this;
 		}
 
@@ -110,7 +96,6 @@ public class Planter : MonoBehaviour {
 		spriteRender = GetComponent<SpriteRenderer>();
 		originalColor = spriteRender.material.color;
 		spriteRender.color = originalColor;
-		StartCoroutine (WaterDrain());
 	}
 
 	void Update () {
