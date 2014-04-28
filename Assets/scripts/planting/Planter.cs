@@ -5,13 +5,14 @@ using System.Collections.Generic;
 public class Planter : MonoBehaviour {
 
 	public static Planter SELECTED_PLANTER = null;
+	public static List<GrowingPlant> ALL_PLANTS = new List<GrowingPlant>();
 
 	private Color originalColor;
 	private SpriteRenderer spriteRender;
 
 	// what plant is contained inside the planter?
-	private GameObject _contents = null;
-	public GameObject Contents {
+	private GrowingPlant _contents = null;
+	public GrowingPlant Contents {
 		get { return _contents; }
 		set { 
 			_contents = value; 
@@ -20,25 +21,7 @@ public class Planter : MonoBehaviour {
 		}
 	}
 
-	// how much water is there in this planter?
-	private int _waterLevel = 100;
-	public int WaterLevel {
-		get { return _waterLevel; }
-		set { _waterLevel = value; }
-	}
 
-	// auto water?
-	public static bool AUTO_WATER = true;
-
-	// decrease water level every X seconds
-	public float waterDelay = 5f;
-	private IEnumerator WaterDrain () {
-		while (WaterLevel > 0) {
-			WaterLevel--;
-			//print (string.Format ("{0} water level: {1}", gameObject.name, WaterLevel));
-			yield return new WaitForSeconds (waterDelay);
-		}
-	}
 
 	// plant something if there's nothing there
 	// ==========================================
@@ -48,12 +31,12 @@ public class Planter : MonoBehaviour {
 		if (Contents != null) {
 
 		}
-
-		Contents = gp;
 		GameObject newPlant = Instantiate (gp) as GameObject;
 		// TODO: move it into position more flexibly (take into account sprite size rather than straight Vector2.up)
 		newPlant.transform.position = new Vector2 (transform.position.x, transform.position.y) + Vector2.up;
 		newPlant.transform.parent = transform;
+		ALL_PLANTS.Add (newPlant.GetComponent<GrowingPlant>());
+		Contents = newPlant.GetComponent<GrowingPlant>();
 	}
 
 
@@ -61,24 +44,37 @@ public class Planter : MonoBehaviour {
 	// ====================
 
 	private void OnCollisionEnter2D (Collision2D c) {
-		if (AUTO_WATER) {
+		if (GrowingPlant.AUTO_WATER) {
 			if (c.collider.gameObject.name == "Player") {
-				WaterLevel = 100;
+				try
+				{
+					GetComponentInChildren<GrowingPlant>().FillWater();
+				}
+				catch {}
 			}
 		}
 		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
 			SELECTED_PLANTER = this;
 		}
+		if (Contents != null)
+		{
+			Contents.showWaterLevels = true;
+		}
 	}
 
 	private void OnCollisionStay2D (Collision2D c) {
-		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
+		if (c.collider.gameObject.name == "Player" && SELECTED_PLANTER == null) {
 			SELECTED_PLANTER = this;
 		}
+
 	}
 
 	private void OnCollisionExit2D () {
 		SELECTED_PLANTER = null;
+		if (Contents != null)
+		{
+			Contents.showWaterLevels = false;
+		}
 	}
 	
 	// glow when planting is available
@@ -91,6 +87,8 @@ public class Planter : MonoBehaviour {
 
 
 
+
+
 	// START() and UPDATE()
 	// =======================
 	
@@ -98,7 +96,6 @@ public class Planter : MonoBehaviour {
 		spriteRender = GetComponent<SpriteRenderer>();
 		originalColor = spriteRender.material.color;
 		spriteRender.color = originalColor;
-		StartCoroutine (WaterDrain());
 	}
 
 	void Update () {

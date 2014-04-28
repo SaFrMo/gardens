@@ -64,6 +64,7 @@ public class Swinging : MonoBehaviour {
 		Destroy (_rope);
 		Destroy (_constantForce);
 		Destroy (springJoint);
+		Destroy (AnchorPoint.Current);
 
 	}
 

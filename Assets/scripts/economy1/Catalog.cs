@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class Catalog : MonoBehaviour {
 
+	// tutorial purposes
+	public static bool TUT_SHOW_PLANT_CATALOG;
+
 	private bool showPlantCatalog = false;
 	public KeyCode catalogAccess = KeyCode.Q;
 
@@ -15,7 +18,8 @@ public class Catalog : MonoBehaviour {
 	private void PlantInfoCell (GameObject go) {
 		// displays information for each plant prefab in the Catalog list
 		GUILayout.BeginHorizontal();
-		int cost = go.GetComponent<GrowingPlant>().Cost;
+		// must refer to startingCost rather than Cost b/c Cost is set on Start(), but prefab hasn't been instantiated yet
+		int cost = go.GetComponent<GrowingPlant>().startingCost;
 		if (GUILayout.Button (go.name)) {
 			// do you have enough money for this plant?
 			if (GetComponent<PlayerInventory>().Dollars >= cost) {
@@ -52,12 +56,14 @@ public class Catalog : MonoBehaviour {
 	// =========
 	
 	private void OnGUI () {
+		GUI.skin = GameManager.GUI_SKIN;
 		if (showPlantCatalog) {
 			PlantCatalog();
 		}
 	}
 
 	private void Update () {
+		TUT_SHOW_PLANT_CATALOG = showPlantCatalog;
 		if (Planter.SELECTED_PLANTER != null && Input.GetKeyDown (catalogAccess)) {
 			showPlantCatalog = !showPlantCatalog;
 		}

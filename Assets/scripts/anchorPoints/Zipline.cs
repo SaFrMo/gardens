@@ -19,10 +19,6 @@ public class Zipline : MonoBehaviour {
 
 		// endpoint for the zipline
 		ziplineEnd = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-
-		Debug.DrawRay (ziplineStart, ziplineEnd);
-
-
 	}
 
 	private void Update () {

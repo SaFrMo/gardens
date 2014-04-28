@@ -27,6 +27,7 @@ public class PlayerInventory : MonoBehaviour {
 	// Inventory display
 	// ====================
 	private void OnGUI () {
+		GUI.skin = GameManager.GUI_SKIN;
 		// TODO: Replace; this is a placeholder
 		GUI.Box (new Rect (0, 0, 100f, 100f), "$" + Dollars.ToString());
 	}
