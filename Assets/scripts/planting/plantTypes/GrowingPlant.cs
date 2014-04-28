@@ -34,8 +34,14 @@ public class GrowingPlant : MonoBehaviour {
 	public int currentWaterLevel = 50;
 	public float CurrentWater
 	{
-		get { return currentWaterLevel / maxWaterLevel; }
+		get { return (float)currentWaterLevel / (float)maxWaterLevel; }
 	}
+
+	public void FillWater () {
+		currentWaterLevel = maxWaterLevel;
+	}
+
+
 }
 
 

@@ -5,20 +5,14 @@ using System.Collections.Generic;
 public class Planter : MonoBehaviour {
 
 	public static Planter SELECTED_PLANTER = null;
+	public static List<GameObject> ALL_PLANTERS = new List<GameObject>();
 
 	private Color originalColor;
 	private SpriteRenderer spriteRender;
 
 	// what plant is contained inside the planter?
-	private GameObject _contents = null;
-	public GameObject Contents {
-		get { return _contents; }
-		set { 
-			_contents = value; 
-			if (spriteRender.material.color != originalColor)
-				spriteRender.material.color = originalColor;
-		}
-	}
+	//private GameObject _contents = null;
+	public GameObject Contents;
 
 
 
@@ -37,16 +31,14 @@ public class Planter : MonoBehaviour {
 
 	// decrease water level every X seconds
 	public float waterDelay = 5f;
-	/*
-	private IEnumerator WaterDrain () {
 
-		while (WaterLevel > 0) {
-			WaterLevel--;
-			//print (string.Format ("{0} water level: {1}", gameObject.name, WaterLevel));
+	private IEnumerator WaterDrain () {
+		while (Contents.GetComponent<GrowingPlant>().currentWaterLevel > 0) {
+			Contents.GetComponent<GrowingPlant>().currentWaterLevel--;
 			yield return new WaitForSeconds (waterDelay);
 		}
 	}
-	*/
+
 
 	// plant something if there's nothing there
 	// ==========================================
@@ -62,25 +54,31 @@ public class Planter : MonoBehaviour {
 		// TODO: move it into position more flexibly (take into account sprite size rather than straight Vector2.up)
 		newPlant.transform.position = new Vector2 (transform.position.x, transform.position.y) + Vector2.up;
 		newPlant.transform.parent = transform;
-		Contents = gp;
+		Contents = newPlant;
+
+		StartCoroutine (WaterDrain());
 	}
 
 
 	// planter selection
 	// ====================
 
-	/*
+
 	private void OnCollisionEnter2D (Collision2D c) {
 		if (AUTO_WATER) {
 			if (c.collider.gameObject.name == "Player") {
-				//WaterLevel = 100;
+				try
+				{
+					Contents.GetComponent<GrowingPlant>().FillWater();
+				}
+				catch {}
 			}
 		}
 		if (c.collider.gameObject.name == "Player") {
 			SELECTED_PLANTER = this;
 		}
 	}
-	*/
+
 
 
 	private void OnCollisionStay2D (Collision2D c) {
@@ -115,14 +113,20 @@ public class Planter : MonoBehaviour {
 	}
 
 	private void OnGUI () {
-		if (showWaterLevel && Contents != null)
+		// TODO: make this prettier
+		if (showWaterLevel)
 		{
-
-			GUI.DrawTexture (new Rect (thisObjectRect), SaFrMo.CreateColor(Color.black));
-			GUI.DrawTexture (new Rect (thisObjectRect.x,
-			                           thisObjectRect.y,
-			                           thisObjectRect.width * Contents.GetComponent<GrowingPlant>().CurrentWater,
-			                           thisObjectRect.height), SaFrMo.CreateColor (Color.blue));
+			// TODO: this is terrible, to throw an unnecessary and frequent error
+			try
+			{
+				float percentage = Contents.GetComponent<GrowingPlant>().CurrentWater;
+				GUI.DrawTexture (new Rect (thisObjectRect), SaFrMo.CreateColor(Color.black));
+				GUI.DrawTexture (new Rect (thisObjectRect.x,
+				                           thisObjectRect.y,
+				                           thisObjectRect.width * percentage,
+				                           thisObjectRect.height), SaFrMo.CreateColor (Color.blue));
+			}
+			catch {}
 		}
 	}
 
@@ -135,7 +139,10 @@ public class Planter : MonoBehaviour {
 		spriteRender = GetComponent<SpriteRenderer>();
 		originalColor = spriteRender.material.color;
 		spriteRender.color = originalColor;
-		//StartCoroutine (WaterDrain());
+		if (!ALL_PLANTERS.Contains(gameObject))
+		{
+			ALL_PLANTERS.Add (gameObject);
+		}
 	}
 
 	void Update () {
