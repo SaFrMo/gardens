@@ -53,6 +53,7 @@ public class Catalog : MonoBehaviour {
 	// =========
 	
 	private void OnGUI () {
+		GUI.skin = GameManager.GUI_SKIN;
 		if (showPlantCatalog) {
 			PlantCatalog();
 		}

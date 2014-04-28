@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour {
 	/// Static reference to the player.
 	/// </summary>
 	public static GameObject PLAYER = null;
+	public static GameObject GAME_MANAGER;
+	public static GUISkin GUI_SKIN;
+	public GUISkin gameSkin;
+
 
 	void Start () {
 		// save the reference to the player at the start of the scene
@@ -16,5 +20,7 @@ public class GameManager : MonoBehaviour {
 				Debug.Log ("Couldn't find \"Player!\" Please add a GameObject named \"Player\" to the scene."); 
 			}
 		}
+
+		if (GUI_SKIN == null) { GUI_SKIN = gameSkin; }
 	}
 }
