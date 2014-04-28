@@ -57,11 +57,12 @@ public class Planter : MonoBehaviour {
 
 		}
 
-		Contents = gp;
+		//Contents = gp;
 		GameObject newPlant = Instantiate (gp) as GameObject;
 		// TODO: move it into position more flexibly (take into account sprite size rather than straight Vector2.up)
 		newPlant.transform.position = new Vector2 (transform.position.x, transform.position.y) + Vector2.up;
 		newPlant.transform.parent = transform;
+		Contents = gp;
 	}
 
 
@@ -114,10 +115,14 @@ public class Planter : MonoBehaviour {
 	}
 
 	private void OnGUI () {
-		if (showWaterLevel)
+		if (showWaterLevel && Contents != null)
 		{
-			GUI.Box (thisObjectRect, "test");
-			//print (
+
+			GUI.DrawTexture (new Rect (thisObjectRect), SaFrMo.CreateColor(Color.black));
+			GUI.DrawTexture (new Rect (thisObjectRect.x,
+			                           thisObjectRect.y,
+			                           thisObjectRect.width * Contents.GetComponent<GrowingPlant>().CurrentWater,
+			                           thisObjectRect.height), SaFrMo.CreateColor (Color.blue));
 		}
 	}
 

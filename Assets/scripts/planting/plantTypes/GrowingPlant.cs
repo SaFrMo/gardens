@@ -23,15 +23,25 @@ public class GrowingPlant : MonoBehaviour {
 	
 	// plant setup - usable in the editor
 	// quality is calculated automatically, so no need to have a starting value
-	public int startingCost = 10;
-	public int startingMaximumSellingPrice = 5;
-	public int startingCurrentSellingPrice = 1;
-	public Region startingOrigin = Region.Europe;
-	public PlantColor startingColor = PlantColor.Green;
-	public int startingCurrentHP = 10;
-	public int startingMaxHP = 10;
+	public int cost = 10;
+	public int maximumSellingPrice = 5;
+	public int currentSellingPrice = 1;
+	public Region origin = Region.Europe;
+	public PlantColor plantColor = PlantColor.Green;
+	public int currentHP = 10;
+	public int maxHP = 10;
 	public int maxWaterLevel = 50;
-	
+	public int currentWaterLevel = 50;
+	public float CurrentWater
+	{
+		get { return currentWaterLevel / maxWaterLevel; }
+	}
+}
+
+
+
+	// all of the following seems to be useless - Unity doesn't work right with accessors
+	/*
 	protected virtual void Start ()
 	{
 		_cost = startingCost;
@@ -42,7 +52,7 @@ public class GrowingPlant : MonoBehaviour {
 		_hp = startingCurrentHP;
 		_maxHP = startingMaxHP;
 		_maxWaterLevel = maxWaterLevel;
-		_currentWaterLevel = maxWaterLevel;
+		_currentWaterLevel = _maxWaterLevel;
 	}
 
 	public string information;
@@ -126,7 +136,8 @@ public class GrowingPlant : MonoBehaviour {
 	// for GUI display purposes
 	public float CurrentWater
 	{
-		get { return _currentWaterLevel / _maxWaterLevel; }
+		get { return HP; }
 	}
 
 }
+*/
