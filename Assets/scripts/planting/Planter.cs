@@ -11,8 +11,8 @@ public class Planter : MonoBehaviour {
 	private SpriteRenderer spriteRender;
 
 	// what plant is contained inside the planter?
-	private GameObject _contents = null;
-	public GameObject Contents {
+	private GrowingPlant _contents = null;
+	public GrowingPlant Contents {
 		get { return _contents; }
 		set { 
 			_contents = value; 
@@ -49,13 +49,12 @@ public class Planter : MonoBehaviour {
 		if (Contents != null) {
 
 		}
-
-		Contents = gp;
 		GameObject newPlant = Instantiate (gp) as GameObject;
 		// TODO: move it into position more flexibly (take into account sprite size rather than straight Vector2.up)
 		newPlant.transform.position = new Vector2 (transform.position.x, transform.position.y) + Vector2.up;
 		newPlant.transform.parent = transform;
-		ALL_PLANTS.Add (gameObject.GetComponent<GrowingPlant>());
+		ALL_PLANTS.Add (newPlant.GetComponent<GrowingPlant>());
+		Contents = newPlant.GetComponent<GrowingPlant>();
 	}
 
 
@@ -71,16 +70,25 @@ public class Planter : MonoBehaviour {
 		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
 			SELECTED_PLANTER = this;
 		}
+		if (Contents != null)
+		{
+			Contents.showWaterLevels = true;
+		}
 	}
 
 	private void OnCollisionStay2D (Collision2D c) {
 		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
 			SELECTED_PLANTER = this;
 		}
+
 	}
 
 	private void OnCollisionExit2D () {
 		SELECTED_PLANTER = null;
+		if (Contents != null)
+		{
+			Contents.showWaterLevels = false;
+		}
 	}
 	
 	// glow when planting is available

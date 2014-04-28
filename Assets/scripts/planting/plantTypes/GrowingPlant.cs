@@ -128,4 +128,18 @@ public class GrowingPlant : MonoBehaviour {
 	{
 		get { return (float)CurrentWater / (float)MaxWater; }
 	}
+
+	// show water levels
+	private Rect _containingPlanter;
+	public bool showWaterLevels = true;
+	private void OnGUI ()
+	{
+		if (showWaterLevels)
+		{
+			_containingPlanter = SaFrMo.GUIOverObject (transform.parent.gameObject);
+			GUI.Box (_containingPlanter, "test");
+		}
+	}
+
+
 }
