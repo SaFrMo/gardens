@@ -9,8 +9,7 @@ public class Sun : MonoBehaviour {
 	
 	private void Start () {
 		sun = Light2D.Create (new Vector2 (transform.position.x + .5f, transform.position.y),
-		                      new Color (1, 1, 1, 1f),
-		                      .1f);
+		                      new Color (1, 1, 1, 1f), .1f);
 	}
 
 	private void Update ()
