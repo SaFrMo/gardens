@@ -49,6 +49,7 @@ public class Catalog : MonoBehaviour {
 			PlantInfoCell (go);
 		}
 		SellContents();
+		print (Planter.SELECTED_PLANTER.Contents == null);
 		GUILayout.EndScrollView();
 		GUILayout.EndArea();
 	}
@@ -73,6 +74,7 @@ public class Catalog : MonoBehaviour {
 	}
 
 	private void Update () {
+		print (Planter.SELECTED_PLANTER.name);
 		TUT_SHOW_PLANT_CATALOG = showPlantCatalog;
 		if (Planter.SELECTED_PLANTER != null && Input.GetKeyDown (catalogAccess)) {
 			showPlantCatalog = !showPlantCatalog;

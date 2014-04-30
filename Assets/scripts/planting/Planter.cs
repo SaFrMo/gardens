@@ -6,6 +6,7 @@ public class Planter : MonoBehaviour {
 
 	public static Planter SELECTED_PLANTER = null;
 	public static List<GrowingPlant> ALL_PLANTS = new List<GrowingPlant>();
+	public static List<GameObject> ALL_PLANTERS = new List<GameObject>();
 
 	private Color originalColor;
 	private SpriteRenderer spriteRender;
@@ -105,6 +106,7 @@ public class Planter : MonoBehaviour {
 		spriteRender = GetComponent<SpriteRenderer>();
 		originalColor = spriteRender.material.color;
 		spriteRender.color = originalColor;
+		ALL_PLANTERS.Add (gameObject);
 	}
 
 	void Update () {

@@ -6,6 +6,7 @@ public class PlacePlanter : MonoBehaviour {
 	public KeyCode cancelKey = KeyCode.LeftShift;
 
 	public GameObject planterPrefab;
+	public GameObject planterPlacerPrefab;
 	private GameObject planterPlacer = null;
 	public static int CUSTOM_PLANTER_COUNT = 0;
 
@@ -19,7 +20,7 @@ public class PlacePlanter : MonoBehaviour {
 
 		// instantiates an object to show where the planter will go
 		if (planterPlacer == null) {
-			planterPlacer = GameObject.Instantiate (planterPrefab) as GameObject;
+			planterPlacer = GameObject.Instantiate (planterPlacerPrefab) as GameObject;
 		}
 
 		planterPlacer.transform.position = selectedPosition;
@@ -40,14 +41,18 @@ public class PlacePlanter : MonoBehaviour {
 		Destroy (planterPlacer);
 	}
 
-
 	protected void Update () {
 		if (Input.GetMouseButton(0) && GUIUtility.hotControl == 0) {
 			SelectPlanterLocation();
 		}
 		if (Input.GetMouseButtonUp(0) && GUIUtility.hotControl == 0) {
 			if (!Input.GetKey(cancelKey)) {
-				CreatePlanter();
+				// can only create a planter if it doesn't overlap another
+				Collider2D otherPlanters = Physics2D.OverlapArea (planterPlacer.renderer.bounds.min, planterPlacer.renderer.bounds.max);
+				if (otherPlanters == null)
+					CreatePlanter();
+				else
+					Destroy (planterPlacer);
 			}
 			else {
 				// cancel creation and destroy the placer guide
