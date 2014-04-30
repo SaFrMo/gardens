@@ -6,4 +6,7 @@ public class Food : GrowingPlant {
 	protected override void Start () {
 		base.Start ();
 	}
+
+
+
 }

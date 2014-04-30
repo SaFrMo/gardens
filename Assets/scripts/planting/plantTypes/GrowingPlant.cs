@@ -45,8 +45,6 @@ public class GrowingPlant : MonoBehaviour {
 		_maxHP = startingMaxHP;
 		_maxWater = startingMaxWater;
 		_currentWater = startingMaxWater;
-
-		StartCoroutine(WaterDrain());
 	}
 
 	public string information;
@@ -137,8 +135,10 @@ public class GrowingPlant : MonoBehaviour {
 	public bool showWaterLevels = true;
 	private void OnGUI ()
 	{
+		GUI.skin = GameManager.GUI_SKIN;
 		if (showWaterLevels)
 		{
+			// TODO: make this look nicer
 			_containingPlanter = SaFrMo.GUIOverObject (transform.parent.gameObject);
 			GUI.DrawTexture (new Rect (_containingPlanter), SaFrMo.CreateColor(Color.black));
 			GUI.DrawTexture (new Rect (_containingPlanter.x,
@@ -146,6 +146,9 @@ public class GrowingPlant : MonoBehaviour {
 			                           _containingPlanter.width * CurrentWaterLevel,
 			                           _containingPlanter.height), SaFrMo.CreateColor (Color.blue));
 		}
+
+		// TODO: make this look nicer, too
+		GUI.Box (_thisRect, string.Format ("VALUE: ${0} out of a possible ${1}", CurrentSellingPrice.ToString(), MaxSellingPrice.ToString()));
 	}
 
 	// auto water?
@@ -157,13 +160,30 @@ public class GrowingPlant : MonoBehaviour {
 		CurrentWater = MaxWater;
 	}
 	
-	// decrease water level every X seconds
-	public static float WATER_DELAY = 5f;
-	private IEnumerator WaterDrain () {
-		for(;;) {
-			CurrentWater--;
-			//print (string.Format ("{0} water level: {1}", gameObject.name, WaterLevel));
-			yield return new WaitForSeconds (WATER_DELAY);
-		}
+	// every X seconds, decrease water level, change value, etc.
+	public static float DELAY = 5f;
+	protected Timer t = new Timer (DELAY, true);
+	public int ValueIncrement = 3;
+
+	private Rect _thisRect;
+
+	protected void OverTime () {
+
+		CurrentWater--;
+		if (CurrentWaterLevel >= .6f && CurrentSellingPrice < MaxSellingPrice)
+			CurrentSellingPrice += ValueIncrement;
+		else if (CurrentWaterLevel >= .3f && CurrentSellingPrice < MaxSellingPrice)
+			CurrentSellingPrice += ValueIncrement / 2;
+		else
+			CurrentSellingPrice -= ValueIncrement;
 	}
+
+	protected void Update ()
+	{
+		if (t.RunTimer())
+			OverTime();
+		_thisRect = SaFrMo.GUIOverObject (gameObject);
+	}
+
+
 }
