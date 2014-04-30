@@ -5,8 +5,9 @@ public class Contract : MonoBehaviour {
 	// TODO: write accessors for these?
 
 	public string CityName;
-	public Sprite CitySprite;
+	public Texture2D CitySprite;
 	public string LevelName;
+	public string CityDescription;
 
 	// TODO: requirements (reputation, etc.)
 
