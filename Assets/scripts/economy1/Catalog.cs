@@ -48,8 +48,19 @@ public class Catalog : MonoBehaviour {
 		foreach (GameObject go in plantsList) {
 			PlantInfoCell (go);
 		}
+		SellContents();
+		print (Planter.SELECTED_PLANTER.Contents == null);
 		GUILayout.EndScrollView();
 		GUILayout.EndArea();
+	}
+
+	// sell a plant if it's already there
+	private void SellContents () {
+		if (Planter.SELECTED_PLANTER.Contents != null) {
+			if (GUILayout.Button ("Sell contents for $" + Planter.SELECTED_PLANTER.Contents.CurrentSellingPrice.ToString ())) {
+				Planter.SELECTED_PLANTER.SellContents();
+			}
+		}
 	}
 
 	// ONGUI ()
@@ -63,6 +74,7 @@ public class Catalog : MonoBehaviour {
 	}
 
 	private void Update () {
+		print (Planter.SELECTED_PLANTER.name);
 		TUT_SHOW_PLANT_CATALOG = showPlantCatalog;
 		if (Planter.SELECTED_PLANTER != null && Input.GetKeyDown (catalogAccess)) {
 			showPlantCatalog = !showPlantCatalog;

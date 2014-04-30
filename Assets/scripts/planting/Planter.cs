@@ -6,6 +6,7 @@ public class Planter : MonoBehaviour {
 
 	public static Planter SELECTED_PLANTER = null;
 	public static List<GrowingPlant> ALL_PLANTS = new List<GrowingPlant>();
+	public static List<GameObject> ALL_PLANTERS = new List<GameObject>();
 
 	private Color originalColor;
 	private SpriteRenderer spriteRender;
@@ -25,13 +26,14 @@ public class Planter : MonoBehaviour {
 
 	// plant something if there's nothing there
 	// ==========================================
+	GameObject newPlant;
 
 	public void Plant (GameObject gp) {
 		// uproot old plant, TODO: "warning, you're about to lose the old plant!"
 		if (Contents != null) {
-
+			SellContents();
 		}
-		GameObject newPlant = Instantiate (gp) as GameObject;
+		newPlant = Instantiate (gp) as GameObject;
 		// TODO: move it into position more flexibly (take into account sprite size rather than straight Vector2.up)
 		newPlant.transform.position = new Vector2 (transform.position.x, transform.position.y) + Vector2.up;
 		newPlant.transform.parent = transform;
@@ -53,6 +55,7 @@ public class Planter : MonoBehaviour {
 				catch {}
 			}
 		}
+		/*
 		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
 			SELECTED_PLANTER = this;
 		}
@@ -60,10 +63,11 @@ public class Planter : MonoBehaviour {
 		{
 			Contents.showWaterLevels = true;
 		}
+		*/
 	}
 
 	private void OnCollisionStay2D (Collision2D c) {
-		if (c.collider.gameObject.name == "Player" && SELECTED_PLANTER == null) {
+		if (c.collider.gameObject.name == "Player") {
 			SELECTED_PLANTER = this;
 		}
 
@@ -83,7 +87,13 @@ public class Planter : MonoBehaviour {
 		spriteRender.material.color = Color.green;
 	}
 
-
+	// sell this plant
+	public void SellContents ()
+	{
+		GameManager.PLAYER.GetComponent<PlayerInventory>().Dollars += Contents.CurrentSellingPrice;
+		Destroy (Contents);
+		Destroy (newPlant);
+	}
 
 
 
@@ -96,6 +106,7 @@ public class Planter : MonoBehaviour {
 		spriteRender = GetComponent<SpriteRenderer>();
 		originalColor = spriteRender.material.color;
 		spriteRender.color = originalColor;
+		ALL_PLANTERS.Add (gameObject);
 	}
 
 	void Update () {
