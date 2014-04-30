@@ -46,7 +46,7 @@ public class PlacePlanter : MonoBehaviour {
 			SelectPlanterLocation();
 		}
 		if (Input.GetMouseButtonUp(0) && GUIUtility.hotControl == 0) {
-			if (!Input.GetKey(cancelKey)) {
+			if (!Input.GetKey(cancelKey) && planterPlacer != null) {
 				// can only create a planter if it doesn't overlap another
 				Collider2D otherPlanters = Physics2D.OverlapArea (planterPlacer.renderer.bounds.min, planterPlacer.renderer.bounds.max);
 				if (otherPlanters == null)

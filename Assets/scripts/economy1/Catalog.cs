@@ -7,7 +7,7 @@ public class Catalog : MonoBehaviour {
 	// tutorial purposes
 	public static bool TUT_SHOW_PLANT_CATALOG;
 
-	private bool showPlantCatalog = false;
+	public static bool showPlantCatalog = false;
 	public KeyCode catalogAccess = KeyCode.Q;
 
 	// plant catalog

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
 	public static GameObject PLAYER = null;
 	public static GameObject GAME_MANAGER;
 	public static GUISkin GUI_SKIN;
-	public static string GAME_NAME;
+	public static string GAME_NAME = "The Green Steel Canyons";
 	public string gameName;
 	public GUISkin gameSkin;
 
@@ -24,6 +24,5 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (GUI_SKIN == null) { GUI_SKIN = gameSkin; }
-		GAME_NAME = gameName;
 	}
 }

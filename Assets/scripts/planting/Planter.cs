@@ -55,7 +55,7 @@ public class Planter : MonoBehaviour {
 				catch {}
 			}
 		}
-		/*
+
 		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
 			SELECTED_PLANTER = this;
 		}
@@ -63,7 +63,7 @@ public class Planter : MonoBehaviour {
 		{
 			Contents.showWaterLevels = true;
 		}
-		*/
+
 	}
 
 	private void OnCollisionStay2D (Collision2D c) {
@@ -79,6 +79,7 @@ public class Planter : MonoBehaviour {
 		{
 			Contents.showWaterLevels = false;
 		}
+		Catalog.showPlantCatalog = false;
 	}
 	
 	// glow when planting is available
