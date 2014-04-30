@@ -244,7 +244,6 @@ public class WASDMovement : MonoBehaviour {
 		}
 		else if (CurrentType == MovementType.TurnDone)
 		{
-			rigidbody2D.gravityScale = 0;
 			rigidbody2D.velocity = Vector2.zero;
 		}
 		//CheckSpeed ();
