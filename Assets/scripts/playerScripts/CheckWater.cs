@@ -119,8 +119,11 @@ public class CheckWater : MonoBehaviour {
 
 			foreach (GrowingPlant g in middle)
 			{
-				GUI.Box (SaFrMo.GUIOverObject (g.gameObject), 
-				         string.Format ("{0}\n{1}\nWorth ${2}", g.name, (g.CurrentWaterLevel * 100).ToString() + "%", g.CurrentSellingPrice));
+				if (g != null)
+				{
+					GUI.Box (SaFrMo.GUIOverObject (g.gameObject), 
+					         string.Format ("{0}\n{1}\nWorth ${2}", g.name, (g.CurrentWaterLevel * 100).ToString() + "%", g.CurrentSellingPrice));
+				}
 			}
 
 			break;

@@ -13,7 +13,8 @@ public class WASDMovement : MonoBehaviour {
 		Jumping,
 		Swinging,
 		Dead,
-		Ziplining
+		Ziplining,
+		Hanging
 	};
 	
 	private MovementType _currentType = MovementType.Grounded;
@@ -165,19 +166,29 @@ public class WASDMovement : MonoBehaviour {
 	}
 
 	// TODO: Neater way to handle switching back to Grounded type
-	/*
+
 	private void OnCollisionEnter2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
 		if (c.gameObject.tag == "Ground") {
+			// TODO: make this better
+			RaycastHit2D hitDown = Physics2D.Raycast ((Vector2)transform.position + -Vector2.up, -Vector2.up, .5f);
+			RaycastHit2D hitUp = Physics2D.Raycast ((Vector2)transform.position + Vector2.up, Vector2.up, .5f);
+			// player is on the side of a planter
+			if (hitDown.collider == null && hitUp.collider == null)
+			{
+				print ("JUMP UP!");
+				CurrentType = MovementType.Hanging;
+			}
 			// lets the player jump again after landing on ground
 			if (CurrentType != MovementType.Grounded) {
 
 				CurrentType = MovementType.Grounded;
 
+
 			}
 		}
 	}
-*/
+
 
 
 	private void OnCollisionStay2D (Collision2D c) {
@@ -190,6 +201,19 @@ public class WASDMovement : MonoBehaviour {
 				}
 				CurrentType = MovementType.Grounded;
 
+			}
+		}
+	}
+
+	private void HangingControls ()
+		// TODO: make this actually work
+	{
+		if (CurrentType == MovementType.Hanging)
+		{
+			if (Input.GetAxis ("Vertical") > 0)
+			{
+				CurrentType = MovementType.Jumping;
+				rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce);
 			}
 		}
 	}
@@ -217,6 +241,7 @@ public class WASDMovement : MonoBehaviour {
 		else if (CurrentType == MovementType.Dead) {
 			this.renderer.enabled = false; //hide the player when you die
 		}
-		CheckSpeed ();
+		//CheckSpeed ();
+		HangingControls();
 	}
 }
