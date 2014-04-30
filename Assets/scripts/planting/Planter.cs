@@ -30,7 +30,7 @@ public class Planter : MonoBehaviour {
 	public void Plant (GameObject gp) {
 		// uproot old plant, TODO: "warning, you're about to lose the old plant!"
 		if (Contents != null) {
-
+			SellContents();
 		}
 		newPlant = Instantiate (gp) as GameObject;
 		// TODO: move it into position more flexibly (take into account sprite size rather than straight Vector2.up)
@@ -54,6 +54,7 @@ public class Planter : MonoBehaviour {
 				catch {}
 			}
 		}
+		/*
 		if (c.collider.gameObject.name == "Player" && Contents == null && SELECTED_PLANTER == null) {
 			SELECTED_PLANTER = this;
 		}
@@ -61,10 +62,11 @@ public class Planter : MonoBehaviour {
 		{
 			Contents.showWaterLevels = true;
 		}
+		*/
 	}
 
 	private void OnCollisionStay2D (Collision2D c) {
-		if (c.collider.gameObject.name == "Player" && SELECTED_PLANTER == null) {
+		if (c.collider.gameObject.name == "Player") {
 			SELECTED_PLANTER = this;
 		}
 
@@ -90,7 +92,6 @@ public class Planter : MonoBehaviour {
 		GameManager.PLAYER.GetComponent<PlayerInventory>().Dollars += Contents.CurrentSellingPrice;
 		Destroy (Contents);
 		Destroy (newPlant);
-
 	}
 
 
