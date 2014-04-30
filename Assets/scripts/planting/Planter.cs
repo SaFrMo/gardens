@@ -25,13 +25,14 @@ public class Planter : MonoBehaviour {
 
 	// plant something if there's nothing there
 	// ==========================================
+	GameObject newPlant;
 
 	public void Plant (GameObject gp) {
 		// uproot old plant, TODO: "warning, you're about to lose the old plant!"
 		if (Contents != null) {
 
 		}
-		GameObject newPlant = Instantiate (gp) as GameObject;
+		newPlant = Instantiate (gp) as GameObject;
 		// TODO: move it into position more flexibly (take into account sprite size rather than straight Vector2.up)
 		newPlant.transform.position = new Vector2 (transform.position.x, transform.position.y) + Vector2.up;
 		newPlant.transform.parent = transform;
@@ -83,7 +84,14 @@ public class Planter : MonoBehaviour {
 		spriteRender.material.color = Color.green;
 	}
 
+	// sell this plant
+	public void SellContents ()
+	{
+		GameManager.PLAYER.GetComponent<PlayerInventory>().Dollars += Contents.CurrentSellingPrice;
+		Destroy (Contents);
+		Destroy (newPlant);
 
+	}
 
 
 
