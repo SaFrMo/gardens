@@ -14,7 +14,8 @@ public class WASDMovement : MonoBehaviour {
 		Swinging,
 		Dead,
 		Ziplining,
-		Hanging
+		Hanging,
+		TurnDone
 	};
 	
 	private MovementType _currentType = MovementType.Grounded;
@@ -240,6 +241,11 @@ public class WASDMovement : MonoBehaviour {
 
 		else if (CurrentType == MovementType.Dead) {
 			this.renderer.enabled = false; //hide the player when you die
+		}
+		else if (CurrentType == MovementType.TurnDone)
+		{
+			rigidbody2D.gravityScale = 0;
+			rigidbody2D.velocity = Vector2.zero;
 		}
 		//CheckSpeed ();
 		HangingControls();
