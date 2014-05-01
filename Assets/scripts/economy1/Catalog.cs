@@ -16,10 +16,11 @@ public class Catalog : MonoBehaviour {
 	public List<GameObject> plantsList;
 
 	private void PlantInfoCell (GameObject go) {
+		GrowingPlant g = go.GetComponent<GrowingPlant>();
 		// displays information for each plant prefab in the Catalog list
 		GUILayout.BeginHorizontal();
 		// must refer to startingCost rather than Cost b/c Cost is set on Start(), but prefab hasn't been instantiated yet
-		int cost = go.GetComponent<GrowingPlant>().startingCost;
+		int cost = g.startingCost;
 		if (GUILayout.Button (go.name)) {
 			// do you have enough money for this plant?
 			if (GetComponent<PlayerInventory>().Dollars >= cost) {
@@ -36,6 +37,7 @@ public class Catalog : MonoBehaviour {
 		// displays the cost of the plant in question
 		GUILayout.Box ("$" + cost.ToString());
 		GUILayout.EndHorizontal();
+		GUILayout.Box (string.Format ("{0} max. value\n{1} growth rate", g.startingMaximumSellingPrice, g.ValueIncrement));
 	}
 	
 	private void PlantCatalog () {

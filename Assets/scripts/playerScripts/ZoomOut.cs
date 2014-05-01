@@ -22,7 +22,7 @@ public class ZoomOut : MonoBehaviour {
 			else { goalSize = originalCameraSize; }
 		}
 
-		if (Input.GetAxis ("Mouse ScrollWheel") != 0)
+		if (Input.GetAxis ("Mouse ScrollWheel") != 0 && !Catalog.showPlantCatalog)
 		{
 			goalSize -= Input.GetAxis ("Mouse ScrollWheel") * 6;
 		}
