@@ -59,73 +59,19 @@ public class CheckWater : MonoBehaviour {
 			boxHeight = Screen.height / 2;
 			foreach (GrowingPlant g in Planter.ALL_PLANTS)
 			{
+				// side of the smaller cells
+				float smallBox = 100f;
+				// TODO: windows blend together when overlapping
 				if (g != null)
 				{
-					if (Camera.main.WorldToViewportPoint (g.transform.position).x < 0)
-					{
-						if (!left.Contains (g))
-							left.Add (g);
-						if (middle.Contains (g))
-							middle.Remove (g);
-						if (right.Contains (g))
-							right.Remove (g);
-					}
-					else if (Camera.main.WorldToViewportPoint (g.transform.position).x > 1)
-					{
-						if (!right.Contains (g))
-							right.Add (g);
-						if (left.Contains (g))
-							left.Remove (g);
-						if (middle.Contains (g))
-							middle.Remove (g);
-					}
-					else
-					{
-						if (!middle.Contains (g))
-							middle.Add (g);
-						if (left.Contains (g))
-							left.Remove (g);
-						if (right.Contains (g))
-							right.Remove (g);
-					}
-				}
-			}
-
-			GUILayout.BeginArea (new Rect (GameManager.SPACER,
-			                               Screen.height / 2 - boxHeight / 2,
-			                               100f,
-			                               boxHeight));
-			scrollPosL = GUILayout.BeginScrollView(scrollPosL, GUIStyle.none);
-			foreach (GrowingPlant g in left)
-			{
-				if (g != null)
-					InfoCell (g);
-			}
-			GUILayout.EndScrollView();
-			GUILayout.EndArea();
-
-			GUILayout.BeginArea (new Rect (Screen.width - 100f - GameManager.SPACER,
-			                               Screen.height / 2 - boxHeight / 2,
-			                               100f,
-			                               boxHeight));
-			scrollPosR = GUILayout.BeginScrollView(scrollPosR, GUIStyle.none);
-			foreach (GrowingPlant g in right)
-			{
-				if (g != null)
-					InfoCell (g);
-			}
-			GUILayout.EndScrollView();
-			GUILayout.EndArea();
-
-			foreach (GrowingPlant g in middle)
-			{
-				if (g != null)
-				{
-					GUI.Box (SaFrMo.GUIOverObject (g.gameObject), 
+					Rect gLoc = SaFrMo.GUIOverObject (g.gameObject);
+					GUI.Box (new Rect (Mathf.Clamp (gLoc.x, GameManager.SPACER, Screen.width - GameManager.SPACER - gLoc.width),
+					                   Mathf.Clamp (gLoc.y, GameManager.SPACER, Screen.height - GameManager.SPACER - gLoc.height),
+					                   smallBox, 
+					                   smallBox),
 					         string.Format ("{0}\n{1}\nWorth ${2}", g.name, (g.CurrentWaterLevel * 100).ToString() + "%", g.CurrentSellingPrice));
 				}
 			}
-
 			break;
 
 
