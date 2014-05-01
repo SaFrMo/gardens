@@ -17,8 +17,4 @@ public class Respawn : MonoBehaviour {
 		rigidbody2D.transform.position = spawnPoint;
 
 	}
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
