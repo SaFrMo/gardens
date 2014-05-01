@@ -11,7 +11,8 @@ public class MainMenu : MonoBehaviour {
 	{
 		Main,
 		NewGame,
-		ContractSelection
+		ContractSelection,
+		CitySelection
 	}
 	private Menu currentState = Menu.Main;
 

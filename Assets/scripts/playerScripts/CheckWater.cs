@@ -25,10 +25,11 @@ public class CheckWater : MonoBehaviour {
 		GUILayout.Box (string.Format ("{0}\n{1}\nWorth ${2}", plant.name, (plant.CurrentWaterLevel * 100).ToString() + "%", plant.CurrentSellingPrice));
 	}
 
+	/*
 	private List<GrowingPlant> left = new List<GrowingPlant>();
 	private List<GrowingPlant> right = new List<GrowingPlant>();
 	private List<GrowingPlant> middle = new List<GrowingPlant>();
-
+	*/
 
 	private void ShowPlantInfo () 
 	{
