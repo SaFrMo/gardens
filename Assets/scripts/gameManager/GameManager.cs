@@ -25,6 +25,20 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		if (GUI_SKIN == null) { GUI_SKIN = gameSkin; }
+		if (GUI_SKIN == null)
+			GUI_SKIN = gameSkin;
+
+		// ensure there's only one game manager
+		if (GAME_MANAGER == null)
+		{
+			GAME_MANAGER = gameObject;
+			GameObject.DontDestroyOnLoad (GAME_MANAGER);
+		}
+		else
+		{
+			Destroy (gameObject);
+		}
 	}
+
+
 }
