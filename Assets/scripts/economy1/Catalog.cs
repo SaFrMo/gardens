@@ -37,7 +37,8 @@ public class Catalog : MonoBehaviour {
 		// displays the cost of the plant in question
 		GUILayout.Box ("$" + cost.ToString());
 		GUILayout.EndHorizontal();
-		GUILayout.Box (string.Format ("{0} max. value\n{1} growth rate", g.startingMaximumSellingPrice, g.ValueIncrement));
+		GUILayout.Box (string.Format ("${0} max value\n{1} seconds to grow", g.startingMaximumSellingPrice, 
+		                              g.startingMaximumSellingPrice / g.ValueIncrement * 5f));
 	}
 	
 	private void PlantCatalog () {
