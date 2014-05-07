@@ -75,6 +75,7 @@ public class Sun : MonoBehaviour {
 
 	private void OnGUI ()
 	{
+		GUI.skin = GameManager.GUI_SKIN;
 		if (turnComplete)
 		{
 			TurnCompleteWindow();

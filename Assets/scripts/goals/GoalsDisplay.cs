@@ -28,6 +28,7 @@ public class GoalsDisplay : MonoBehaviour {
 	private Vector2 scrollPos = Vector2.zero;
 	void OnGUI ()
 	{
+		GUI.skin = GameManager.GUI_SKIN;
 		if (showGoals)
 		{
 			GUILayout.BeginArea (new Rect (GameManager.SPACER, 
@@ -37,7 +38,7 @@ public class GoalsDisplay : MonoBehaviour {
 			scrollPos = GUILayout.BeginScrollView (scrollPos, GameManager.GUI_SKIN.customStyles[0]);
 			foreach (Goal g in allGoalsArray)
 			{
-				GUILayout.Box (string.Format ("{0} {1}", (g.complete ? "X" : "_"), g.description));
+				GUILayout.Box (string.Format ("{0} {1}", (g.complete ? "[complete] " : "[incomplete] "), g.description));
 			}
 			GUILayout.EndScrollView();
 			GUILayout.EndArea();
