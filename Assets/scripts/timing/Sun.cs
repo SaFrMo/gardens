@@ -34,6 +34,7 @@ public class Sun : MonoBehaviour {
 	// show this turn's stats
 	// TODO: make this look nicer
 	public static float income;
+	private bool checkDone = false;
 	private void TurnCompleteWindow ()
 	{
 		float boxSize = 400f;
@@ -49,6 +50,13 @@ public class Sun : MonoBehaviour {
 		GUILayout.Box (string.Format ("Net income: {0}${1}",
 		                              (income >= 0 ? "+" : "-"),
 		                              income.ToString ()));
+
+		// check goals
+		foreach (Goal g in GoalsDisplay.allGoalsArray)
+		{
+			GUILayout.Box (g.description);
+		}
+			
 
 		// navigation from this menu
 		GUILayout.BeginHorizontal();

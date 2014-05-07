@@ -7,6 +7,7 @@ public class Planter : MonoBehaviour {
 	public static Planter SELECTED_PLANTER = null;
 	public static List<GrowingPlant> ALL_PLANTS = new List<GrowingPlant>();
 	public static List<GameObject> ALL_PLANTERS = new List<GameObject>();
+	public static int PLANTS_PLANTED = 0;
 
 	private Color originalColor;
 	private SpriteRenderer spriteRender;
@@ -39,6 +40,7 @@ public class Planter : MonoBehaviour {
 		newPlant.transform.parent = transform;
 		ALL_PLANTS.Add (newPlant.GetComponent<GrowingPlant>());
 		Contents = newPlant.GetComponent<GrowingPlant>();
+		PLANTS_PLANTED++;
 	}
 
 

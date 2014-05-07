@@ -10,7 +10,8 @@ public class Goal_MakeMoney : Goal {
 	{
 		base.requirements = new List<bool>() 
 		{
-			Mathf.Abs(Sun.income) >= Mathf.Abs(goalAmount)
+			Sun.income >= goalAmount,
+			Planter.PLANTS_PLANTED > 0
 		};
 		base.CheckGoal();
 
