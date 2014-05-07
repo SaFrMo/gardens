@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-public class GrowingPlant : MonoBehaviour {
+public class GrowingPlant : Unlockable {
 	
 	public enum Purpose
 	{

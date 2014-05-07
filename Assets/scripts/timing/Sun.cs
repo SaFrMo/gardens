@@ -55,6 +55,8 @@ public class Sun : MonoBehaviour {
 		foreach (Goal g in GoalsDisplay.allGoalsArray)
 		{
 			GUILayout.Box (g.description);
+			if (g.complete)
+				g.Rewards();
 		}
 			
 

@@ -49,7 +49,8 @@ public class Catalog : MonoBehaviour {
 		// should the scroll position reset when the window closes?
 		scrollPos = GUILayout.BeginScrollView (scrollPos);
 		foreach (GameObject go in plantsList) {
-			PlantInfoCell (go);
+			if (go.GetComponent<Unlockable>().unlocked)
+				PlantInfoCell (go);
 		}
 		SellContents();
 		GUILayout.EndScrollView();
