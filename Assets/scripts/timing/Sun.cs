@@ -33,6 +33,7 @@ public class Sun : MonoBehaviour {
 
 	// show this turn's stats
 	// TODO: make this look nicer
+	public static float income;
 	private void TurnCompleteWindow ()
 	{
 		float boxSize = 400f;
@@ -44,7 +45,7 @@ public class Sun : MonoBehaviour {
 		// TODO: more level stats
 
 		// net income/loss
-		float income = endMoney - startMoney;
+		income = endMoney - startMoney;
 		GUILayout.Box (string.Format ("Net income: {0}${1}",
 		                              (income >= 0 ? "+" : "-"),
 		                              income.ToString ()));
