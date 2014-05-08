@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour {
 
 	// new game
 	private void NewGameFunction() {
-		currentState = Menu.ContractSelection;
+		Application.LoadLevel ("concourse");
 	}
 
 	// contract selection

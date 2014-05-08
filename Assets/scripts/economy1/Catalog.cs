@@ -14,7 +14,7 @@ public class Catalog : MonoBehaviour {
 	public float plantCatalogSide = 200f;
 	private Vector2 scrollPos = Vector2.zero;
 	public List<GameObject> plantsList;
-	public static List<GameObject> RefreshList ()
+	public static List<GameObject> RefreshPlantsList ()
 	{
 		return GameObject.Find ("__Game Manager").GetComponent<Catalog>().plantsList;
 	}
@@ -68,6 +68,13 @@ public class Catalog : MonoBehaviour {
 				Planter.SELECTED_PLANTER.SellContents();
 			}
 		}
+	}
+
+	// contracts list
+	public List<GameObject> contractsList = new List<GameObject>();
+	public static List<GameObject> RefreshContractsList ()
+	{
+		return GameObject.Find ("__Game Manager").GetComponent<Catalog>().contractsList;
 	}
 
 	// ONGUI ()

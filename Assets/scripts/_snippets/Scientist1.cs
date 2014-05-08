@@ -84,6 +84,7 @@ public class Scientist1 : Conversation {
 
 		case 99:
 			toContent = "Pleased as a peach to meet you! Good luck, and remember: don't plant those seeds 'til I'm out of sight!";
+			// TODO: fix this
 			if (seeds != null && !GameManager.PLAYER.GetComponent<Catalog>().plantsList.Contains (seeds))
 			{
 				GameManager.PLAYER.GetComponent<Catalog>().plantsList.Add (seeds);

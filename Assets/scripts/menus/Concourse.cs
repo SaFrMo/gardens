@@ -8,22 +8,33 @@ public class Concourse : MonoBehaviour {
 	private enum Place
 	{
 		Main,
-		Unlockables
+		Unlockables,
+		Contracts
 	}
 	Place current = Place.Main;
 
 	private List<Unlockable> unlockables = new List<Unlockable>();
-
-	// TODO: sort by unlockable type
+	private List<GrowingPlant> growingPlants = new List<GrowingPlant>();
+	private List<Contract> contracts = new List<Contract>();
+	
 	private void RefreshUnlockables ()
 	{
-		unlockables.Clear ();
 
 		// refreshes unlockable plants
-		List<GameObject> goList = Catalog.RefreshList();
+		growingPlants.Clear ();
+		List<GameObject> goList = Catalog.RefreshPlantsList();
 		foreach (GameObject go in goList)
 		{
-			unlockables.Add (go.GetComponent<Unlockable>());
+			//unlockables.Add (go.GetComponent<Unlockable>());
+			growingPlants.Add (go.GetComponent<Unlockable>() as GrowingPlant);
+		}
+
+		// refreshes contracts
+		contracts.Clear();
+		goList = Catalog.RefreshContractsList();
+		foreach (GameObject go in goList)
+		{
+			contracts.Add (go.GetComponent<Unlockable>() as Contract);
 		}
 	}
 
@@ -48,6 +59,7 @@ public class Concourse : MonoBehaviour {
 
 
 	private void OnGUI ()
+		// TODO: make this look nicer
 	{
 		float side = Screen.width * .75f;
 		GUILayout.BeginArea (new Rect (0, 0,
@@ -58,17 +70,46 @@ public class Concourse : MonoBehaviour {
 		switch (current)
 		{
 		case Place.Main:
-			if (GUILayout.Button ("View unlockable items")) 
+			if (GUILayout.Button ("Unlockable items")) 
 			{
 				RefreshUnlockables();
 				current = Place.Unlockables;
 			}
+			if (GUILayout.Button ("Contracts"))
+			{
+				RefreshUnlockables();
+				current = Place.Contracts;
+			}
+
+
+
+			// TODO: quit confirmation
+			if (GUILayout.Button ("Quit to Main Menu")) { Application.LoadLevel ("mainMenu"); }
+			if (GUILayout.Button ("Quit game")) { Application.Quit(); }
 			break;
 
+		// unlockable plants
 		case Place.Unlockables:
 			foreach (Unlockable u in unlockables)
 			{
 				UnlockableCell (u);
+			}
+			if (GUILayout.Button ("Back to Main Menu")) { current = Place.Main; }
+			break;
+
+		// contracts
+		case Place.Contracts:
+			// TODO: horizontal rows
+			foreach (Contract c in contracts)
+			{
+				// creates content with the city sprite and name
+				// TODO: include description somehow
+				//GUIContent gC = new GUIContent (c.CitySprite, c.CityName);
+				if (GUILayout.Button (c.CityName))
+				{
+					// load relevant scene
+					Application.LoadLevel (c.LevelName);
+				}
 			}
 			if (GUILayout.Button ("Back to Main Menu")) { current = Place.Main; }
 			break;
