@@ -14,6 +14,10 @@ public class Catalog : MonoBehaviour {
 	public float plantCatalogSide = 200f;
 	private Vector2 scrollPos = Vector2.zero;
 	public List<GameObject> plantsList;
+	public static List<GameObject> RefreshList ()
+	{
+		return GameObject.Find ("__Game Manager").GetComponent<Catalog>().plantsList;
+	}
 
 	private void PlantInfoCell (GameObject go) {
 		GrowingPlant g = go.GetComponent<GrowingPlant>();
@@ -49,7 +53,8 @@ public class Catalog : MonoBehaviour {
 		// should the scroll position reset when the window closes?
 		scrollPos = GUILayout.BeginScrollView (scrollPos);
 		foreach (GameObject go in plantsList) {
-			PlantInfoCell (go);
+			if (go.GetComponent<Unlockable>().unlocked)
+				PlantInfoCell (go);
 		}
 		SellContents();
 		GUILayout.EndScrollView();
