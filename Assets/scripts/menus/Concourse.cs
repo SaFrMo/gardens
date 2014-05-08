@@ -16,6 +16,40 @@ public class Concourse : MonoBehaviour {
 	private List<Unlockable> unlockables = new List<Unlockable>();
 	private List<GrowingPlant> growingPlants = new List<GrowingPlant>();
 	private List<Contract> contracts = new List<Contract>();
+
+	// contract selection
+	private void ContractCell (Contract c)
+	{
+		GUILayout.BeginVertical();
+		GUIContent content = new GUIContent(c.CitySprite, c.CityDescription);
+		if (GUILayout.Button (c.CityName))
+		{
+			Application.LoadLevel (c.LevelName);
+		}
+		GUILayout.Box (content);
+		GUILayout.EndVertical();
+	}
+	
+	Vector2 scrollPos;
+	public int contractsPerRow = 3;
+	
+	private void ContractSelection () {
+		scrollPos = GUILayout.BeginScrollView(scrollPos, GUIStyle.none);
+		GUILayout.BeginHorizontal();
+		for (int i = 0; i < contracts.Count; i++)
+		{
+			if (i % contractsPerRow == 0)
+			{
+				GUILayout.EndHorizontal();
+				GUILayout.BeginHorizontal();
+			}
+			Contract c = contracts[i].GetComponent<Contract>();
+			if (c.unlocked) { ContractCell (c); }
+			// TODO: show locked cell?
+		}
+		GUILayout.EndHorizontal();
+		GUILayout.EndScrollView();
+	}
 	
 	private void RefreshUnlockables ()
 	{
@@ -36,11 +70,6 @@ public class Concourse : MonoBehaviour {
 		{
 			contracts.Add (go.GetComponent<Unlockable>() as Contract);
 		}
-	}
-
-	private void Start ()
-	{
-
 	}
 
 	// info window, a la Risk of Rain's unlockables window
@@ -97,20 +126,11 @@ public class Concourse : MonoBehaviour {
 			if (GUILayout.Button ("Back to Main Menu")) { current = Place.Main; }
 			break;
 
+
+
 		// contracts
 		case Place.Contracts:
-			// TODO: horizontal rows
-			foreach (Contract c in contracts)
-			{
-				// creates content with the city sprite and name
-				// TODO: include description somehow
-				//GUIContent gC = new GUIContent (c.CitySprite, c.CityName);
-				if (GUILayout.Button (c.CityName))
-				{
-					// load relevant scene
-					Application.LoadLevel (c.LevelName);
-				}
-			}
+			ContractSelection();
 			if (GUILayout.Button ("Back to Main Menu")) { current = Place.Main; }
 			break;
 
