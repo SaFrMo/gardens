@@ -34,7 +34,7 @@ public class Sun : MonoBehaviour {
 	// show this turn's stats
 	// TODO: make this look nicer
 	public static float income;
-	private bool checkDone = false;
+	//private bool checkDone = false;
 	private void TurnCompleteWindow ()
 	{
 		float boxSize = 400f;

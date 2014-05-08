@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Contract : MonoBehaviour {
+public class Contract : Unlockable {
 	// TODO: write accessors for these?
 
 	public enum City
