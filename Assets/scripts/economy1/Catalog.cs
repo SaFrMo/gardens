@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[SerializeAll]
 public class Catalog : MonoBehaviour {
 
 	// tutorial purposes

@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[SerializeAll]
 public class GameManager : MonoBehaviour {
 
 	/// <summary>
 	/// Static reference to the player.
 	/// </summary>
+	public bool isConcourse = false;
 	public static GameObject PLAYER = null;
 	public static GameObject GAME_MANAGER;
 	public static GUISkin GUI_SKIN;
@@ -29,15 +31,30 @@ public class GameManager : MonoBehaviour {
 			GUI_SKIN = gameSkin;
 
 		// ensure there's only one game manager
+		/*
 		if (GAME_MANAGER == null)
 		{
+		*/
+		if (isConcourse)	
 			GAME_MANAGER = gameObject;
-			GameObject.DontDestroyOnLoad (GAME_MANAGER);
-		}
+			//GameObject.DontDestroyOnLoad (GAME_MANAGER);
+		//}
+		/*
 		else
 		{
 			Destroy (gameObject);
 		}
+		*/
+
+		if (!isConcourse)
+		{
+			List<LevelSerializer.SaveEntry> sL = LevelSerializer.SavedGames[LevelSerializer.PlayerName];
+			LevelSerializer.SaveEntry s = sL.Find (x => x.Name == "latest");
+			LevelSerializer.LoadNow (s.Data);
+			Destroy (gameObject);
+		}
+			
+
 	}
 
 
