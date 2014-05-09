@@ -87,7 +87,12 @@ public class Concourse : MonoBehaviour {
 		}
 		else
 		{
-			GUILayout.Box ("???");
+			GUILayout.BeginHorizontal();
+			GUILayout.Box (u.name + " [locked]");
+			// TODO: Start here! unlocking system
+			if (GUILayout.Button (string.Format ("Unlock ({0})")))
+			{
+
 		}
 	}
 
