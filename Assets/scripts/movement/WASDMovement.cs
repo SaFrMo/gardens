@@ -177,7 +177,7 @@ public class WASDMovement : MonoBehaviour {
 			// player is on the side of a planter
 			if (hitDown.collider == null && hitUp.collider == null)
 			{
-				print ("JUMP UP!");
+				//print ("JUMP UP!");
 				CurrentType = MovementType.Hanging;
 			}
 			// lets the player jump again after landing on ground

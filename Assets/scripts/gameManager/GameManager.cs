@@ -17,6 +17,28 @@ public class GameManager : MonoBehaviour {
 	public string gameName;
 	public GUISkin gameSkin;
 
+	public static void InitializeLevel ()
+	{
+		// locate the player
+		try { PLAYER = GameObject.Find ("Player"); }
+		catch { print ("n"); }
+
+		/*
+		// save game data
+		UniqueIdentifier u = GAME_MANAGER.GetComponent<UniqueIdentifier>();
+		if (u == null || u is EmptyObjectIdentifier)
+		{
+
+			try { GAME_MANAGER.gameObject.RemoveComponen; }
+			catch {}
+
+			GAME_MANAGER.AddComponent<StoreInformation>();
+		}
+*/
+
+
+	}
+
 
 	void Start () {
 		// save the reference to the player at the start of the scene
@@ -35,8 +57,8 @@ public class GameManager : MonoBehaviour {
 		if (GAME_MANAGER == null)
 		{
 		*/
-		if (isConcourse)	
-			GAME_MANAGER = gameObject;
+		//if (isConcourse)	
+		GAME_MANAGER = gameObject;
 			//GameObject.DontDestroyOnLoad (GAME_MANAGER);
 		//}
 		/*
@@ -46,6 +68,7 @@ public class GameManager : MonoBehaviour {
 		}
 		*/
 
+		/*
 		if (!isConcourse)
 		{
 			List<LevelSerializer.SaveEntry> sL = LevelSerializer.SavedGames[LevelSerializer.PlayerName];
@@ -53,7 +76,8 @@ public class GameManager : MonoBehaviour {
 			LevelSerializer.LoadNow (s.Data);
 			Destroy (gameObject);
 		}
-			
+		*/	
+
 
 	}
 

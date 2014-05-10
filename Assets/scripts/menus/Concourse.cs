@@ -90,9 +90,13 @@ public class Concourse : MonoBehaviour {
 			GUILayout.BeginHorizontal();
 			GUILayout.Box (u.name + " [locked]");
 			// TODO: Start here! unlocking system
-			if (GUILayout.Button (string.Format ("Unlock ({0})")))
+			if (GUILayout.Button (string.Format ("Unlock ({0})", u.unlockCost.ToString())) &&
+			    GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars >= u.unlockCost)
 			{
-
+				GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars -= u.unlockCost;
+				u.unlocked = true;
+			}
+			GUILayout.EndHorizontal();
 		}
 	}
 

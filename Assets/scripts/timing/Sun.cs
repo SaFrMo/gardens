@@ -28,7 +28,7 @@ public class Sun : MonoBehaviour {
 		// remove the sun timer
 		Destroy (sun);
 		// save player's finishing money
-		endMoney = GameManager.PLAYER.GetComponent<PlayerInventory>().Dollars;
+		endMoney = GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars;
 	}
 
 	// show this turn's stats
@@ -64,7 +64,8 @@ public class Sun : MonoBehaviour {
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button ("Back to base..."))
 		{
-			print ("Going back to base!");
+			LevelSerializer.SaveGame("latest");
+			Application.LoadLevel ("concourse");
 		}
 		if (GUILayout.Button ("Skip to next day..."))
 		{

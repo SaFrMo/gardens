@@ -93,7 +93,7 @@ public class Planter : MonoBehaviour {
 	// sell this plant
 	public void SellContents ()
 	{
-		GameManager.PLAYER.GetComponent<PlayerInventory>().Dollars += Contents.CurrentSellingPrice;
+		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars += Contents.CurrentSellingPrice;
 		Destroy (Contents);
 		Destroy (newPlant);
 	}
