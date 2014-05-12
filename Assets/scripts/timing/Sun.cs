@@ -64,7 +64,8 @@ public class Sun : MonoBehaviour {
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button ("Back to base..."))
 		{
-			LevelSerializer.SaveGame("latest");
+			//LevelSerializer.SaveGame("latest");
+			Autosave.SaveNow();
 			Application.LoadLevel ("concourse");
 		}
 		if (GUILayout.Button ("Skip to next day..."))
