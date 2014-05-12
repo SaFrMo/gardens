@@ -6,27 +6,45 @@ public class MainMenu : MonoBehaviour {
 
 	public float boxWidth = 500f;
 	public List<GameObject> contracts = new List<GameObject>();
+
+	private void Start ()
+	{
+		// create a new game prefab
+		LevelSerializer.SaveGame ("new");
+	}
 	
 	private enum Menu
 	{
 		Main,
 		NewGame,
 		ContractSelection,
-		CitySelection
+		CitySelection,
+		Continue
 	}
 	private Menu currentState = Menu.Main;
 
 	// main menu
 	private void MainMenuFunction() {
 		GUILayout.Box (GameManager.GAME_NAME);
+		if (GUILayout.Button ("Continue Game")) { currentState = Menu.Continue; }
 		if (GUILayout.Button ("New Game")) { currentState = Menu.NewGame; }
+	}
+
+	// continue - load last autosave
+	private void ContinueGameFunction ()
+	{
+		Application.LoadLevel ("concourse");
 	}
 
 	// new game
 	private void NewGameFunction() {
+		// TODO: overwrite progress warning dialog?
+		// wipes last autosave and starts a new game
+		//LevelSerializer.SaveGame ("latest");
+		Autosave.autosave = LevelSerializer.SerializeLevel (false, GameManager.GAME_MANAGER.GetComponent<UniqueIdentifier>().Id);
 		Application.LoadLevel ("concourse");
 	}
-
+	/*
 	// contract selection
 	private void ContractCell (Contract c)
 	{
@@ -58,6 +76,7 @@ public class MainMenu : MonoBehaviour {
 		GUILayout.EndHorizontal();
 		GUILayout.EndScrollView();
 	}
+	*/
 
 	private void OnGUI ()
 	{
@@ -72,14 +91,19 @@ public class MainMenu : MonoBehaviour {
 			MainMenuFunction();
 			break;
 
+		case Menu.Continue:
+			ContinueGameFunction();
+			break;
+
 		case Menu.NewGame:
 			NewGameFunction();
 			break;
 
+			/*
 		case Menu.ContractSelection:
 			ContractSelection();
 			break;
-
+*/
 
 		};
 		

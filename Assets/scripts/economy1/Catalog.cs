@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[SerializeAll]
 public class Catalog : MonoBehaviour {
 
 	// tutorial purposes
@@ -27,13 +28,13 @@ public class Catalog : MonoBehaviour {
 		int cost = g.startingCost;
 		if (GUILayout.Button (go.name)) {
 			// do you have enough money for this plant?
-			if (GetComponent<PlayerInventory>().Dollars >= cost) {
+			if (GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars >= cost) {
 				// plant the selected plant
 				Planter.SELECTED_PLANTER.Plant (go);
 				// hide the catalog
 				showPlantCatalog = false;
 				// deduct the cost
-				GetComponent<PlayerInventory>().Dollars -= cost;
+				GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars -= cost;
 			}
 			// TODO: error message: not enough money!
 			else {}

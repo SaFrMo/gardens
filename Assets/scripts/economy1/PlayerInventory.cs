@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[SerializeAll]
 public class PlayerInventory : MonoBehaviour {
 
 	public GameObject notificationPrefab;
@@ -17,8 +18,11 @@ public class PlayerInventory : MonoBehaviour {
 
 	// floating "you gained/lost some money" notification
 	private void MoneyChange (int amount) {
-		GameObject changeAmount = Instantiate (notificationPrefab) as GameObject;
-		changeAmount.GetComponent<MoneyChangeNotification>().SetAmount(amount);
+		if (amount != 0)
+		{
+			GameObject changeAmount = Instantiate (notificationPrefab) as GameObject;
+			changeAmount.GetComponent<MoneyChangeNotification>().SetAmount(amount);
+		}
 	}
 
 	public List<Object> inventory = new List<Object>();

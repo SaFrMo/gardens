@@ -22,10 +22,15 @@ public class Concourse : MonoBehaviour {
 	{
 		GUILayout.BeginVertical();
 		GUIContent content = new GUIContent(c.CitySprite, c.CityDescription);
+
+		// save catalog status and load a contract
 		if (GUILayout.Button (c.CityName))
 		{
+			LevelSerializer.SaveGame ("latest");
 			Application.LoadLevel (c.LevelName);
 		}
+
+
 		GUILayout.Box (content);
 		GUILayout.EndVertical();
 	}
@@ -82,7 +87,16 @@ public class Concourse : MonoBehaviour {
 		}
 		else
 		{
-			GUILayout.Box ("???");
+			GUILayout.BeginHorizontal();
+			GUILayout.Box (u.name + " [locked]");
+			// TODO: Start here! unlocking system
+			if (GUILayout.Button (string.Format ("Unlock ({0})", u.unlockCost.ToString())) &&
+			    GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars >= u.unlockCost)
+			{
+				GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars -= u.unlockCost;
+				u.unlocked = true;
+			}
+			GUILayout.EndHorizontal();
 		}
 	}
 
@@ -117,11 +131,20 @@ public class Concourse : MonoBehaviour {
 			if (GUILayout.Button ("Quit game")) { Application.Quit(); }
 			break;
 
-		// unlockable plants
+		// unlockables display
 		case Place.Unlockables:
+			/*
 			foreach (Unlockable u in unlockables)
 			{
 				UnlockableCell (u);
+			}
+			*/
+
+			// plants
+			GUILayout.Box ("Plants");
+			foreach (GrowingPlant gp in growingPlants)
+			{
+				UnlockableCell (gp);
 			}
 			if (GUILayout.Button ("Back to Main Menu")) { current = Place.Main; }
 			break;

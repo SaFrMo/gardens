@@ -7,4 +7,5 @@ public class Unlockable : MonoBehaviour {
 	public Texture2D icon;
 	public string unlockableName;
 	public string description;
+	public int unlockCost;
 }
