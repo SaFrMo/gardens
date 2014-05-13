@@ -26,7 +26,8 @@ public class Concourse : MonoBehaviour {
 		// save catalog status and load a contract
 		if (GUILayout.Button (c.CityName))
 		{
-			LevelSerializer.SaveGame ("latest");
+			//LevelSerializer.SaveGame ("latest");
+			Autosave.SaveNow();
 			Application.LoadLevel (c.LevelName);
 		}
 
@@ -94,6 +95,8 @@ public class Concourse : MonoBehaviour {
 			    GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars >= u.unlockCost)
 			{
 				GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars -= u.unlockCost;
+				// Store a reference to unlocking the unlockable rather than a direct unlock - otherwise it modifies the prefab
+				//GameManager.unlocked.Add (u, true);
 				u.unlocked = true;
 			}
 			GUILayout.EndHorizontal();

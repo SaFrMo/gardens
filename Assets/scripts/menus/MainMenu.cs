@@ -9,8 +9,15 @@ public class MainMenu : MonoBehaviour {
 
 	private void Start ()
 	{
+		GameManager.SetGameManager();
+
+		// reset plant status
+		GameManager.GAME_MANAGER.GetComponent<Catalog>().ResetPlantsList();
+
 		// create a new game prefab
 		LevelSerializer.SaveGame ("new");
+
+
 	}
 	
 	private enum Menu
@@ -41,7 +48,8 @@ public class MainMenu : MonoBehaviour {
 		// TODO: overwrite progress warning dialog?
 		// wipes last autosave and starts a new game
 		//LevelSerializer.SaveGame ("latest");
-		Autosave.autosave = LevelSerializer.SerializeLevel (false, GameManager.GAME_MANAGER.GetComponent<UniqueIdentifier>().Id);
+		//Autosave.autosave = LevelSerializer.SerializeLevel (false, GameManager.GAME_MANAGER.GetComponent<UniqueIdentifier>().Id);
+		Autosave.SaveNow();
 		Application.LoadLevel ("concourse");
 	}
 	/*

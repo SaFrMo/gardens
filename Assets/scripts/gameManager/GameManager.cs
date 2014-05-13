@@ -17,30 +17,24 @@ public class GameManager : MonoBehaviour {
 	public string gameName;
 	public GUISkin gameSkin;
 
+	public static Dictionary<Unlockable, bool> unlocked = new Dictionary<Unlockable, bool>();
+
 	public static void InitializeLevel ()
 	{
 		// locate the player
 		try { PLAYER = GameObject.Find ("Player"); }
-		catch { print ("n"); }
+		catch { print ("Can't find Player"); }
 
-		/*
-		// save game data
-		UniqueIdentifier u = GAME_MANAGER.GetComponent<UniqueIdentifier>();
-		if (u == null || u is EmptyObjectIdentifier)
-		{
+	}
 
-			try { GAME_MANAGER.gameObject.RemoveComponen; }
-			catch {}
-
-			GAME_MANAGER.AddComponent<StoreInformation>();
-		}
-*/
-
-
+	public static void SetGameManager ()
+	{
+		GAME_MANAGER = GameObject.Find ("__Game Manager");
 	}
 
 
 	void Start () {
+		GAME_MANAGER = gameObject;
 		// save the reference to the player at the start of the scene
 		if (PLAYER == null) {
 			PLAYER = GameObject.Find ("Player");
@@ -58,7 +52,7 @@ public class GameManager : MonoBehaviour {
 		{
 		*/
 		//if (isConcourse)	
-		GAME_MANAGER = gameObject;
+
 			//GameObject.DontDestroyOnLoad (GAME_MANAGER);
 		//}
 		/*

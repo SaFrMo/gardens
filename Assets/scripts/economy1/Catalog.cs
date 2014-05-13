@@ -5,6 +5,17 @@ using System.Collections.Generic;
 [SerializeAll]
 public class Catalog : MonoBehaviour {
 
+	// reset plant status
+	public void ResetPlantsList ()
+	{
+		//GameManager.SetGameManager();
+		foreach (GameObject go in plantsList)
+		{
+			Unlockable u = go.GetComponent<Unlockable>();
+			u.unlocked = u.unlockedAtStart;
+		}
+	}
+
 	// tutorial purposes
 	public static bool TUT_SHOW_PLANT_CATALOG;
 
@@ -14,7 +25,9 @@ public class Catalog : MonoBehaviour {
 	// plant catalog
 	public float plantCatalogSide = 200f;
 	private Vector2 scrollPos = Vector2.zero;
+	// the main catalog
 	public List<GameObject> plantsList;
+
 	public static List<GameObject> RefreshPlantsList ()
 	{
 		return GameObject.Find ("__Game Manager").GetComponent<Catalog>().plantsList;
