@@ -13,7 +13,7 @@ public class FlyingCarSpawner : MonoBehaviour {
 	private void SpawnCar () {
 		GameObject toSpawn = availableFlyingCars[UnityEngine.Random.Range (0, availableFlyingCars.Count)];
 		GameObject newCar = Instantiate (toSpawn) as GameObject;
-		float y = UnityEngine.Random.Range (5, 30);
+		float y = UnityEngine.Random.Range (-10, 10);
 		// facing right or facing left? random according to spawn time
 		if ((int)Time.time % 2 == 0) {
 			newCar.transform.position = new Vector2 (-100, y);
