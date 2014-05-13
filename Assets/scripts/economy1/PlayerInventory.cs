@@ -8,6 +8,8 @@ public class PlayerInventory : MonoBehaviour {
 
 	public GameObject notificationPrefab;
 
+	private int startingDollars;
+
 	// TODO: adjust for difficulty
 	private int _dollars = 50;
 	public int Dollars {
@@ -29,6 +31,8 @@ public class PlayerInventory : MonoBehaviour {
 
 	public List<Object> inventory = new List<Object>();
 
+	private void Start () { startingDollars = _dollars; }
+	public void ResetMoney () { _dollars = startingDollars; }
 
 	// Inventory display
 	// ====================

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Tutorial : MonoBehaviour {
 
+	public static bool tutorialOn = false;
+
 	// tutorial navigation aid
 	private Step currentStep = Step.Start;
 	private enum Step
@@ -37,43 +39,52 @@ public class Tutorial : MonoBehaviour {
 			currentStep = nextStep;
 		}
 
+		if (GUILayout.Button ("Back to Menu")) 
+		{ 
+			tutorialOn = false;
+			MainMenu.currentState = MainMenu.Menu.Main; 
+		}
+
 		GUILayout.EndArea();
 
 	}
 
 	private void OnGUI () {
-		switch (currentStep)
+		if (tutorialOn)
 		{
+			switch (currentStep)
+			{
 
-		case Step.Start:
-			TutorialBox("[A] and [D] to move horizontally.", Step.Jumping);
-			break;
+			case Step.Start:
+				TutorialBox("[A] and [D] to move horizontally.", Step.Jumping);
+				break;
 
-		case Step.Jumping:
-			TutorialBox ("[SPACE] to jump.", Step.Swinging);
-			break;
+			case Step.Jumping:
+				TutorialBox ("[SPACE] to jump.", Step.Swinging);
+				break;
 
-		case Step.Swinging:
-			TutorialBox ("[RIGHT MOUSE CLICK] while jumping to swing.", Step.BreakingTether);
-			break;
+			case Step.Swinging:
+				TutorialBox ("[RIGHT MOUSE CLICK] while jumping to swing.", Step.BreakingTether);
+				break;
 
-		case Step.BreakingTether:
-			TutorialBox ("Hitting a solid object or pressing [LEFT CTRL] or [SPACE] will break the tether. Lean with [A] and [D].", Step.Gardening);
-			break;
+			case Step.BreakingTether:
+				TutorialBox ("Hitting a solid object or pressing [LEFT CTRL] or [SPACE] will break the tether. Lean with [A] and [D].", Step.Gardening);
+				break;
 
-		case Step.Gardening:
-			TutorialBox ("Land on a planter (gray box) and press [Q] to bring up the catalog for the planter.", Step.Buying);
-			if (Catalog.TUT_SHOW_PLANT_CATALOG) { currentStep = Step.Buying; }
-			break;
+			case Step.Gardening:
+				TutorialBox ("Land on a planter (gray box) and press [Q] to bring up the catalog for the planter.", Step.Buying);
+				if (Catalog.TUT_SHOW_PLANT_CATALOG) { currentStep = Step.Buying; }
+				break;
 
-		case Step.Buying:
-			TutorialBox ("Buy a plant and you'll see its water level when you land on the planter. Press [R] to toggle seeing all water levels from all planters.", Step.Start);
-			break;
-
-
+			case Step.Buying:
+				TutorialBox ("Press [R] to switch between plant information views.", Step.Start);
+				break;
 
 
 
+
+
+			}
 		}
 	}
 }

@@ -19,26 +19,32 @@ public class MainMenu : MonoBehaviour {
 
 	}
 	
-	private enum Menu
+	public enum Menu
 	{
 		Main,
 		NewGame,
 		ContractSelection,
 		CitySelection,
-		Continue
+		Continue,
+		Controls,
+		Tutorial
 	}
-	private Menu currentState = Menu.Main;
+	public static Menu currentState = Menu.Main;
 
 	// main menu
 	private void MainMenuFunction() {
 		GUILayout.Box (GameManager.GAME_NAME);
 		if (GUILayout.Button ("Continue Game")) { currentState = Menu.Continue; }
 		if (GUILayout.Button ("New Game")) { currentState = Menu.NewGame; }
+		if (GUILayout.Button ("Controls")) { currentState = Menu.Controls; }
+		if (GUILayout.Button ("Tutorial")) { currentState = Menu.Tutorial; }
+		if (GUILayout.Button ("Quit Game")) { Application.Quit(); }
 	}
 
 	// continue - load last autosave
 	private void ContinueGameFunction ()
 	{
+		currentState = Menu.Main;
 		Application.LoadLevel ("concourse");
 	}
 
@@ -48,7 +54,9 @@ public class MainMenu : MonoBehaviour {
 		// wipes last autosave and starts a new game
 		// reset plant status
 		GameManager.GAME_MANAGER.GetComponent<Catalog>().ResetPlantsList();
+		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().ResetMoney();
 		Autosave.SaveNow();
+		currentState = Menu.Main;
 		Application.LoadLevel ("concourse");
 	}
 	/*
@@ -85,37 +93,63 @@ public class MainMenu : MonoBehaviour {
 	}
 	*/
 
+	// show controls
+	public Dictionary<string, string> controls = new Dictionary<string, string>() {
+		{ "A-D", "Horizontal movement" },
+		{ "Space", "Jump" },
+		{ "", "" }
+	};
+	private void ControlsDisplay()
+	{
+		foreach (KeyValuePair<string, string> kv in controls)
+		{
+			GUILayout.BeginHorizontal();
+			GUILayout.Box (kv.Key);
+			GUILayout.Box (kv.Value);
+			GUILayout.EndHorizontal();
+		}
+		if (GUILayout.Button ("[Back]")) { currentState = Menu.Main; }
+	}
+
 	private void OnGUI ()
 	{
-		GUILayout.BeginArea (new Rect (Screen.width / 2 - boxWidth / 2,
-		                               Screen.height / 2 - boxWidth / 2,
-		                               boxWidth,
-		                               boxWidth));
-		switch (currentState)
+		if (currentState != Menu.Tutorial)
 		{
+			GUILayout.BeginArea (new Rect (Screen.width / 2 - boxWidth / 2,
+			                               Screen.height / 2 - boxWidth / 2,
+			                               boxWidth,
+			                               boxWidth));
+			switch (currentState)
+			{
 
-		case Menu.Main:
-			MainMenuFunction();
-			break;
+			case Menu.Main:
+				MainMenuFunction();
+				break;
 
-		case Menu.Continue:
-			ContinueGameFunction();
-			break;
+			case Menu.Continue:
+				ContinueGameFunction();
+				break;
 
-		case Menu.NewGame:
-			NewGameFunction();
-			break;
+			case Menu.NewGame:
+				NewGameFunction();
+				break;
 
-			/*
-		case Menu.ContractSelection:
-			ContractSelection();
-			break;
-*/
+			case Menu.Controls:
+				ControlsDisplay();
+				break;
 
-		};
-		
+				/*
+			case Menu.ContractSelection:
+				ContractSelection();
+				break;
+	*/
+
+			};
+			
 
 
-		GUILayout.EndArea();
+			GUILayout.EndArea();
+		}
+		else { if (!Tutorial.tutorialOn) Tutorial.tutorialOn = true; }
 	}
 }

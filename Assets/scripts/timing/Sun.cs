@@ -15,7 +15,7 @@ public class Sun : MonoBehaviour {
 	private float endMoney;
 	
 	private void Start () {
-		Reset ();
+		Invoke ("Reset", .2f);
 	}
 
 	// turn finishing steps
@@ -25,6 +25,8 @@ public class Sun : MonoBehaviour {
 		// freeze player
 		GameManager.PLAYER.GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.TurnDone;
 		turnComplete = true;
+		// TODO: hide catalog
+
 		// remove the sun timer
 		Destroy (sun);
 		// save player's finishing money
@@ -33,7 +35,7 @@ public class Sun : MonoBehaviour {
 
 	// show this turn's stats
 	// TODO: make this look nicer
-	public static float income;
+	public static float income = -1f;
 	//private bool checkDone = false;
 	private void TurnCompleteWindow ()
 	{
@@ -96,9 +98,11 @@ public class Sun : MonoBehaviour {
 		startTime = Time.time;
 		turnComplete = false;
 		// reset player's position
-		GameManager.PLAYER.GetComponent<Respawn>().RespawnPlayer();
+		try { GameManager.PLAYER.GetComponent<Respawn>().RespawnPlayer(); }
+		catch {}
 		// save player's starting money
-		startMoney = GameManager.PLAYER.GetComponent<PlayerInventory>().Dollars;
+		startMoney = GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars;
+
 	}
 
 

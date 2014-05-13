@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour {
 
 	public static void SetGameManager ()
 	{
-		GAME_MANAGER = GameObject.Find ("__Game Manager");
+		if (GAME_MANAGER == null)
+			GAME_MANAGER = GameObject.Find ("__Game Manager");
 	}
 
 

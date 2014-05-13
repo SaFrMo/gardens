@@ -12,8 +12,7 @@ public class Concourse : MonoBehaviour {
 		Contracts
 	}
 	Place current = Place.Main;
-
-	private List<Unlockable> unlockables = new List<Unlockable>();
+	
 	private List<GrowingPlant> growingPlants = new List<GrowingPlant>();
 	private List<Contract> contracts = new List<Contract>();
 
@@ -40,7 +39,7 @@ public class Concourse : MonoBehaviour {
 	public int contractsPerRow = 3;
 	
 	private void ContractSelection () {
-		scrollPos = GUILayout.BeginScrollView(scrollPos, GUIStyle.none);
+		//scrollPos = GUILayout.BeginScrollView(scrollPos, GUIStyle.none);
 		GUILayout.BeginHorizontal();
 		for (int i = 0; i < contracts.Count; i++)
 		{
@@ -54,7 +53,7 @@ public class Concourse : MonoBehaviour {
 			// TODO: show locked cell?
 		}
 		GUILayout.EndHorizontal();
-		GUILayout.EndScrollView();
+		//GUILayout.EndScrollView();
 	}
 	
 	private void RefreshUnlockables ()
@@ -165,7 +164,6 @@ public class Concourse : MonoBehaviour {
 
 
 		};
-
 		GUILayout.EndArea();
 	}
 }
