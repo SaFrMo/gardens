@@ -95,9 +95,10 @@ public class Concourse : MonoBehaviour {
 			    GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars >= u.unlockCost)
 			{
 				GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars -= u.unlockCost;
-				// Store a reference to unlocking the unlockable rather than a direct unlock - otherwise it modifies the prefab
-				//GameManager.unlocked.Add (u, true);
+
+				// unlock and autosave
 				u.unlocked = true;
+				Autosave.SaveNow();
 			}
 			GUILayout.EndHorizontal();
 		}

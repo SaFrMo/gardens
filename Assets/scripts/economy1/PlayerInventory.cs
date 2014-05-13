@@ -5,9 +5,11 @@ using System.Collections.Generic;
 [SerializeAll]
 public class PlayerInventory : MonoBehaviour {
 
+
 	public GameObject notificationPrefab;
 
-	private int _dollars = 20;
+	// TODO: adjust for difficulty
+	private int _dollars = 50;
 	public int Dollars {
 		get { return _dollars; }
 		set { 
