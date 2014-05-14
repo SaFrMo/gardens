@@ -33,12 +33,12 @@ public class MainMenu : MonoBehaviour {
 
 	// main menu
 	private void MainMenuFunction() {
-		GUILayout.Box (GameManager.GAME_NAME);
-		if (GUILayout.Button ("Continue Game")) { currentState = Menu.Continue; }
-		if (GUILayout.Button ("New Game")) { currentState = Menu.NewGame; }
-		if (GUILayout.Button ("Controls")) { currentState = Menu.Controls; }
-		if (GUILayout.Button ("Tutorial")) { currentState = Menu.Tutorial; }
-		if (GUILayout.Button ("Quit Game")) { Application.Quit(); }
+		GUILayout.Box (GameManager.GAME_NAME, GameManager.GUI_SKIN.customStyles[3]);
+		if (GUILayout.Button ("Continue Game", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.Continue; }
+		if (GUILayout.Button ("New Game", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.NewGame; }
+		if (GUILayout.Button ("Controls", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.Controls; }
+		if (GUILayout.Button ("Tutorial", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.Tutorial; }
+		if (GUILayout.Button ("Quit Game", GameManager.GUI_SKIN.customStyles[2])) { Application.Quit(); }
 	}
 
 	// continue - load last autosave
