@@ -89,7 +89,6 @@ public class Concourse : MonoBehaviour {
 		{
 			GUILayout.BeginHorizontal();
 			GUILayout.Box (u.name + " [locked]");
-			// TODO: Start here! unlocking system
 			if (GUILayout.Button (string.Format ("Unlock ({0})", u.unlockCost.ToString())) &&
 			    GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars >= u.unlockCost)
 			{
@@ -107,11 +106,13 @@ public class Concourse : MonoBehaviour {
 	private void OnGUI ()
 		// TODO: make this look nicer
 	{
-		float side = Screen.width * .75f;
-		GUILayout.BeginArea (new Rect (0, 0,
-		                               side, 
+		GUI.skin = GameManager.GUI_SKIN;
+		float side = Screen.width * .33f;
+		GUILayout.BeginArea (new Rect (GameManager.SPACER,
+		                               Screen.height / 4,
+		                               side - GameManager.SPACER, 
 		                               side));
-		GUILayout.Box ("Welcome, [error404]!");
+		GUILayout.Box ("Concourse");
 
 		switch (current)
 		{
