@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d3b1fd65b19509e4f9c2ec3ade204a4f
+guid: 747e9030ff252dd4182874304a899118
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -21,7 +21,7 @@ TextureImporter:
   generateCubemap: 0
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 4096
+  maxTextureSize: 2048
   textureSettings:
     filterMode: 2
     aniso: 1
@@ -35,244 +35,244 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
-  spritePixelsToUnits: 800
+  spritePixelsToUnits: 178
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: PlanterManRigged-01 (1)_0
+    - name: playerAlphaRough_0
       rect:
         serializedVersion: 2
-        x: 288
-        y: 7637
-        width: 474
-        height: 725
+        x: 0
+        y: 1792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_1
+    - name: playerAlphaRough_1
       rect:
         serializedVersion: 2
-        x: 1354
-        y: 7637
-        width: 483
-        height: 717
+        x: 256
+        y: 1792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_2
+    - name: playerAlphaRough_2
       rect:
         serializedVersion: 2
-        x: 2421
-        y: 7637
-        width: 475
-        height: 708
+        x: 512
+        y: 1792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_3
+    - name: playerAlphaRough_3
       rect:
         serializedVersion: 2
-        x: 3487
-        y: 7637
-        width: 484
-        height: 717
+        x: 768
+        y: 1792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_4
+    - name: playerAlphaRough_4
       rect:
         serializedVersion: 2
-        x: 4554
-        y: 7637
-        width: 483
-        height: 725
+        x: 1024
+        y: 1792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_5
+    - name: playerAlphaRough_5
       rect:
         serializedVersion: 2
-        x: 5621
-        y: 7637
-        width: 483
-        height: 725
+        x: 1280
+        y: 1792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_6
+    - name: playerAlphaRough_6
       rect:
         serializedVersion: 2
-        x: 6687
-        y: 7637
-        width: 484
-        height: 725
+        x: 1536
+        y: 1792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_7
+    - name: playerAlphaRough_7
       rect:
         serializedVersion: 2
-        x: 7754
-        y: 7637
-        width: 483
-        height: 725
+        x: 1792
+        y: 1792
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_8
+    - name: playerAlphaRough_8
       rect:
         serializedVersion: 2
-        x: 313
-        y: 6562
-        width: 499
-        height: 734
+        x: 0
+        y: 1536
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_9
+    - name: playerAlphaRough_9
       rect:
         serializedVersion: 2
-        x: 1404
-        y: 6562
-        width: 458
-        height: 740
+        x: 256
+        y: 1536
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_10
+    - name: playerAlphaRough_10
       rect:
         serializedVersion: 2
-        x: 2471
-        y: 6571
-        width: 450
-        height: 725
+        x: 512
+        y: 1536
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_11
+    - name: playerAlphaRough_11
       rect:
         serializedVersion: 2
-        x: 3537
-        y: 6562
-        width: 434
-        height: 733
+        x: 768
+        y: 1536
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_12
+    - name: playerAlphaRough_12
       rect:
         serializedVersion: 2
-        x: 4604
-        y: 6562
-        width: 417
-        height: 734
+        x: 1024
+        y: 1536
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_13
+    - name: playerAlphaRough_13
       rect:
         serializedVersion: 2
-        x: 5671
-        y: 6554
-        width: 408
-        height: 742
+        x: 1280
+        y: 1536
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_14
+    - name: playerAlphaRough_14
       rect:
         serializedVersion: 2
-        x: 6737
-        y: 6554
-        width: 400
-        height: 742
+        x: 1536
+        y: 1536
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_15
+    - name: playerAlphaRough_15
       rect:
         serializedVersion: 2
-        x: 7804
-        y: 6554
-        width: 408
-        height: 741
+        x: 1792
+        y: 1536
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_16
+    - name: playerAlphaRough_16
       rect:
         serializedVersion: 2
-        x: 338
-        y: 5487
-        width: 408
-        height: 742
+        x: 0
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_17
+    - name: playerAlphaRough_17
       rect:
         serializedVersion: 2
-        x: 1404
-        y: 5487
-        width: 425
-        height: 742
+        x: 256
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_18
+    - name: playerAlphaRough_18
       rect:
         serializedVersion: 2
-        x: 2471
-        y: 5487
-        width: 416
-        height: 742
+        x: 512
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_19
+    - name: playerAlphaRough_19
       rect:
         serializedVersion: 2
-        x: 3537
-        y: 5488
-        width: 409
-        height: 741
+        x: 768
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_20
+    - name: playerAlphaRough_20
       rect:
         serializedVersion: 2
-        x: 4604
-        y: 5487
-        width: 400
-        height: 742
+        x: 1024
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_21
+    - name: playerAlphaRough_21
       rect:
         serializedVersion: 2
-        x: 5671
-        y: 5487
-        width: 400
-        height: 742
+        x: 1280
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_22
+    - name: playerAlphaRough_22
       rect:
         serializedVersion: 2
-        x: 6796
-        y: 5562
-        width: 416
-        height: 734
+        x: 1536
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_23
+    - name: playerAlphaRough_23
       rect:
         serializedVersion: 2
-        x: 7812
-        y: 5554
-        width: 433
-        height: 725
+        x: 1792
+        y: 1280
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_24
+    - name: playerAlphaRough_24
       rect:
         serializedVersion: 2
-        x: 338
-        y: 4437
-        width: 441
-        height: 725
+        x: 0
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: PlanterManRigged-01 (1)_25
+    - name: playerAlphaRough_25
       rect:
         serializedVersion: 2
-        x: 1446
-        y: 4429
-        width: 466
-        height: 733
+        x: 256
+        y: 1024
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
   spritePackingTag: 
