@@ -83,14 +83,13 @@ public class Concourse : MonoBehaviour {
 	{
 		if (u.unlocked)
 		{
-			GUILayout.Box (u.name);
+			GUILayout.Box (u.name, GameManager.GUI_SKIN.customStyles[3]);
 		}
 		else
 		{
 			GUILayout.BeginHorizontal();
-			GUILayout.Box (u.name + " [locked]");
-			// TODO: Start here! unlocking system
-			if (GUILayout.Button (string.Format ("Unlock ({0})", u.unlockCost.ToString())) &&
+			GUILayout.Box (u.name + " [locked]", GameManager.GUI_SKIN.customStyles[3]);
+			if (GUILayout.Button (string.Format ("Unlock {0} ({1})", u.name, u.unlockCost.ToString()), GameManager.GUI_SKIN.customStyles[2]) &&
 			    GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars >= u.unlockCost)
 			{
 				GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars -= u.unlockCost;
@@ -107,21 +106,23 @@ public class Concourse : MonoBehaviour {
 	private void OnGUI ()
 		// TODO: make this look nicer
 	{
-		float side = Screen.width * .75f;
-		GUILayout.BeginArea (new Rect (0, 0,
-		                               side, 
-		                               side));
-		GUILayout.Box ("Welcome, [error404]!");
+		GUI.skin = GameManager.GUI_SKIN;
+		float side = Screen.width * .33f;
+		GUILayout.BeginArea (new Rect (GameManager.SPACER,
+		                               Screen.height / 4,
+		                               side - GameManager.SPACER, 
+		                               side), GameManager.GUI_SKIN.customStyles[3]);
+		GUILayout.Box ("Concourse", GameManager.GUI_SKIN.customStyles[3]);
 
 		switch (current)
 		{
 		case Place.Main:
-			if (GUILayout.Button ("Unlockable items")) 
+			if (GUILayout.Button ("Unlockable items", GameManager.GUI_SKIN.customStyles[2])) 
 			{
 				RefreshUnlockables();
 				current = Place.Unlockables;
 			}
-			if (GUILayout.Button ("Contracts"))
+			if (GUILayout.Button ("Contracts", GameManager.GUI_SKIN.customStyles[2]))
 			{
 				RefreshUnlockables();
 				current = Place.Contracts;
@@ -130,26 +131,20 @@ public class Concourse : MonoBehaviour {
 
 
 			// TODO: quit confirmation
-			if (GUILayout.Button ("Quit to Main Menu")) { Application.LoadLevel ("mainMenu"); }
-			if (GUILayout.Button ("Quit game")) { Application.Quit(); }
+			if (GUILayout.Button ("Quit to main menu", GameManager.GUI_SKIN.customStyles[2])) { Application.LoadLevel ("mainMenu"); }
+			if (GUILayout.Button ("Quit game", GameManager.GUI_SKIN.customStyles[2])) { Application.Quit(); }
 			break;
 
 		// unlockables display
 		case Place.Unlockables:
-			/*
-			foreach (Unlockable u in unlockables)
-			{
-				UnlockableCell (u);
-			}
-			*/
 
 			// plants
-			GUILayout.Box ("Plants");
+			GUILayout.Box ("Plants", GameManager.GUI_SKIN.customStyles[3]);
 			foreach (GrowingPlant gp in growingPlants)
 			{
 				UnlockableCell (gp);
 			}
-			if (GUILayout.Button ("Back to Main Menu")) { current = Place.Main; }
+			if (GUILayout.Button ("Back to main menu", GameManager.GUI_SKIN.customStyles[2])) { current = Place.Main; }
 			break;
 
 
@@ -157,7 +152,7 @@ public class Concourse : MonoBehaviour {
 		// contracts
 		case Place.Contracts:
 			ContractSelection();
-			if (GUILayout.Button ("Back to Main Menu")) { current = Place.Main; }
+			if (GUILayout.Button ("Back to main menu", GameManager.GUI_SKIN.customStyles[2])) { current = Place.Main; }
 			break;
 
 

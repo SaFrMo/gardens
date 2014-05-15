@@ -32,14 +32,14 @@ public class Tutorial : MonoBehaviour {
 	private void TutorialBox (string text, Step nextStep, float rX = 0, float rY = 300, float rWidth = 400f, float rHeight = 200f)
 	{
 		GUILayout.BeginArea (new Rect (rX, rY, rWidth, rHeight));
-		GUILayout.Box (text, GameManager.GUI_SKIN.customStyles[1]);
+		GUILayout.Box (text, GameManager.GUI_SKIN.customStyles[3]);
 
-		if (GUILayout.Button ("Next..."))
+		if (GUILayout.Button ("Next...", GameManager.GUI_SKIN.customStyles[2]))
 		{
 			currentStep = nextStep;
 		}
 
-		if (GUILayout.Button ("Back to Menu")) 
+		if (GUILayout.Button ("Back to Menu", GameManager.GUI_SKIN.customStyles[2])) 
 		{ 
 			tutorialOn = false;
 			MainMenu.currentState = MainMenu.Menu.Main; 
