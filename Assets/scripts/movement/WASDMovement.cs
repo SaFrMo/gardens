@@ -21,7 +21,23 @@ public class WASDMovement : MonoBehaviour {
 	private MovementType _currentType = MovementType.Grounded;
 	public MovementType CurrentType {
 		get { return _currentType; }
-		set { _currentType = value; }
+		// sets movement type and animation type
+		set { 
+			_currentType = value; 
+			int i = 0;
+			// this is where the Animator's integers are defined
+			switch (CurrentType)
+			{
+			case MovementType.Grounded:
+				i = 0;
+				break;
+			case MovementType.Jumping:
+				i = 1;
+				break;
+			}
+			GetComponent<Animator>().SetInteger ("AnimationType", i);
+
+		}
 	}
 
 	// AIRBORNE CONTROLS
@@ -128,7 +144,7 @@ public class WASDMovement : MonoBehaviour {
 		}
 			else if (CurrentType != MovementType.Swinging) {
 				GetComponent<Swinging>().DetachFromAnchor();
-				}
+			}
 				 
 
 			
@@ -168,9 +184,10 @@ public class WASDMovement : MonoBehaviour {
 
 	// TODO: Neater way to handle switching back to Grounded type
 
+
 	private void OnCollisionEnter2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
-		if (c.gameObject.tag == "Ground") {
+		if (c.gameObject.CompareTag ("Ground")) {
 			// TODO: make this better
 			RaycastHit2D hitDown = Physics2D.Raycast ((Vector2)transform.position + -Vector2.up, -Vector2.up, .5f);
 			RaycastHit2D hitUp = Physics2D.Raycast ((Vector2)transform.position + Vector2.up, Vector2.up, .5f);
@@ -192,6 +209,7 @@ public class WASDMovement : MonoBehaviour {
 
 
 
+	/*
 	private void OnCollisionStay2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
 		if (c.gameObject.tag == "Ground") {
@@ -205,6 +223,7 @@ public class WASDMovement : MonoBehaviour {
 			}
 		}
 	}
+	*/
 
 	private void HangingControls ()
 		// TODO: make this actually work
@@ -224,6 +243,7 @@ public class WASDMovement : MonoBehaviour {
 	// ==============
 
 	private void Update () {
+		print (_currentType);
 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
 			this.renderer.enabled = true; // this hides the player sprite when dead, there's probably a better way around but this will do for now
 			GroundedControls();
@@ -247,6 +267,6 @@ public class WASDMovement : MonoBehaviour {
 			rigidbody2D.velocity = Vector2.zero;
 		}
 		//CheckSpeed ();
-		HangingControls();
+		//HangingControls();
 	}
 }
