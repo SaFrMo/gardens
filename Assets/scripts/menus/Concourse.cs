@@ -130,9 +130,16 @@ public class Concourse : MonoBehaviour {
 
 
 
-			// TODO: quit confirmation
-			if (GUILayout.Button ("Quit to main menu", GameManager.GUI_SKIN.customStyles[2])) { Application.LoadLevel ("mainMenu"); }
-			if (GUILayout.Button ("Quit game", GameManager.GUI_SKIN.customStyles[2])) { Application.Quit(); }
+			// TODO: quit confirmation, autosave confirmation
+			if (GUILayout.Button ("Quit to main menu", GameManager.GUI_SKIN.customStyles[2])) { 
+				Autosave.SaveNow();
+				Application.LoadLevel ("mainMenu"); 
+			}
+			if (GUILayout.Button ("Quit game", GameManager.GUI_SKIN.customStyles[2])) 
+			{ 
+				Autosave.SaveNow();
+				Application.Quit(); 
+			}
 			break;
 
 		// unlockables display

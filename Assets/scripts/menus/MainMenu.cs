@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 public class MainMenu : MonoBehaviour {
 
@@ -10,6 +11,11 @@ public class MainMenu : MonoBehaviour {
 	private void Start ()
 	{
 		GameManager.SetGameManager();
+		string autoPath = Application.persistentDataPath + "/auto.gdn";
+		FileStream s = null;
+		try { s = File.OpenRead (autoPath); }
+		catch { noAutoSave = true; }
+		finally { if (s!= null) s.Close(); }
 
 
 
@@ -34,7 +40,10 @@ public class MainMenu : MonoBehaviour {
 	// main menu
 	private void MainMenuFunction() {
 		GUILayout.Box (GameManager.GAME_NAME, GameManager.GUI_SKIN.customStyles[3]);
-		if (GUILayout.Button ("Continue Game", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.Continue; }
+		if (!noAutoSave) 
+		{
+			if (GUILayout.Button ("Continue Game", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.Continue; }
+		}
 		if (GUILayout.Button ("New Game", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.NewGame; }
 		if (GUILayout.Button ("Controls", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.Controls; }
 		if (GUILayout.Button ("Tutorial", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.Tutorial; }
@@ -45,8 +54,12 @@ public class MainMenu : MonoBehaviour {
 	private void ContinueGameFunction ()
 	{
 		currentState = Menu.Main;
+		Autosave.LoadNow(); 
 		Application.LoadLevel ("concourse");
+		
 	}
+
+	private bool noAutoSave = false;
 
 	// new game
 	private void NewGameFunction() {
@@ -92,6 +105,8 @@ public class MainMenu : MonoBehaviour {
 		GUILayout.EndScrollView();
 	}
 	*/
+
+
 
 	// show controls
 	public Dictionary<string, string> controls = new Dictionary<string, string>() {
