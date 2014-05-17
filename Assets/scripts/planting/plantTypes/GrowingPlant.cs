@@ -48,6 +48,7 @@ public class GrowingPlant : Unlockable {
 	}
 
 	public string information;
+	public string toolTip;
 	
 	// how much for seeds in the store
 	protected int _cost;

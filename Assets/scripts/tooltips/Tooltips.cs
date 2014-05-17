@@ -10,7 +10,8 @@ public class Tooltips {
 	
 	private static void WindowFun (int id) {}
 	public static void ShowToolTip (string message) {
-		GUI.Window (0, new Rect (Input.mousePosition.x + 10f, SaFrMo.InputYToGUIY(Input.mousePosition.y), 300f, 150f), WindowFun, message);
+		GUI.Window (0, new Rect (Input.mousePosition.x + 10f, SaFrMo.InputYToGUIY(Input.mousePosition.y), 300f, 150f), WindowFun, message,
+		            GameManager.GUI_SKIN.customStyles[4]);
 		GUI.BringWindowToFront(0);
 	}
 	// standalone - place anywhere

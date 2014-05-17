@@ -52,7 +52,7 @@ public class Catalog : MonoBehaviour {
 			// TODO: error message: not enough money!
 			else {}
 		}
-		Tooltips.ShowToolTip ("test", GUILayoutUtility.GetLastRect());
+		Tooltips.ShowToolTip (g.toolTip, GUILayoutUtility.GetLastRect());
 		// displays the cost of the plant in question
 		GUILayout.Box ("$" + cost.ToString());
 		GUILayout.EndHorizontal();
