@@ -60,7 +60,11 @@ public class Swinging : MonoBehaviour {
 	}
 
 	public void DetachFromAnchor () {
-		GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Jumping;
+		WASDMovement.MovementType cT = GetComponent<WASDMovement>().CurrentType;
+		if (cT != WASDMovement.MovementType.Grounded) 
+		{ 
+			GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Jumping; 
+		}
 		Destroy (_rope);
 		Destroy (_constantForce);
 		Destroy (springJoint);
