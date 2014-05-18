@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody))]
 public class WASDMovement : MonoBehaviour {
@@ -17,12 +18,21 @@ public class WASDMovement : MonoBehaviour {
 		Hanging,
 		TurnDone
 	};
+
+	// sounds list: TODO: swap out sounds?
+	public List<AudioClip> sounds = new List<AudioClip>();
+	public void PlaySound (AudioClip which)
+	{
+		try { GetComponent<AudioSource>().PlayOneShot (which); }
+		catch { print ("Couldn't play " + CurrentType); }
+	}
+
 	
 	private MovementType _currentType = MovementType.Grounded;
 	public MovementType CurrentType {
 		get { return _currentType; }
 		// sets movement type and animation type
-		set { 
+		set {
 			_currentType = value; 
 			int i = 0;
 			// this is where the Animator's integers are defined
@@ -60,7 +70,13 @@ public class WASDMovement : MonoBehaviour {
 		// break rope
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
 			// gives you a boost if you jump
-			if (Input.GetKeyDown (jumpBreak)) { rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce * 2); }
+			if (Input.GetKeyDown (jumpBreak)) 
+			{ 
+				// jump force
+				rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce * 2); 
+				// jump sound
+				PlaySound (sounds[0]);
+			}
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
 
@@ -103,7 +119,12 @@ public class WASDMovement : MonoBehaviour {
 		// break zipline
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
 			// gives you a boost if you jump
-			if (Input.GetKeyDown (jumpBreak)) { rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce * 2); }
+			if (Input.GetKeyDown (jumpBreak)) 
+			{ 
+				rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce * 2); 
+				// play jump noise
+				PlaySound (sounds[0]);
+			}
 			goal = transform.position;
 		}
 
@@ -141,6 +162,7 @@ public class WASDMovement : MonoBehaviour {
 		if (Input.GetKeyDown (jumpKey) && CurrentType != MovementType.Jumping){
 			CurrentType = MovementType.Jumping;
 			rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce);
+			PlaySound (sounds[0]);
 		}
 			else if (CurrentType != MovementType.Swinging) {
 				GetComponent<Swinging>().DetachFromAnchor();
