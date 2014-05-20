@@ -44,6 +44,9 @@ public class WASDMovement : MonoBehaviour {
 			case MovementType.Jumping:
 				i = 1;
 				break;
+			case MovementType.Ziplining:
+				PlaySound (sounds[3]);
+				break;
 			}
 			GetComponent<Animator>().SetInteger ("AnimationType", i);
 
@@ -82,13 +85,23 @@ public class WASDMovement : MonoBehaviour {
 
 		// rope length change
 		// you can always increase rope length... (TODO: make a max length)
-		if (Input.GetAxis ("Vertical") <= 0) {
+		if (Input.GetAxis ("Vertical") < 0) {
 			GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+			if (!GetComponent<AudioSource>().isPlaying)
+			{
+				GetComponent<AudioSource>().clip = sounds[2];
+				GetComponent<AudioSource>().Play();
+			}
 		}
 		// ...but there's a minimum rope length you can't pass
 		else if (Input.GetAxis ("Vertical") > 0) {
 			if (GetComponent<Swinging>().RopeLength > minRopeLength) {
 				GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+				if (!GetComponent<AudioSource>().isPlaying)
+				{
+					GetComponent<AudioSource>().clip = sounds[2];
+					GetComponent<AudioSource>().Play();
+				}
 			}
 		}
 
@@ -107,7 +120,10 @@ public class WASDMovement : MonoBehaviour {
 		if (CurrentType == MovementType.Swinging) {
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
-		CurrentType = MovementType.Ziplining;
+		if (CurrentType != MovementType.Ziplining)
+		{
+			CurrentType = MovementType.Ziplining;
+		}
 		rigidbody2D.gravityScale = 0;
 		rigidbody2D.drag = 0;
 		rigidbody2D.velocity = Vector2.zero;

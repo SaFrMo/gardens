@@ -10,7 +10,7 @@ public class OpeningMovie : MonoBehaviour {
 	public List<string> subtitles = new List<string>();
 	private int currentTitle = 0;
 
-	private void NextSlide (float time = 4f)
+	private void NextSlide (float time = 6f)
 	{
 		// go to next slide
 		try 

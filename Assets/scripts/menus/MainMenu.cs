@@ -70,7 +70,7 @@ public class MainMenu : MonoBehaviour {
 		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().ResetMoney();
 		Autosave.SaveNow();
 		currentState = Menu.Main;
-		Application.LoadLevel ("concourse");
+		Application.LoadLevel ("openingMovie");
 	}
 	/*
 	// contract selection
