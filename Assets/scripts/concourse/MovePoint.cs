@@ -24,7 +24,6 @@ public class MovePoint : MonoBehaviour
 	void OnMouseDown()
 	{
 	    screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-		print ("clicked!");
 	 
 	    offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
 	 	
