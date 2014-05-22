@@ -13,8 +13,10 @@ public class Tutorial : MonoBehaviour {
 		Jumping,
 		Swinging,
 		BreakingTether,
+		LengthenShorten,
 		Gardening,
-		Buying
+		Buying,
+		Zooming
 	}
 
 	// tutorial box size details
@@ -60,7 +62,7 @@ public class Tutorial : MonoBehaviour {
 				break;
 
 			case Step.Jumping:
-				TutorialBox ("[SPACE] to jump.", Step.Swinging);
+				TutorialBox ("[SPACE] to jump. You can jump as many times as you like, though it's not the most efficient way to get around.", Step.Swinging);
 				break;
 
 			case Step.Swinging:
@@ -68,7 +70,11 @@ public class Tutorial : MonoBehaviour {
 				break;
 
 			case Step.BreakingTether:
-				TutorialBox ("Hitting a solid object or pressing [LEFT CTRL] or [SPACE] will break the tether. Lean with [A] and [D].", Step.Gardening);
+				TutorialBox ("Hitting a solid object or pressing [LEFT CTRL] or [SPACE] will break the tether.", Step.LengthenShorten);
+				break;
+
+			case Step.LengthenShorten:
+				TutorialBox ("[W] and [S] lengthen or shorten the tether.", Step.Gardening);
 				break;
 
 			case Step.Gardening:
@@ -77,7 +83,11 @@ public class Tutorial : MonoBehaviour {
 				break;
 
 			case Step.Buying:
-				TutorialBox ("Press [R] to switch between plant information views.", Step.Start);
+				TutorialBox ("Press [R] to switch between plant information views.", Step.Zooming);
+				break;
+
+			case Step.Zooming:
+				TutorialBox ("Use the mouse wheel to zoom in and out.", Step.Start);
 				break;
 
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 public class MainMenu : MonoBehaviour {
 
@@ -10,6 +11,11 @@ public class MainMenu : MonoBehaviour {
 	private void Start ()
 	{
 		GameManager.SetGameManager();
+		string autoPath = Application.persistentDataPath + "/auto.gdn";
+		FileStream s = null;
+		try { s = File.OpenRead (autoPath); }
+		catch { noAutoSave = true; }
+		finally { if (s!= null) s.Close(); }
 
 
 
@@ -34,7 +40,10 @@ public class MainMenu : MonoBehaviour {
 	// main menu
 	private void MainMenuFunction() {
 		GUILayout.Box (GameManager.GAME_NAME, GameManager.GUI_SKIN.customStyles[3]);
-		if (GUILayout.Button ("Continue Game", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.Continue; }
+		if (!noAutoSave) 
+		{
+			if (GUILayout.Button ("Continue Game", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.Continue; }
+		}
 		if (GUILayout.Button ("New Game", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.NewGame; }
 		if (GUILayout.Button ("Controls", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.Controls; }
 		if (GUILayout.Button ("Tutorial", GameManager.GUI_SKIN.customStyles[2])) { currentState = Menu.Tutorial; }
@@ -45,19 +54,36 @@ public class MainMenu : MonoBehaviour {
 	private void ContinueGameFunction ()
 	{
 		currentState = Menu.Main;
+		Autosave.LoadNow(); 
 		Application.LoadLevel ("concourse");
+		
 	}
+
+	private bool noAutoSave = false;
 
 	// new game
 	private void NewGameFunction() {
 		// TODO: overwrite progress warning dialog?
 		// wipes last autosave and starts a new game
 		// reset plant status
-		GameManager.GAME_MANAGER.GetComponent<Catalog>().ResetPlantsList();
+		// add new game email
 		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().ResetMoney();
+		Email test = new Email ("rem22@chi.us", "dpw@chi.us", "Welcome and thank you for your interest in serving the city of Chicago." +
+		                        "\n\nThe members of the Chicago City Council are awaiting the results of your vertical gardens experiment with great interest." +
+		                        "We applaud your effort to make this a cleaner and more productive city, and we are pleased to collaborate with you on a project " +
+		                        "of such import.\n\nPlease remember that, due to the economic situation which the city of Chicago is currently facing, we cannot offer" +
+		                        " any startup monies as a grant - your fee should be considered a loan and, in order to improve our understanding of economic viability" +
+		                        " of the vertical gardens project, we expect it to be paid back in full.\n\nHowever, given the idealistic nature of your task, " +
+		                        "we are only charging 8% interest (compound) instead of 9%, the normal rate. We view this as a reasonable sacrifice to make to " +
+		                        "support such a noble goal.\n\nThank you, good luck, and remember to pay your bills!\n\nThe Alderperson and City Council of Chicago",
+		                        "Congratulations and startup monies");
+		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().inbox.Add (test);
+		print ("added");
+		GameManager.GAME_MANAGER.GetComponent<Catalog>().ResetPlantsList();
+
 		Autosave.SaveNow();
 		currentState = Menu.Main;
-		Application.LoadLevel ("concourse");
+		Application.LoadLevel ("openingMovie");
 	}
 	/*
 	// contract selection
@@ -92,6 +118,8 @@ public class MainMenu : MonoBehaviour {
 		GUILayout.EndScrollView();
 	}
 	*/
+
+
 
 	// show controls
 	public Dictionary<string, string> controls = new Dictionary<string, string>() {

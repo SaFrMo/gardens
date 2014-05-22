@@ -46,7 +46,28 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\scripts\movement\TubeRenderer.js" />
+     <Compile Include="Assets\UnitySerializer\Scripts\JSONPauseMenu.js" />
+     <Compile Include="Assets\UnitySerializer\Scripts\Movement.js" />
+     <Compile Include="Assets\UnitySerializer\Scripts\PauseMenu.js" />
+     <Compile Include="Assets\UnitySerializer\Scripts\Spawner.js" />
+     <None Include="Assets\Unity_4_3_Source\Shaders (WIP)\2DVLS_Cutout (2-Sided).shader" />
+     <None Include="Assets\Unity_4_3_Source\Shaders (WIP)\2DVLS_Diffuse (2-Sided).shader" />
+     <None Include="Assets\2DVLS\Core\Shaders\2DVLS_Diffuse.shader" />
+     <None Include="Assets\2DVLS\READ-ME.txt" />
+     <None Include="Assets\Unity_4_3_Source\Shaders (WIP)\2DVLS_Light.shader" />
+     <None Include="Assets\Unity_4_3_Source\Shaders (WIP)\2DVLS_Cutout.shader" />
+     <None Include="Assets\2DVLS\Core\Shaders\2DVLS_Cutout (2-Sided).shader" />
+     <None Include="Assets\Plugins\whydoidoit.com\license.txt" />
+     <None Include="Assets\2DVLS\Core\Shaders\2DVLS_Light.shader" />
+     <None Include="Assets\2DVLS\Core\Shaders\2DVLS_Diffuse (2-Sided).shader" />
+     <None Include="Assets\2DVLS\Core\Shaders\2DVLS_Cutout.shader" />
+     <None Include="Assets\sprites\attributions.txt" />
+     <None Include="Assets\Unity_4_3_Source\Shaders (WIP)\2DVLS_Diffuse.shader" />
+     <None Include="Assets\UnitySerializer\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{9BA7E2B2-81C0-C096-DC01-45ACFF807074}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

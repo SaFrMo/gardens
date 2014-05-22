@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody))]
 public class WASDMovement : MonoBehaviour {
@@ -17,11 +18,39 @@ public class WASDMovement : MonoBehaviour {
 		Hanging,
 		TurnDone
 	};
+
+	// sounds list: TODO: swap out sounds?
+	public List<AudioClip> sounds = new List<AudioClip>();
+	public void PlaySound (AudioClip which)
+	{
+		try { GetComponent<AudioSource>().PlayOneShot (which); }
+		catch { print ("Couldn't play " + CurrentType); }
+	}
+
 	
 	private MovementType _currentType = MovementType.Grounded;
 	public MovementType CurrentType {
 		get { return _currentType; }
-		set { _currentType = value; }
+		// sets movement type and animation type
+		set {
+			_currentType = value; 
+			int i = 0;
+			// this is where the Animator's integers are defined
+			switch (CurrentType)
+			{
+			case MovementType.Grounded:
+				i = 0;
+				break;
+			case MovementType.Jumping:
+				i = 1;
+				break;
+			case MovementType.Ziplining:
+				PlaySound (sounds[3]);
+				break;
+			}
+			GetComponent<Animator>().SetInteger ("AnimationType", i);
+
+		}
 	}
 
 	// AIRBORNE CONTROLS
@@ -44,19 +73,35 @@ public class WASDMovement : MonoBehaviour {
 		// break rope
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
 			// gives you a boost if you jump
-			if (Input.GetKeyDown (jumpBreak)) { rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce * 2); }
+			if (Input.GetKeyDown (jumpBreak)) 
+			{ 
+				// jump force
+				rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce * 2); 
+				// jump sound
+				PlaySound (sounds[0]);
+			}
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
 
 		// rope length change
 		// you can always increase rope length... (TODO: make a max length)
-		if (Input.GetAxis ("Vertical") <= 0) {
+		if (Input.GetAxis ("Vertical") < 0) {
 			GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+			if (!GetComponent<AudioSource>().isPlaying)
+			{
+				GetComponent<AudioSource>().clip = sounds[2];
+				GetComponent<AudioSource>().Play();
+			}
 		}
 		// ...but there's a minimum rope length you can't pass
 		else if (Input.GetAxis ("Vertical") > 0) {
 			if (GetComponent<Swinging>().RopeLength > minRopeLength) {
 				GetComponent<Swinging>().RopeLength -= lengthChangeRate * Input.GetAxis ("Vertical") * Time.deltaTime;
+				if (!GetComponent<AudioSource>().isPlaying)
+				{
+					GetComponent<AudioSource>().clip = sounds[2];
+					GetComponent<AudioSource>().Play();
+				}
 			}
 		}
 
@@ -75,7 +120,10 @@ public class WASDMovement : MonoBehaviour {
 		if (CurrentType == MovementType.Swinging) {
 			GetComponent<Swinging>().DetachFromAnchor();
 		}
-		CurrentType = MovementType.Ziplining;
+		if (CurrentType != MovementType.Ziplining)
+		{
+			CurrentType = MovementType.Ziplining;
+		}
 		rigidbody2D.gravityScale = 0;
 		rigidbody2D.drag = 0;
 		rigidbody2D.velocity = Vector2.zero;
@@ -87,7 +135,12 @@ public class WASDMovement : MonoBehaviour {
 		// break zipline
 		if (Input.GetKeyDown (jumpBreak) || Input.GetKeyDown (fallBreak)) {
 			// gives you a boost if you jump
-			if (Input.GetKeyDown (jumpBreak)) { rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce * 2); }
+			if (Input.GetKeyDown (jumpBreak)) 
+			{ 
+				rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce * 2); 
+				// play jump noise
+				PlaySound (sounds[0]);
+			}
 			goal = transform.position;
 		}
 
@@ -125,10 +178,11 @@ public class WASDMovement : MonoBehaviour {
 		if (Input.GetKeyDown (jumpKey) && CurrentType != MovementType.Jumping){
 			CurrentType = MovementType.Jumping;
 			rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, jumpForce);
+			PlaySound (sounds[0]);
 		}
 			else if (CurrentType != MovementType.Swinging) {
 				GetComponent<Swinging>().DetachFromAnchor();
-				}
+			}
 				 
 
 			
@@ -168,9 +222,10 @@ public class WASDMovement : MonoBehaviour {
 
 	// TODO: Neater way to handle switching back to Grounded type
 
+
 	private void OnCollisionEnter2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
-		if (c.gameObject.tag == "Ground") {
+		if (c.gameObject.CompareTag ("Ground")) {
 			// TODO: make this better
 			RaycastHit2D hitDown = Physics2D.Raycast ((Vector2)transform.position + -Vector2.up, -Vector2.up, .5f);
 			RaycastHit2D hitUp = Physics2D.Raycast ((Vector2)transform.position + Vector2.up, Vector2.up, .5f);
@@ -192,6 +247,7 @@ public class WASDMovement : MonoBehaviour {
 
 
 
+	/*
 	private void OnCollisionStay2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
 		if (c.gameObject.tag == "Ground") {
@@ -205,6 +261,7 @@ public class WASDMovement : MonoBehaviour {
 			}
 		}
 	}
+	*/
 
 	private void HangingControls ()
 		// TODO: make this actually work
@@ -224,6 +281,7 @@ public class WASDMovement : MonoBehaviour {
 	// ==============
 
 	private void Update () {
+		print (_currentType);
 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
 			this.renderer.enabled = true; // this hides the player sprite when dead, there's probably a better way around but this will do for now
 			GroundedControls();
@@ -247,6 +305,6 @@ public class WASDMovement : MonoBehaviour {
 			rigidbody2D.velocity = Vector2.zero;
 		}
 		//CheckSpeed ();
-		HangingControls();
+		//HangingControls();
 	}
 }

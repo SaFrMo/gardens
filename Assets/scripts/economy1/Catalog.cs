@@ -52,6 +52,7 @@ public class Catalog : MonoBehaviour {
 			// TODO: error message: not enough money!
 			else {}
 		}
+		Tooltips.ShowToolTip (g.toolTip, GUILayoutUtility.GetLastRect());
 		// displays the cost of the plant in question
 		GUILayout.Box ("$" + cost.ToString());
 		GUILayout.EndHorizontal();
@@ -94,6 +95,7 @@ public class Catalog : MonoBehaviour {
 	// ONGUI ()
 	// =========
 	
+
 	private void OnGUI () {
 		GUI.skin = GameManager.GUI_SKIN;
 		if (showPlantCatalog) {

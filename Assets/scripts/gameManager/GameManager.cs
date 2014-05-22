@@ -25,6 +25,14 @@ public class GameManager : MonoBehaviour {
 		try { PLAYER = GameObject.Find ("Player"); }
 		catch { print ("Can't find Player"); }
 
+		// make sure you don't have $0
+		// TODO: let the player find the money on the ground
+		if (GAME_MANAGER.GetComponent<PlayerInventory>().Dollars <= 0)
+		{
+			GAME_MANAGER.GetComponent<PlayerInventory>().Dollars += UnityEngine.Random.Range (3, 5);
+
+		}
+
 	}
 
 	public static void SetGameManager ()

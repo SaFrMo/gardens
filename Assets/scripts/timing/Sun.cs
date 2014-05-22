@@ -13,6 +13,10 @@ public class Sun : MonoBehaviour {
 	// money values - allows comparison in a single turn
 	private float startMoney;
 	private float endMoney;
+
+	// xp change
+	private int xpChange = 0;
+	private int xpOld = 0;
 	
 	private void Start () {
 		Invoke ("Reset", .2f);
@@ -22,9 +26,27 @@ public class Sun : MonoBehaviour {
 	private bool turnComplete = false;
 	private void CompleteTurn()
 	{
+		if (!turnComplete)
+		// put all one-time events (xp calculation, etc.) here
+		{
+			print ("done");
+			// basic XP rewards
+			// remember old XP
+			xpOld = Stats.XP;
+			// calculate reward XP
+			xpChange = (int)(income / 2); // make money, get XP
+			// can't lost XP
+			if (xpChange < 0) xpChange = 0;
+			// apply XP
+			Stats.XP += xpChange;
+
+			// mark one-time events as done
+			turnComplete = true;
+		}
+
 		// freeze player
 		GameManager.PLAYER.GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.TurnDone;
-		turnComplete = true;
+		
 		// TODO: hide catalog
 
 		// remove the sun timer
@@ -60,6 +82,14 @@ public class Sun : MonoBehaviour {
 			if (g.complete)
 				g.Rewards();
 		}
+
+		// XP rewards display
+		GUILayout.BeginHorizontal();
+		// where'd you get your XP>
+		GUILayout.Box (string.Format ("XP Breakdown\n{0} from money", (int)income / 2));
+		// how much XP did you have before? how much XP did you get? how much to the next level?
+		GUILayout.Box (string.Format ("XP gain: {0}\nTotal XP: {1}\nTo Next Level: {2}", xpChange, xpOld + xpChange, Stats.ToNextLevel()));
+		GUILayout.EndHorizontal();
 			
 
 		// navigation from this menu
@@ -74,7 +104,9 @@ public class Sun : MonoBehaviour {
 		{
 			Reset ();
 		}
-		//sun.LightEnabled = false;
+
+
+
 		GUILayout.EndHorizontal();
 		GUILayout.EndArea();
 	}

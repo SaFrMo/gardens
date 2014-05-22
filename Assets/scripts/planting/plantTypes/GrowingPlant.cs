@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
+[SerializeAll]
 public class GrowingPlant : Unlockable {
 	
 	public enum Purpose
@@ -48,6 +48,7 @@ public class GrowingPlant : Unlockable {
 	}
 
 	public string information;
+	public string toolTip;
 	
 	// how much for seeds in the store
 	protected int _cost;
