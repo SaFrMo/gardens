@@ -33,6 +33,7 @@ public class PlayerInventory : MonoBehaviour {
 	// inbox with the default email
 	// TODO: rewrite this
 	public List<Email> inbox = new List<Email>();
+	public List<Email> trash = new List<Email>();
 
 	private void Start () { startingDollars = _dollars; }
 	public void ResetMoney () { _dollars = startingDollars; }

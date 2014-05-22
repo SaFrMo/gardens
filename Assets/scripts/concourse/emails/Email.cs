@@ -10,6 +10,7 @@ public class Email {
 	public string Subject { get; private set; }
 	public bool Read { get; set; }
 
+	// for UnitySerializer purposes
 	public Email ()
 	{
 		To = "you";

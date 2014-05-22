@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public class PlayerComputer : MonoBehaviour {
 
 	private List<Email> _inbox = null;
-
+	private Vector2 inboxScrollPos = Vector2.zero;
+	private Vector2 emailScrollPos = Vector2.zero;
 
 	private Email currentEmail = null;
 
@@ -15,6 +16,7 @@ public class PlayerComputer : MonoBehaviour {
 		// TODO: fix layout
 		float columnWidth = Screen.width * .2f;
 		GUILayout.BeginArea (new Rect (Screen.width / 2, Screen.height * .25f, columnWidth, 400f));
+		inboxScrollPos = GUILayout.BeginScrollView (inboxScrollPos);
 		// select an email in your _inbox
 		if (_inbox.Count > 0)
 		{
@@ -27,6 +29,7 @@ public class PlayerComputer : MonoBehaviour {
 			}
 		}
 		else { GUILayout.Box ("No messages in inbox!"); }
+		GUILayout.EndScrollView();
 		GUILayout.EndArea();
 
 		// display selected email
@@ -37,14 +40,15 @@ public class PlayerComputer : MonoBehaviour {
 
 			// display content and options
 			GUILayout.BeginArea (new Rect (Screen.width / 2 + columnWidth + GameManager.SPACER, Screen.height * .25f, columnWidth, 400f));
-			GUILayout.Box (currentEmail.Content);
-
+			// current email options
+			GUILayout.BeginHorizontal();
 			// delete email
 			// TODO: move to Trash list
-			GUILayout.BeginHorizontal();
 			if (GUILayout.Button ("Delete"))
 			{
-				_inbox.Remove (_inbox.Find (x => x.Content == currentEmail.Content));
+				Email toDelete = _inbox.Find (x => x.Content == currentEmail.Content);
+				_inbox.Remove (toDelete);
+				GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().trash.Add (toDelete);
 				currentEmail = null;
 			}
 			// mark unread and go back to _inbox
@@ -53,15 +57,21 @@ public class PlayerComputer : MonoBehaviour {
 				currentEmail.Read = false;
 				currentEmail = null;
 			}
+			// just go back to inbox
 			if (GUILayout.Button ("Back to inbox"))
 			{
 				currentEmail = null;
 			}
-
-				GUILayout.EndHorizontal();
-				GUILayout.EndArea();
-			}
-
+			
+			GUILayout.EndHorizontal();
+			// current email content
+			GUI.skin.scrollView.fixedWidth = columnWidth;
+			GUI.skin.button.wordWrap = true;
+			emailScrollPos = GUILayout.BeginScrollView (emailScrollPos);
+			GUILayout.Box (currentEmail.Content);
+			GUILayout.EndScrollView();
+			GUILayout.EndArea();
+		}
 	}
 
 	private void FindInbox ()
@@ -76,6 +86,8 @@ public class PlayerComputer : MonoBehaviour {
 
 	private void OnGUI ()
 	{
+		GUI.skin = GameManager.GUI_SKIN;
+
 		if (_inbox != null)
 			ComputerScreen();
 	}
