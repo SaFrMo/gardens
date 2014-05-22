@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
+[SerializeAll]
 public class GrowingPlant : Unlockable {
 	
 	public enum Purpose

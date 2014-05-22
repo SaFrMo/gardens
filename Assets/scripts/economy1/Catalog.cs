@@ -95,6 +95,7 @@ public class Catalog : MonoBehaviour {
 	// ONGUI ()
 	// =========
 	
+
 	private void OnGUI () {
 		GUI.skin = GameManager.GUI_SKIN;
 		if (showPlantCatalog) {
