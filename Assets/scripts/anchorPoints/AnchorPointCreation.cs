@@ -13,7 +13,7 @@ public class AnchorPointCreation : MonoBehaviour {
 		{
 			// play grappling hook sound. TODO: fix - this is ugly
 			GetComponent<WASDMovement>().PlaySound (GetComponent<WASDMovement>().sounds[1]);
-			if (GetComponent<WASDMovement>().CurrentType != WASDMovement.MovementType.Ziplining) {
+			if (WASDMovement.CurrentType != WASDMovement.MovementType.Ziplining) {
 				// select preexisting anchor point if one exists
 				// TODO: Drag preexisting anchor point to new location?
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

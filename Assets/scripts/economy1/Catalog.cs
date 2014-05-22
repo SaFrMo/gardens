@@ -104,9 +104,13 @@ public class Catalog : MonoBehaviour {
 	}
 
 	private void Update () {
-		//TUT_SHOW_PLANT_CATALOG = showPlantCatalog;
+		// Doesn't show catalog if turn is starting or finishing
 		if (Planter.SELECTED_PLANTER != null && Input.GetKeyDown (catalogAccess)) {
-			showPlantCatalog = !showPlantCatalog;
+			if (WASDMovement.CurrentType != WASDMovement.MovementType.TurnDone &&
+			    WASDMovement.CurrentType != WASDMovement.MovementType.TurnStart)
+			{
+				showPlantCatalog = !showPlantCatalog;
+			}
 		}
 		else if (Planter.SELECTED_PLANTER == null) {
 			showPlantCatalog = false;

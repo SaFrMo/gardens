@@ -13,7 +13,7 @@ public class Respawn : MonoBehaviour {
 	}
 	//Sets movement type back to Grounded from Dead and moves player to the spawnpoint
 	public void RespawnPlayer() {
-		GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Grounded;
+		WASDMovement.CurrentType = WASDMovement.MovementType.Grounded;
 		rigidbody2D.transform.position = spawnPoint;
 
 	}

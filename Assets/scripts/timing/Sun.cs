@@ -3,6 +3,39 @@ using System.Collections;
 
 public class Sun : MonoBehaviour {
 
+	// turn start: make goals clear
+	private bool turnStarted = false;
+	private void TurnStart ()
+	{
+		float boxSize = 400f;
+		GUILayout.BeginArea (new Rect (Screen.width / 2 - boxSize / 2,
+		                               Screen.height / 2 - boxSize / 2,
+		                               boxSize,
+		                               boxSize));
+		GUILayout.Box ("LEVEL NAME");
+
+		// goals
+		GUILayout.Box ("Objectives");
+		foreach (Goal g in GoalsDisplay.allGoalsArray)
+		{
+			GUILayout.Box (g.description);
+		}
+
+		GUILayout.BeginHorizontal();
+		if (GUILayout.Button ("Back to base")) 
+		{
+			Autosave.SaveNow();
+			Application.LoadLevel ("concourse");
+		}
+		if (GUILayout.Button ("Begin the day!"))
+		{
+			Reset ();
+			turnStarted = true;
+		}
+		GUILayout.EndHorizontal();
+		GUILayout.EndArea();
+	}
+
 	private Light2D sun;
 
 	// one turn will last this many seconds
@@ -17,9 +50,15 @@ public class Sun : MonoBehaviour {
 	// xp change
 	private int xpChange = 0;
 	private int xpOld = 0;
+
+	private void Freeze ()
+	{
+		WASDMovement.CurrentType = WASDMovement.MovementType.TurnStart;
+	}
 	
 	private void Start () {
-		Invoke ("Reset", .2f);
+		Freeze();
+		//Invoke ("Reset", .5f);
 	}
 
 	// turn finishing steps
@@ -45,7 +84,7 @@ public class Sun : MonoBehaviour {
 		}
 
 		// freeze player
-		GameManager.PLAYER.GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.TurnDone;
+		WASDMovement.CurrentType = WASDMovement.MovementType.TurnDone;
 		
 		// TODO: hide catalog
 
@@ -114,6 +153,10 @@ public class Sun : MonoBehaviour {
 	private void OnGUI ()
 	{
 		GUI.skin = GameManager.GUI_SKIN;
+		if (!turnStarted)
+		{
+			TurnStart();
+		}
 		if (turnComplete)
 		{
 			TurnCompleteWindow();

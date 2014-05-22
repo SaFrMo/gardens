@@ -16,7 +16,8 @@ public class WASDMovement : MonoBehaviour {
 		Dead,
 		Ziplining,
 		Hanging,
-		TurnDone
+		TurnDone,
+		TurnStart
 	};
 
 	// sounds list: TODO: swap out sounds?
@@ -28,8 +29,8 @@ public class WASDMovement : MonoBehaviour {
 	}
 
 	
-	private MovementType _currentType = MovementType.Grounded;
-	public MovementType CurrentType {
+	private static MovementType _currentType = MovementType.Grounded;
+	public static MovementType CurrentType {
 		get { return _currentType; }
 		// sets movement type and animation type
 		set {
@@ -45,10 +46,10 @@ public class WASDMovement : MonoBehaviour {
 				i = 1;
 				break;
 			case MovementType.Ziplining:
-				PlaySound (sounds[3]);
+				GameManager.PLAYER.GetComponent<WASDMovement>().PlaySound (GameManager.PLAYER.GetComponent<WASDMovement>().sounds[3]);
 				break;
 			}
-			GetComponent<Animator>().SetInteger ("AnimationType", i);
+			GameManager.PLAYER.GetComponent<Animator>().SetInteger ("AnimationType", i);
 
 		}
 	}
@@ -300,7 +301,7 @@ public class WASDMovement : MonoBehaviour {
 		else if (CurrentType == MovementType.Dead) {
 			this.renderer.enabled = false; //hide the player when you die
 		}
-		else if (CurrentType == MovementType.TurnDone)
+		else if (CurrentType == MovementType.TurnDone || CurrentType == MovementType.TurnStart)
 		{
 			rigidbody2D.velocity = Vector2.zero;
 		}

@@ -25,7 +25,7 @@ public class Die : MonoBehaviour {
 	void KillPlayer() {
 
 		//Keep player from moving
-		GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Dead;
+		WASDMovement.CurrentType = WASDMovement.MovementType.Dead;
 		//Show blood particles
 		bloodEffect.enableEmission = true;
 		bloodEffect.Emit (1000);

@@ -14,8 +14,11 @@ public class PlayerComputer : MonoBehaviour {
 	{
 
 		// TODO: fix layout
+		// email window
 		float columnWidth = Screen.width * .2f;
 		GUILayout.BeginArea (new Rect (Screen.width / 2, Screen.height * .25f, columnWidth, 400f));
+		// email logo
+		GUILayout.Box (".INBOX.");
 		inboxScrollPos = GUILayout.BeginScrollView (inboxScrollPos);
 		// select an email in your _inbox
 		if (_inbox.Count > 0)

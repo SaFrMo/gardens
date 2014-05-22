@@ -35,7 +35,7 @@ public class Swinging : MonoBehaviour {
 
 	public void AttachToAnchor () {
 		// change movement type to Swinging
-		GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Swinging;
+		WASDMovement.CurrentType = WASDMovement.MovementType.Swinging;
 
 		if (_rope == null) {
 			_rope = GameObject.Instantiate (ropePrefab) as GameObject;
@@ -60,10 +60,10 @@ public class Swinging : MonoBehaviour {
 	}
 
 	public void DetachFromAnchor () {
-		WASDMovement.MovementType cT = GetComponent<WASDMovement>().CurrentType;
+		WASDMovement.MovementType cT = WASDMovement.CurrentType;
 		if (cT != WASDMovement.MovementType.Grounded) 
 		{ 
-			GetComponent<WASDMovement>().CurrentType = WASDMovement.MovementType.Jumping; 
+			WASDMovement.CurrentType = WASDMovement.MovementType.Jumping; 
 		}
 		Destroy (_rope);
 		Destroy (_constantForce);

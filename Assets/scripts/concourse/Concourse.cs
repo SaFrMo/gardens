@@ -20,7 +20,7 @@ public class Concourse : MonoBehaviour {
 	private void ContractCell (Contract c)
 	{
 		GUILayout.BeginVertical();
-		GUIContent content = new GUIContent(c.CitySprite, c.CityDescription);
+		GUIContent content = new GUIContent(c.CityDescription);
 
 		// save catalog status and load a contract
 		if (GUILayout.Button (c.CityName))
@@ -112,21 +112,30 @@ public class Concourse : MonoBehaviour {
 		                               Screen.height / 4,
 		                               side - GameManager.SPACER, 
 		                               side), GameManager.GUI_SKIN.customStyles[3]);
-		GUILayout.Box ("Concourse", GameManager.GUI_SKIN.customStyles[3]);
+		GUILayout.Box ("Planner", GameManager.GUI_SKIN.customStyles[3]);
 
 		switch (current)
 		{
 		case Place.Main:
-			if (GUILayout.Button ("Unlockable items", GameManager.GUI_SKIN.customStyles[2])) 
-			{
-				RefreshUnlockables();
-				current = Place.Unlockables;
-			}
+
 			if (GUILayout.Button ("Contracts", GameManager.GUI_SKIN.customStyles[2]))
 			{
 				RefreshUnlockables();
 				current = Place.Contracts;
 			}
+
+			// spacer
+			GUILayout.Box ("");
+
+			// TODO: shopping window logo
+			if (GUILayout.Button ("Unlockable Items", GameManager.GUI_SKIN.customStyles[2])) 
+			{
+				RefreshUnlockables();
+				current = Place.Unlockables;
+			}
+
+			// spacer
+			GUILayout.Box ("");
 
 
 
