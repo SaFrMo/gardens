@@ -65,33 +65,29 @@ public class Sun : MonoBehaviour {
 	private bool turnComplete = false;
 	private void CompleteTurn()
 	{
-		if (!turnComplete)
 		// put all one-time events (xp calculation, etc.) here
+		if (!turnComplete)
 		{
-			print ("done");
+			// remove the sun timer
+			Destroy (sun);
+			// save player's finishing money
+			endMoney = GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars;
+			// freeze player
+			WASDMovement.CurrentType = WASDMovement.MovementType.TurnDone;
+			income = endMoney - startMoney;
 			// basic XP rewards
 			// remember old XP
 			xpOld = Stats.XP;
 			// calculate reward XP
 			xpChange = (int)(income / 2); // make money, get XP
-			// can't lost XP
+			// can't lose XP
 			if (xpChange < 0) xpChange = 0;
 			// apply XP
 			Stats.XP += xpChange;
-
+			
 			// mark one-time events as done
 			turnComplete = true;
 		}
-
-		// freeze player
-		WASDMovement.CurrentType = WASDMovement.MovementType.TurnDone;
-		
-		// TODO: hide catalog
-
-		// remove the sun timer
-		Destroy (sun);
-		// save player's finishing money
-		endMoney = GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars;
 	}
 
 	// show this turn's stats
@@ -109,7 +105,7 @@ public class Sun : MonoBehaviour {
 		// TODO: more level stats
 
 		// net income/loss
-		income = endMoney - startMoney;
+
 		GUILayout.Box (string.Format ("Net income: {0}${1}",
 		                              (income >= 0 ? "+" : "-"),
 		                              income.ToString ()));
@@ -127,7 +123,7 @@ public class Sun : MonoBehaviour {
 		// where'd you get your XP>
 		GUILayout.Box (string.Format ("XP Breakdown\n{0} from money", (int)income / 2));
 		// how much XP did you have before? how much XP did you get? how much to the next level?
-		GUILayout.Box (string.Format ("XP gain: {0}\nTotal XP: {1}\nTo Next Level: {2}", xpChange, xpOld + xpChange, Stats.ToNextLevel()));
+		GUILayout.Box (string.Format ("XP gain: {0}\nTotal XP: {1}\nTo Next Level: {2}", Stats.XP - xpOld, Stats.XP, Stats.ToNextLevel()));
 		GUILayout.EndHorizontal();
 			
 

@@ -115,5 +115,12 @@ public class Catalog : MonoBehaviour {
 		else if (Planter.SELECTED_PLANTER == null) {
 			showPlantCatalog = false;
 		}
+
+		if (WASDMovement.CurrentType == WASDMovement.MovementType.TurnDone ||
+		    WASDMovement.CurrentType == WASDMovement.MovementType.TurnStart)
+		{
+			showPlantCatalog = false;
+
+		}
 	}
-}
+}	
