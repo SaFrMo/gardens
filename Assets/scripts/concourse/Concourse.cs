@@ -40,10 +40,6 @@ public class Concourse : MonoBehaviour {
 
 
 	private void ContractSelection () {
-		if (GUILayout.Button ("test"))
-		{
-			Catalog.contractsList.Add (AllContracts.chicago2);
-		}
 
 		foreach (Contract c in Catalog.contractsList)
 		{

@@ -88,8 +88,7 @@ public class Sun : MonoBehaviour {
 			// rewards from goals
 			foreach (Goal g in GoalsDisplay.allGoalsArray)
 			{
-				if (g.complete)
-					g.Rewards();
+				g.CheckGoal();
 			}
 			
 			// mark one-time events as done
