@@ -40,6 +40,7 @@ public class Concourse : MonoBehaviour {
 	
 	private void ContractSelection () {
 		//scrollPos = GUILayout.BeginScrollView(scrollPos, GUIStyle.none);
+
 		GUILayout.BeginHorizontal();
 		for (int i = 0; i < contracts.Count; i++)
 		{
@@ -53,6 +54,7 @@ public class Concourse : MonoBehaviour {
 			// TODO: show locked cell?
 		}
 		GUILayout.EndHorizontal();
+
 		//GUILayout.EndScrollView();
 	}
 	

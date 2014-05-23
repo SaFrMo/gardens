@@ -27,7 +27,6 @@ public class Catalog : MonoBehaviour {
 	private Vector2 scrollPos = Vector2.zero;
 	// the main catalog reference
 	public List<GameObject> plantsList;
-	// this is the player's copy of the catalog
 
 
 	public static List<GameObject> RefreshPlantsList ()

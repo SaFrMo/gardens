@@ -84,6 +84,13 @@ public class Sun : MonoBehaviour {
 			if (xpChange < 0) xpChange = 0;
 			// apply XP
 			Stats.XP += xpChange;
+
+			// rewards from goals
+			foreach (Goal g in GoalsDisplay.allGoalsArray)
+			{
+				if (g.complete)
+					g.Rewards();
+			}
 			
 			// mark one-time events as done
 			turnComplete = true;
@@ -114,8 +121,7 @@ public class Sun : MonoBehaviour {
 		foreach (Goal g in GoalsDisplay.allGoalsArray)
 		{
 			GUILayout.Box (g.description);
-			if (g.complete)
-				g.Rewards();
+
 		}
 
 		// XP rewards display
