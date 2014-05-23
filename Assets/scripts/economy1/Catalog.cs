@@ -87,11 +87,7 @@ public class Catalog : MonoBehaviour {
 	}
 
 	// contracts list
-	public List<GameObject> contractsList = new List<GameObject>();
-	public static List<GameObject> RefreshContractsList ()
-	{
-		return GameObject.Find ("__Game Manager").GetComponent<Catalog>().contractsList;
-	}
+	public static List<Contract> contractsList = new List<Contract>();
 
 	// ONGUI ()
 	// =========

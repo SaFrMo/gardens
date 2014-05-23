@@ -37,25 +37,18 @@ public class Concourse : MonoBehaviour {
 	
 	Vector2 scrollPos;
 	public int contractsPerRow = 3;
-	
+
+
 	private void ContractSelection () {
-		//scrollPos = GUILayout.BeginScrollView(scrollPos, GUIStyle.none);
-
-		GUILayout.BeginHorizontal();
-		for (int i = 0; i < contracts.Count; i++)
+		if (GUILayout.Button ("test"))
 		{
-			if (i % contractsPerRow == 0)
-			{
-				GUILayout.EndHorizontal();
-				GUILayout.BeginHorizontal();
-			}
-			Contract c = contracts[i].GetComponent<Contract>();
-			if (c.unlocked) { ContractCell (c); }
-			// TODO: show locked cell?
+			Catalog.contractsList.Add (AllContracts.chicago2);
 		}
-		GUILayout.EndHorizontal();
 
-		//GUILayout.EndScrollView();
+		foreach (Contract c in Catalog.contractsList)
+		{
+			ContractCell(c);
+		}
 	}
 	
 	private void RefreshUnlockables ()
@@ -71,12 +64,8 @@ public class Concourse : MonoBehaviour {
 		}
 
 		// refreshes contracts
-		contracts.Clear();
-		goList = Catalog.RefreshContractsList();
-		foreach (GameObject go in goList)
-		{
-			contracts.Add (go.GetComponent<Unlockable>() as Contract);
-		}
+		contracts = Catalog.contractsList;
+
 	}
 
 	// info window, a la Risk of Rain's unlockables window
@@ -102,6 +91,11 @@ public class Concourse : MonoBehaviour {
 			}
 			GUILayout.EndHorizontal();
 		}
+	}
+
+	private void Start ()
+	{
+		Invoke ("RefreshUnlockables", .4f);
 	}
 
 

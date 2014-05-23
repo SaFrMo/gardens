@@ -78,7 +78,7 @@ public class MainMenu : MonoBehaviour {
 		                        "support such a noble goal.\n\nThank you, good luck, and remember to pay your bills!\n\nThe Alderperson and City Council of Chicago",
 		                        "Congratulations and startup monies");
 		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().inbox.Add (test);
-		print ("added");
+		AllContracts.ContractsReset();
 		GameManager.GAME_MANAGER.GetComponent<Catalog>().ResetPlantsList();
 
 		Autosave.SaveNow();
