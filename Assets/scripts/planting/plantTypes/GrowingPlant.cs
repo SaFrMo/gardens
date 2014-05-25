@@ -4,7 +4,7 @@ using System.Collections;
 [SerializeAll]
 public class GrowingPlant : Unlockable {
 
-	public GameObject prefab;
+	public GameObject prefab = GameObject.CreatePrimitive(PrimitiveType.Cube);
 	
 	public enum Purpose
 	{
