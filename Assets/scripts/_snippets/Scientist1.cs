@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Scientist1 : Conversation {
 
 	public int reward = 50;
-	public GameObject seeds;
+	//public GameObject seeds;
 
 	// IMPLEMENTATION:
 	/* GetContent is the main function here. First, it resets the following values:
@@ -85,9 +85,9 @@ public class Scientist1 : Conversation {
 		case 99:
 			toContent = "Pleased as a peach to meet you! Good luck, and remember: don't plant those seeds 'til I'm out of sight!";
 			// TODO: fix this
-			if (seeds != null && !GameManager.PLAYER.GetComponent<Catalog>().plantsList.Contains (seeds))
+			if (!Catalog.plantsList.Contains (AllPlants.seeds))
 			{
-				GameManager.PLAYER.GetComponent<Catalog>().plantsList.Add (seeds);
+				Catalog.plantsList.Add (AllPlants.seeds);
 				print ("Seeds added!");
 			}
 			AllowContinue();

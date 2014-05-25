@@ -3,6 +3,8 @@ using System.Collections;
 
 [SerializeAll]
 public class GrowingPlant : Unlockable {
+
+	public GameObject prefab;
 	
 	public enum Purpose
 	{

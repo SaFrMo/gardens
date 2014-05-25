@@ -34,8 +34,6 @@ public class GameManager : MonoBehaviour {
 
 		}
 
-		print (Stats.XP + " XP");
-
 	}
 
 	public static void SetGameManager ()

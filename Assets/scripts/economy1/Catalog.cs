@@ -8,12 +8,14 @@ public class Catalog : MonoBehaviour {
 	// reset plant status
 	public void ResetPlantsList ()
 	{
+		/*
 		//GameManager.SetGameManager();
-		foreach (GameObject go in plantsList)
+		foreach (GrowingPlant go in plantsList)
 		{
 			Unlockable u = go.GetComponent<Unlockable>();
 			u.unlocked = u.unlockedAtStart;
 		}
+		*/
 	}
 
 	// tutorial purposes
@@ -26,25 +28,26 @@ public class Catalog : MonoBehaviour {
 	public float plantCatalogSide = 200f;
 	private Vector2 scrollPos = Vector2.zero;
 	// the main catalog reference
-	public List<GameObject> plantsList;
+	public static List<GrowingPlant> plantsList;
 
-
+	/*
 	public static List<GameObject> RefreshPlantsList ()
 	{
 		return GameObject.Find ("__Game Manager").GetComponent<Catalog>().plantsList;
 	}
+	*/
 
-	private void PlantInfoCell (GameObject go) {
-		GrowingPlant g = go.GetComponent<GrowingPlant>();
+	private void PlantInfoCell (GrowingPlant g) {
+		//GrowingPlant g = go.GetComponent<GrowingPlant>();
 		// displays information for each plant prefab in the Catalog list
 		GUILayout.BeginHorizontal();
 		// must refer to startingCost rather than Cost b/c Cost is set on Start(), but prefab hasn't been instantiated yet
 		int cost = g.startingCost;
-		if (GUILayout.Button (go.name)) {
+		if (GUILayout.Button (g.unlockableName)) {
 			// do you have enough money for this plant?
 			if (GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars >= cost) {
 				// plant the selected plant
-				Planter.SELECTED_PLANTER.Plant (go);
+				Planter.SELECTED_PLANTER.Plant (g.prefab);
 				// hide the catalog
 				showPlantCatalog = false;
 				// deduct the cost
@@ -68,9 +71,10 @@ public class Catalog : MonoBehaviour {
 		                               plantCatalogSide));
 		// should the scroll position reset when the window closes?
 		scrollPos = GUILayout.BeginScrollView (scrollPos);
-		foreach (GameObject go in plantsList) {
-			if (go.GetComponent<Unlockable>().unlocked)
-				PlantInfoCell (go);
+		foreach (GrowingPlant g in plantsList) {
+			if (g.unlocked)//o.GetComponent<Unlockable>().unlocked)
+				PlantInfoCell (g);
+				//PlantInfoCell (go);
 		}
 		SellContents();
 		GUILayout.EndScrollView();

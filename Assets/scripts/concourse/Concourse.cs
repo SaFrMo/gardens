@@ -51,13 +51,7 @@ public class Concourse : MonoBehaviour {
 	{
 
 		// refreshes unlockable plants
-		growingPlants.Clear ();
-		List<GameObject> goList = Catalog.RefreshPlantsList();
-		foreach (GameObject go in goList)
-		{
-			//unlockables.Add (go.GetComponent<Unlockable>());
-			growingPlants.Add (go.GetComponent<Unlockable>() as GrowingPlant);
-		}
+		growingPlants = Catalog.plantsList;
 
 		// refreshes contracts
 		contracts = Catalog.contractsList;
@@ -70,13 +64,13 @@ public class Concourse : MonoBehaviour {
 	{
 		if (u.unlocked)
 		{
-			GUILayout.Box (u.name, GameManager.GUI_SKIN.customStyles[3]);
+			GUILayout.Box (u.unlockableName, GameManager.GUI_SKIN.customStyles[3]);
 		}
 		else
 		{
 			GUILayout.BeginHorizontal();
-			GUILayout.Box (u.name + " [locked]", GameManager.GUI_SKIN.customStyles[3]);
-			if (GUILayout.Button (string.Format ("Unlock {0} ({1})", u.name, u.unlockCost.ToString()), GameManager.GUI_SKIN.customStyles[2]) &&
+			GUILayout.Box (u.unlockableName + " [locked]", GameManager.GUI_SKIN.customStyles[3]);
+			if (GUILayout.Button (string.Format ("Unlock {0} ({1})", u.unlockableName, u.unlockCost.ToString()), GameManager.GUI_SKIN.customStyles[2]) &&
 			    GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars >= u.unlockCost)
 			{
 				GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars -= u.unlockCost;
