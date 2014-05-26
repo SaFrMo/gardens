@@ -25,6 +25,7 @@ public class Goal_MakeMoney : Goal {
 	{
 		Stats.XP += XPReward;
 		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().inbox.Add (AllEmails.chicago1_payBill);
+		Catalog.miscUnlockables.Add (AllMiscUnlockables.chicago1Debt);
 
 	}
 }
