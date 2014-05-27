@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: 6051d53a72079fc44afa724789d95987
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: PlantermanTemplate-01_0
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 2369
+        width: 1086
+        height: 1713
+      alignment: 9
+      pivot: {x: .43863529, y: .138750836}
+    - name: PlantermanTemplate-01_1
+      rect:
+        serializedVersion: 2
+        x: 1952
+        y: 2890
+        width: 946
+        height: 942
+      alignment: 9
+      pivot: {x: .177960187, y: .489893317}
+    - name: PlantermanTemplate-01_2
+      rect:
+        serializedVersion: 2
+        x: 3473
+        y: 3352
+        width: 500
+        height: 750
+      alignment: 9
+      pivot: {x: .0730058625, y: .940324247}
+    - name: PlantermanTemplate-01_3
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 1256
+        width: 1067
+        height: 488
+      alignment: 9
+      pivot: {x: .955303848, y: .334081441}
+    - name: PlantermanTemplate-01_4
+      rect:
+        serializedVersion: 2
+        x: 1886
+        y: 1323
+        width: 545
+        height: 1013
+      alignment: 9
+      pivot: {x: .771203935, y: .943563998}
+    - name: PlantermanTemplate-01_5
+      rect:
+        serializedVersion: 2
+        x: 3027
+        y: 1286
+        width: 417
+        height: 954
+      alignment: 9
+      pivot: {x: .301507831, y: .940009713}
+    - name: PlantermanTemplate-01_6
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 448
+        width: 533
+        height: 429
+      alignment: 9
+      pivot: {x: .350341171, y: .939493954}
+    - name: PlantermanTemplate-01_7
+      rect:
+        serializedVersion: 2
+        x: 1498
+        y: 444
+        width: 362
+        height: 375
+      alignment: 9
+      pivot: {x: .765427053, y: .915761888}
+    - name: PlantermanTemplate-01_8
+      rect:
+        serializedVersion: 2
+        x: 2165
+        y: 585
+        width: 733
+        height: 392
+      alignment: 9
+      pivot: {x: .0177666433, y: .372587085}
+    - name: PlantermanTemplate-01_9
+      rect:
+        serializedVersion: 2
+        x: 3341
+        y: 602
+        width: 638
+        height: 354
+      alignment: 9
+      pivot: {x: .0243509226, y: .377585888}
+  spritePackingTag: 
+  userData: 
