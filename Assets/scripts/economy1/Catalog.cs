@@ -28,7 +28,7 @@ public class Catalog : MonoBehaviour {
 	// the main catalog reference
 	public List<GameObject> plantsList;
 	// misc. unlockables
-	public static List<MiscUnlockable> miscUnlockables;
+	public static List<MiscUnlockable> miscUnlockables = new List<MiscUnlockable>();
 
 
 	public static List<GameObject> RefreshPlantsList ()

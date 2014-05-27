@@ -181,10 +181,13 @@ public class Concourse : MonoBehaviour {
 				UnlockableCell (gp);
 			}
 			// other unlockables
-			GUILayout.Box ("Other", GameManager.GUI_SKIN.customStyles[3]);
-			foreach (MiscUnlockable u in misc)
+			if (misc.Count > 0)
 			{
-				UnlockableCell(u);
+				GUILayout.Box ("Other", GameManager.GUI_SKIN.customStyles[3]);
+				foreach (MiscUnlockable u in misc)
+				{
+					UnlockableCell(u);
+				}
 			}
 			if (GUILayout.Button ("Back to main menu", GameManager.GUI_SKIN.customStyles[2])) { current = Place.Main; }
 			break;
