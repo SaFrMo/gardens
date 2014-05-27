@@ -39,7 +39,7 @@ public class Sun : MonoBehaviour {
 	private Light2D sun;
 
 	// one turn will last this many seconds
-	public float secondsPerDay = 180f;
+	public static float secondsPerDay = 120f;
 
 	private float startTime;
 

@@ -27,6 +27,12 @@ public class CheatCodes : MonoBehaviour {
 			lowerCurrent = lowerCurrent.Remove (0, "setmoney ".Length);
 			GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars = int.Parse (lowerCurrent);
 		}
+		else if (lowerCurrent.Contains ("settime "))
+		{
+			lowerCurrent = lowerCurrent.Remove (0, "settime ".Length);
+			try { Sun.secondsPerDay = int.Parse (lowerCurrent); }
+			catch {}
+		}
 		currentCode = string.Empty;
 	}
 

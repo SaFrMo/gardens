@@ -110,7 +110,7 @@ public class Concourse : MonoBehaviour {
 				GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars -= u.unlockCost;
 				
 				// unlock and autosave
-				u.unlocked = true;
+				u.Unlock();
 				Autosave.SaveNow();
 			}
 			GUILayout.EndHorizontal();
