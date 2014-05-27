@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
 	public static float SPACER = 10f;
 	public string gameName;
 	public GUISkin gameSkin;
+	public static string PLAYER_EMAIL = "rem22@chi.us";
 
 	public static Dictionary<Unlockable, bool> unlocked = new Dictionary<Unlockable, bool>();
 
@@ -85,6 +86,10 @@ public class GameManager : MonoBehaviour {
 
 
 	}
+
+
+
+
 
 
 

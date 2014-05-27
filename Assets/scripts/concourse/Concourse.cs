@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,6 +16,7 @@ public class Concourse : MonoBehaviour {
 	
 	private List<GrowingPlant> growingPlants = new List<GrowingPlant>();
 	private List<Contract> contracts = new List<Contract>();
+	private List<MiscUnlockable> misc = new List<MiscUnlockable>();
 
 	// contract selection
 	private void ContractCell (Contract c)
@@ -37,25 +39,14 @@ public class Concourse : MonoBehaviour {
 	
 	Vector2 scrollPos;
 	public int contractsPerRow = 3;
-	
+
+
 	private void ContractSelection () {
-		//scrollPos = GUILayout.BeginScrollView(scrollPos, GUIStyle.none);
 
-		GUILayout.BeginHorizontal();
-		for (int i = 0; i < contracts.Count; i++)
+		foreach (Contract c in Catalog.contractsList)
 		{
-			if (i % contractsPerRow == 0)
-			{
-				GUILayout.EndHorizontal();
-				GUILayout.BeginHorizontal();
-			}
-			Contract c = contracts[i].GetComponent<Contract>();
-			if (c.unlocked) { ContractCell (c); }
-			// TODO: show locked cell?
+			ContractCell(c);
 		}
-		GUILayout.EndHorizontal();
-
-		//GUILayout.EndScrollView();
 	}
 	
 	private void RefreshUnlockables ()
@@ -71,12 +62,11 @@ public class Concourse : MonoBehaviour {
 		}
 
 		// refreshes contracts
-		contracts.Clear();
-		goList = Catalog.RefreshContractsList();
-		foreach (GameObject go in goList)
-		{
-			contracts.Add (go.GetComponent<Unlockable>() as Contract);
-		}
+		contracts = Catalog.contractsList;
+
+		// refresh misc. unlockables
+		misc = Catalog.miscUnlockables;
+
 	}
 
 	// info window, a la Risk of Rain's unlockables window
@@ -104,13 +94,41 @@ public class Concourse : MonoBehaviour {
 		}
 	}
 
+	private void UnlockableCell (MiscUnlockable u)
+	{
+		if (u.unlocked)
+		{
+			GUILayout.Box (u.unlockableName, GameManager.GUI_SKIN.customStyles[3]);
+		}
+		else
+		{
+			GUILayout.BeginHorizontal();
+			GUILayout.Box (u.unlockableName + " [locked]", GameManager.GUI_SKIN.customStyles[3]);
+			if (GUILayout.Button (string.Format ("Unlock {0} ({1})", u.unlockableName, u.unlockCost.ToString()), GameManager.GUI_SKIN.customStyles[2]) &&
+			    GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars >= u.unlockCost)
+			{
+				GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars -= u.unlockCost;
+				
+				// unlock and autosave
+				u.unlocked = true;
+				Autosave.SaveNow();
+			}
+			GUILayout.EndHorizontal();
+		}
+	}
+
+	private void Start ()
+	{
+		Invoke ("RefreshUnlockables", .4f);
+	}
+
 
 	private void OnGUI ()
 		// TODO: make this look nicer
 	{
 		GUI.skin = GameManager.GUI_SKIN;
 		float side = Screen.width * .33f;
-		GUILayout.BeginArea (new Rect (GameManager.SPACER,
+		GUILayout.BeginArea (new Rect (Screen.width * .125f,
 		                               Screen.height / 4,
 		                               side - GameManager.SPACER, 
 		                               side), GameManager.GUI_SKIN.customStyles[3]);
@@ -161,6 +179,15 @@ public class Concourse : MonoBehaviour {
 			foreach (GrowingPlant gp in growingPlants)
 			{
 				UnlockableCell (gp);
+			}
+			// other unlockables
+			if (misc.Count > 0)
+			{
+				GUILayout.Box ("Other", GameManager.GUI_SKIN.customStyles[3]);
+				foreach (MiscUnlockable u in misc)
+				{
+					UnlockableCell(u);
+				}
 			}
 			if (GUILayout.Button ("Back to main menu", GameManager.GUI_SKIN.customStyles[2])) { current = Place.Main; }
 			break;

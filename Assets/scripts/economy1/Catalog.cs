@@ -27,6 +27,8 @@ public class Catalog : MonoBehaviour {
 	private Vector2 scrollPos = Vector2.zero;
 	// the main catalog reference
 	public List<GameObject> plantsList;
+	// misc. unlockables
+	public static List<MiscUnlockable> miscUnlockables = new List<MiscUnlockable>();
 
 
 	public static List<GameObject> RefreshPlantsList ()
@@ -87,11 +89,7 @@ public class Catalog : MonoBehaviour {
 	}
 
 	// contracts list
-	public List<GameObject> contractsList = new List<GameObject>();
-	public static List<GameObject> RefreshContractsList ()
-	{
-		return GameObject.Find ("__Game Manager").GetComponent<Catalog>().contractsList;
-	}
+	public static List<Contract> contractsList = new List<Contract>();
 
 	// ONGUI ()
 	// =========

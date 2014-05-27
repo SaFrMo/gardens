@@ -17,11 +17,14 @@ public class Goal_MakeMoney : Goal {
 			// you have to plant something to complete the goal
 			Planter.PLANTS_PLANTED > 0
 		};
+		print ("rewarded!");
 		base.CheckGoal();
 	}
 
 	public override void Rewards ()
 	{
 		Stats.XP += XPReward;
+		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().inbox.Add (AllEmails.chicago1_payBill);
+		Catalog.miscUnlockables.Add (AllMiscUnlockables.chicago1Debt);
 	}
 }
