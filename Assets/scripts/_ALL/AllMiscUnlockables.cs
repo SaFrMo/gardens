@@ -20,13 +20,17 @@ public class AllMiscUnlockables : MonoBehaviour {
 	}
 
 
+	// LEVEL 1: DEBT TO CHICAGO
+	// Pay off your debt and activate your second contract.
 	public static MiscUnlockable chicago1Debt = new MiscUnlockable("Debt to the City of Chicago", "You owe the City of Chicago for helping you " +
 	                                                               "set up your first garden.", 250);
-	// add the new 
 	private static void chicago1_debt_paid () {
 		// remove the debt from the first level
-		Catalog.miscUnlockables.Remove (AllMiscUnlockables.chicago1Debt);
+		Catalog.miscUnlockables.Remove (
+			Catalog.miscUnlockables.Find (x => x.unlockableName == chicago1Debt.unlockableName));
 		// add the new contract
 		Catalog.contractsList.Add (AllContracts.chicago2);
+		// add the new email
+		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().inbox.Add (AllEmails.chicago2_fireHouse);
 	}
 }

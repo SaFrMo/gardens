@@ -65,7 +65,7 @@ public class Concourse : MonoBehaviour {
 		contracts = Catalog.contractsList;
 
 		// refresh misc. unlockables
-		misc = Catalog.miscUnlockables;
+		//misc = Catalog.miscUnlockables;
 
 	}
 
@@ -188,10 +188,10 @@ public class Concourse : MonoBehaviour {
 				UnlockableCell (gp);
 			}
 			// other unlockables
-			if (misc.Count > 0)
+			if (Catalog.miscUnlockables.Count > 0)
 			{
 				GUILayout.Box ("Other", GameManager.GUI_SKIN.customStyles[3]);
-				foreach (MiscUnlockable u in misc)
+				foreach (MiscUnlockable u in Catalog.miscUnlockables)
 				{
 					UnlockableCell(u);
 				}
