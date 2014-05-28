@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6051d53a72079fc44afa724789d95987
+guid: f0155fb9995e0c94191b642fbc54808a
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -41,16 +41,16 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: PlantermanTemplate-01_0
+    - name: PlantermanDefault-01_0
       rect:
         serializedVersion: 2
-        x: 333
+        x: 327
         y: 2369
-        width: 1086
-        height: 1713
+        width: 1092
+        height: 1725
       alignment: 9
-      pivot: {x: .43863529, y: .138750836}
-    - name: PlantermanTemplate-01_1
+      pivot: {x: .438972324, y: .152301863}
+    - name: PlantermanDefault-01_1
       rect:
         serializedVersion: 2
         x: 1952
@@ -59,7 +59,7 @@ TextureImporter:
         height: 942
       alignment: 9
       pivot: {x: .180000007, y: .479999989}
-    - name: PlantermanTemplate-01_2
+    - name: PlantermanDefault-01_2
       rect:
         serializedVersion: 2
         x: 3473
@@ -67,8 +67,8 @@ TextureImporter:
         width: 500
         height: 750
       alignment: 9
-      pivot: {x: .0730058625, y: .940324247}
-    - name: PlantermanTemplate-01_3
+      pivot: {x: .069367677, y: .954487324}
+    - name: PlantermanDefault-01_3
       rect:
         serializedVersion: 2
         x: 277
@@ -76,8 +76,8 @@ TextureImporter:
         width: 1067
         height: 488
       alignment: 9
-      pivot: {x: .955303848, y: .334081441}
-    - name: PlantermanTemplate-01_4
+      pivot: {x: .96669358, y: .34877339}
+    - name: PlantermanDefault-01_4
       rect:
         serializedVersion: 2
         x: 1886
@@ -85,8 +85,8 @@ TextureImporter:
         width: 545
         height: 1013
       alignment: 9
-      pivot: {x: .771203935, y: .943563998}
-    - name: PlantermanTemplate-01_5
+      pivot: {x: .78030163, y: .952411354}
+    - name: PlantermanDefault-01_5
       rect:
         serializedVersion: 2
         x: 3027
@@ -94,8 +94,8 @@ TextureImporter:
         width: 417
         height: 954
       alignment: 9
-      pivot: {x: .301507831, y: .940009713}
-    - name: PlantermanTemplate-01_6
+      pivot: {x: .31051293, y: .947260499}
+    - name: PlantermanDefault-01_6
       rect:
         serializedVersion: 2
         x: 269
@@ -103,8 +103,8 @@ TextureImporter:
         width: 533
         height: 429
       alignment: 9
-      pivot: {x: .350341171, y: .939493954}
-    - name: PlantermanTemplate-01_7
+      pivot: {x: .346238941, y: .94369787}
+    - name: PlantermanDefault-01_7
       rect:
         serializedVersion: 2
         x: 1498
@@ -112,24 +112,24 @@ TextureImporter:
         width: 362
         height: 375
       alignment: 9
-      pivot: {x: .765427053, y: .915761888}
-    - name: PlantermanTemplate-01_8
+      pivot: {x: .748303175, y: .93004185}
+    - name: PlantermanDefault-01_8
       rect:
         serializedVersion: 2
-        x: 2165
-        y: 585
+        x: 2168
+        y: 588
         width: 733
         height: 392
       alignment: 9
-      pivot: {x: .0177666433, y: .372587085}
-    - name: PlantermanTemplate-01_9
+      pivot: {x: .0167048145, y: .358373851}
+    - name: PlantermanDefault-01_9
       rect:
         serializedVersion: 2
-        x: 3341
+        x: 3344
         y: 602
         width: 638
         height: 354
       alignment: 9
-      pivot: {x: .0243509226, y: .377585888}
+      pivot: {x: .0286945589, y: .369582355}
   spritePackingTag: 
   userData: 
