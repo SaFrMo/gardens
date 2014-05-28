@@ -138,6 +138,8 @@ public class Concourse : MonoBehaviour {
 		{
 		case Place.Main:
 
+			scrollPos = GUILayout.BeginScrollView (scrollPos);
+
 			if (GUILayout.Button ("Contracts", GameManager.GUI_SKIN.customStyles[2]))
 			{
 				RefreshUnlockables();
@@ -160,6 +162,7 @@ public class Concourse : MonoBehaviour {
 
 
 			// TODO: quit confirmation, autosave confirmation
+			GUILayout.EndScrollView();
 			if (GUILayout.Button ("Quit to main menu", GameManager.GUI_SKIN.customStyles[2])) { 
 				Autosave.SaveNow();
 				Application.LoadLevel ("mainMenu"); 
@@ -169,10 +172,14 @@ public class Concourse : MonoBehaviour {
 				Autosave.SaveNow();
 				Application.Quit(); 
 			}
+
+
 			break;
 
 		// unlockables display
 		case Place.Unlockables:
+
+			scrollPos = GUILayout.BeginScrollView (scrollPos);
 
 			// plants
 			GUILayout.Box ("Plants", GameManager.GUI_SKIN.customStyles[3]);
@@ -189,15 +196,22 @@ public class Concourse : MonoBehaviour {
 					UnlockableCell(u);
 				}
 			}
+			GUILayout.EndScrollView();
 			if (GUILayout.Button ("Back to main menu", GameManager.GUI_SKIN.customStyles[2])) { current = Place.Main; }
+
+
 			break;
 
 
 
 		// contracts
 		case Place.Contracts:
+			scrollPos = GUILayout.BeginScrollView (scrollPos);
+
 			ContractSelection();
+			GUILayout.EndScrollView();
 			if (GUILayout.Button ("Back to main menu", GameManager.GUI_SKIN.customStyles[2])) { current = Place.Main; }
+
 			break;
 
 

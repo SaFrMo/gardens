@@ -67,6 +67,7 @@ public class MainMenu : MonoBehaviour {
 		// wipes last autosave and starts a new game
 		// reset plant status
 		// add new game email
+		// clear Misc Unlockable list
 		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().ResetMoney();
 		Email test = new Email ("rem22@chi.us", "dpw@chi.us", "Welcome and thank you for your interest in serving the city of Chicago." +
 		                        "\n\nThe members of the Chicago City Council are awaiting the results of your vertical gardens experiment with great interest." +
@@ -80,6 +81,7 @@ public class MainMenu : MonoBehaviour {
 		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().inbox.Add (test);
 		AllContracts.ContractsReset();
 		GameManager.GAME_MANAGER.GetComponent<Catalog>().ResetPlantsList();
+		Catalog.miscUnlockables = new List<MiscUnlockable>();
 
 		Autosave.SaveNow();
 		currentState = Menu.Main;
