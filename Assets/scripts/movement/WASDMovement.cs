@@ -12,6 +12,7 @@ public class WASDMovement : MonoBehaviour {
 	public enum MovementType {
 		Grounded,
 		Jumping,
+		Running,
 		Swinging,
 		Dead,
 		Ziplining,
@@ -28,7 +29,7 @@ public class WASDMovement : MonoBehaviour {
 		catch { print ("Couldn't play " + CurrentType); }
 	}
 
-	
+	private static int oldAnimation = 0;
 	private static MovementType _currentType = MovementType.Grounded;
 	public static MovementType CurrentType {
 		get { return _currentType; }
@@ -43,14 +44,17 @@ public class WASDMovement : MonoBehaviour {
 				i = 0;
 				break;
 			case MovementType.Jumping:
+				//print (StackTraceUtility.ExtractStackTrace());
 				i = 1;
+				break;
+			case MovementType.Running:
+				i = 2;
 				break;
 			case MovementType.Ziplining:
 				GameManager.PLAYER.GetComponent<WASDMovement>().PlaySound (GameManager.PLAYER.GetComponent<WASDMovement>().sounds[3]);
 				break;
 			}
-			GameManager.PLAYER.GetComponent<Animator>().SetInteger ("AnimationType", i);
-
+			GameManager.PLAYER.GetComponentInChildren<Animator>().SetInteger ("AnimationType", i);
 		}
 	}
 
@@ -173,6 +177,20 @@ public class WASDMovement : MonoBehaviour {
 
 	private void GroundedControls () {
 		float move = Input.GetAxis("Horizontal");
+		// set state to Running - only if grounded and moving
+		if (move != 0 && CurrentType == MovementType.Grounded)
+		{
+			CurrentType = MovementType.Running;
+		}
+		// set to idle
+		else if (move == 0 && CurrentType == MovementType.Running)
+		{
+			CurrentType = MovementType.Grounded;
+		}
+
+
+
+
 		rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
 
 		// ground-based jumping (no anchor points involved)
@@ -237,7 +255,7 @@ public class WASDMovement : MonoBehaviour {
 				CurrentType = MovementType.Hanging;
 			}
 			// lets the player jump again after landing on ground
-			if (CurrentType != MovementType.Grounded) {
+			if (CurrentType != MovementType.Grounded && CurrentType != MovementType.Running) {
 
 				CurrentType = MovementType.Grounded;
 
@@ -282,24 +300,23 @@ public class WASDMovement : MonoBehaviour {
 	// ==============
 
 	private void Update () {
-		print (_currentType);
-		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping) {
-			this.renderer.enabled = true; // this hides the player sprite when dead, there's probably a better way around but this will do for now
+		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping || CurrentType == MovementType.Running) {
+			//this.renderer.enabled = true; // this hides the player sprite when dead, there's probably a better way around but this will do for now
 			GroundedControls();
 		}
 		else if (CurrentType == MovementType.Swinging) {
-			this.renderer.enabled = true;
+			//this.renderer.enabled = true;
 			AirborneControls();
 			//GroundedControls();
 		}
 		else if (CurrentType == MovementType.Ziplining) {
-			this.renderer.enabled = true;
+			//this.renderer.enabled = true;
 			ZiplineMovement();
 			AirborneControls();
 		}
 
 		else if (CurrentType == MovementType.Dead) {
-			this.renderer.enabled = false; //hide the player when you die
+			//this.renderer.enabled = false; //hide the player when you die
 		}
 		else if (CurrentType == MovementType.TurnDone || CurrentType == MovementType.TurnStart)
 		{

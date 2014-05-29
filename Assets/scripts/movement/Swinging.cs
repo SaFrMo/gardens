@@ -61,7 +61,8 @@ public class Swinging : MonoBehaviour {
 
 	public void DetachFromAnchor () {
 		WASDMovement.MovementType cT = WASDMovement.CurrentType;
-		if (cT != WASDMovement.MovementType.Grounded) 
+		if (cT != WASDMovement.MovementType.Grounded && cT != WASDMovement.MovementType.Jumping
+		    && cT != WASDMovement.MovementType.Running) 
 		{ 
 			WASDMovement.CurrentType = WASDMovement.MovementType.Jumping; 
 		}
