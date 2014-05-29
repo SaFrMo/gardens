@@ -82,6 +82,8 @@ public class MainMenu : MonoBehaviour {
 		AllContracts.ContractsReset();
 		GameManager.GAME_MANAGER.GetComponent<Catalog>().ResetPlantsList();
 		Catalog.miscUnlockables = new List<MiscUnlockable>();
+		// reset AP
+		Aesthetics.AP = 0;
 
 		Autosave.SaveNow();
 		currentState = Menu.Main;

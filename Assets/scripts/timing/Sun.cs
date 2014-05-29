@@ -47,6 +47,11 @@ public class Sun : MonoBehaviour {
 	private float startMoney;
 	private float endMoney;
 
+	// AP values - allows comparison in a single turn
+	private int startAP;
+	private int endAP;
+	private int apChange;
+
 	// xp change
 	private int xpChange = 0;
 	private int xpOld = 0;
@@ -61,6 +66,10 @@ public class Sun : MonoBehaviour {
 		//Invoke ("Reset", .5f);
 	}
 
+	// XP VALUES
+	int xpMoney;
+	int xpAP;
+
 	// turn finishing steps
 	private bool turnComplete = false;
 	private void CompleteTurn()
@@ -72,14 +81,23 @@ public class Sun : MonoBehaviour {
 			Destroy (sun);
 			// save player's finishing money
 			endMoney = GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars;
+			// save player's finishing AP
+			endAP = Aesthetics.AP;
 			// freeze player
 			WASDMovement.CurrentType = WASDMovement.MovementType.TurnDone;
+			// calculate money and AP change
 			income = endMoney - startMoney;
+			apChange = endAP - startAP;
 			// basic XP rewards
 			// remember old XP
 			xpOld = Stats.XP;
+
 			// calculate reward XP
-			xpChange = (int)(income / 2); // make money, get XP
+			xpMoney = (int)(income / 2);
+			xpAP = (int)(apChange * 10);
+			// apply all the reward XP from above with this line
+			xpChange += xpMoney + xpAP;
+
 			// can't lose XP
 			if (xpChange < 0) xpChange = 0;
 			// apply XP
@@ -116,17 +134,21 @@ public class Sun : MonoBehaviour {
 		                              (income >= 0 ? "+" : "-"),
 		                              income.ToString ()));
 
+		// AP change
+		GUILayout.Box (string.Format ("Net AP: {0}", apChange.ToString()));
+
 		// check goals
 		foreach (Goal g in GoalsDisplay.allGoalsArray)
 		{
-			GUILayout.Box (g.description);
-
+			string isItDone = (g.complete ? "[COMPLETE] " : "[INCOMPLETE] ");
+			GUILayout.Box (isItDone + g.description);
+			// TODO: remove goal
 		}
 
 		// XP rewards display
 		GUILayout.BeginHorizontal();
 		// where'd you get your XP>
-		GUILayout.Box (string.Format ("XP Breakdown\n{0} from money", (int)income / 2));
+		GUILayout.Box (string.Format ("XP Breakdown\n{0} from money\n{1} from AP", xpMoney, xpAP));
 		// how much XP did you have before? how much XP did you get? how much to the next level?
 		GUILayout.Box (string.Format ("XP gain: {0}\nTotal XP: {1}\nTo Next Level: {2}", Stats.XP - xpOld, Stats.XP, Stats.ToNextLevel()));
 		GUILayout.EndHorizontal();
@@ -178,7 +200,8 @@ public class Sun : MonoBehaviour {
 		catch {}
 		// save player's starting money
 		startMoney = GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars;
-
+		// save player's starting AP
+		startAP = Aesthetics.AP;
 	}
 
 
