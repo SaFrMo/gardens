@@ -41,6 +41,9 @@ public class Planter : MonoBehaviour {
 		ALL_PLANTS.Add (newPlant.GetComponent<GrowingPlant>());
 		Contents = newPlant.GetComponent<GrowingPlant>();
 		PLANTS_PLANTED++;
+
+		// make appropriate AP change
+		Aesthetics.AP += gp.GetComponent<GrowingPlant>().apValue;
 	}
 
 
@@ -94,6 +97,7 @@ public class Planter : MonoBehaviour {
 	public void SellContents ()
 	{
 		GameManager.GAME_MANAGER.GetComponent<PlayerInventory>().Dollars += Contents.CurrentSellingPrice;
+		Aesthetics.AP -= Contents.apValue;
 		Destroy (Contents);
 		Destroy (newPlant);
 	}
