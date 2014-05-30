@@ -49,6 +49,7 @@ public class Swinging : MonoBehaviour {
 		// creates a new spring joint if there's none existing
 		if (springJoint == null) {
 			springJoint = gameObject.AddComponent<SpringJoint2D>();
+			springJoint.frequency = 0;
 		}
 		springJoint.connectedBody = AnchorPoint.Current.rigidbody2D;
 

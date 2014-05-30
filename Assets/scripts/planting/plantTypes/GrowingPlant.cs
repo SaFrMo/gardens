@@ -32,6 +32,9 @@ public class GrowingPlant : Unlockable {
 	public int startingMaxHP = 10;
 	public int startingMaxWater = 50;
 
+	// these are new values that don't have the cumbersome accessors of earlier
+	public int apValue = 1;
+
 
 	
 	protected virtual void Start ()
@@ -136,6 +139,9 @@ public class GrowingPlant : Unlockable {
 	public bool showWaterLevels = true;
 	private void OnGUI ()
 	{
+		// ALPHA TODO: redo this whole section
+
+		/*
 		GUI.skin = GameManager.GUI_SKIN;
 		if (showWaterLevels)
 		{
@@ -150,6 +156,7 @@ public class GrowingPlant : Unlockable {
 
 		// TODO: make this look nicer, too
 		GUI.Box (_thisRect, string.Format ("VALUE: ${0} out of a possible ${1}", CurrentSellingPrice.ToString(), MaxSellingPrice.ToString()));
+		*/
 	}
 
 	// auto water?
