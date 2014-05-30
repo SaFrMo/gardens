@@ -1,0 +1,270 @@
+fileFormatVersion: 2
+guid: 369fd39d57aa16943bcee76a8357fa97
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Atlas_Chicago_decor_Initial-01_0
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 3611
+        width: 1838
+        height: 596
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_1
+      rect:
+        serializedVersion: 2
+        x: 2056
+        y: 3636
+        width: 767
+        height: 571
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_2
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 2023
+        width: 975
+        height: 1529
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_3
+      rect:
+        serializedVersion: 2
+        x: 2244
+        y: 3148
+        width: 171
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_4
+      rect:
+        serializedVersion: 2
+        x: 2573
+        y: 3173
+        width: 163
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_5
+      rect:
+        serializedVersion: 2
+        x: 2902
+        y: 3115
+        width: 521
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_6
+      rect:
+        serializedVersion: 2
+        x: 3544
+        y: 3152
+        width: 79
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_7
+      rect:
+        serializedVersion: 2
+        x: 3757
+        y: 3148
+        width: 112
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_8
+      rect:
+        serializedVersion: 2
+        x: 4002
+        y: 3152
+        width: 117
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_9
+      rect:
+        serializedVersion: 2
+        x: 2161
+        y: 2056
+        width: 650
+        height: 1009
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_10
+      rect:
+        serializedVersion: 2
+        x: 2869
+        y: 2056
+        width: 588
+        height: 992
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_11
+      rect:
+        serializedVersion: 2
+        x: 3528
+        y: 2056
+        width: 591
+        height: 992
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_12
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 40
+        width: 500
+        height: 1666
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_13
+      rect:
+        serializedVersion: 2
+        x: 3469
+        y: 1294
+        width: 700
+        height: 629
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_14
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 52
+        width: 238
+        height: 1209
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_15
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 690
+        width: 238
+        height: 496
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_16
+      rect:
+        serializedVersion: 2
+        x: 1144
+        y: 702
+        width: 229
+        height: 425
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_17
+      rect:
+        serializedVersion: 2
+        x: 2307
+        y: 423
+        width: 933
+        height: 863
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_18
+      rect:
+        serializedVersion: 2
+        x: 3365
+        y: 348
+        width: 200
+        height: 742
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_19
+      rect:
+        serializedVersion: 2
+        x: 3694
+        y: 460
+        width: 171
+        height: 625
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_20
+      rect:
+        serializedVersion: 2
+        x: 3952
+        y: 352
+        width: 209
+        height: 733
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_21
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 81
+        width: 392
+        height: 488
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_22
+      rect:
+        serializedVersion: 2
+        x: 1248
+        y: 73
+        width: 125
+        height: 517
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_23
+      rect:
+        serializedVersion: 2
+        x: 2723
+        y: 156
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: Atlas_Chicago_decor_Initial-01_24
+      rect:
+        serializedVersion: 2
+        x: 2907
+        y: 19
+        width: 294
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+  spritePackingTag: 
+  userData: 
