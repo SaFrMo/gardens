@@ -20,7 +20,7 @@ public class DGSLogo : MonoBehaviour {
 	{
 		GUI.DrawTexture (new Rect (Screen.width / 2 - logo.width / 2,
 		                           Screen.height / 2 - logo.height / 2,
-		                           logo.width / 2,
-		                           logo.height), logo);
+		                           logo.width,
+		                           logo.height), logo, ScaleMode.ScaleToFit);
 	}
 }
