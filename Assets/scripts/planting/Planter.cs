@@ -20,6 +20,7 @@ public class Planter : MonoBehaviour {
 			_contents = value; 
 			if (spriteRender.material.color != originalColor)
 				spriteRender.material.color = originalColor;
+			Contents.container = this;
 		}
 	}
 
@@ -36,7 +37,8 @@ public class Planter : MonoBehaviour {
 		}
 		newPlant = Instantiate (gp) as GameObject;
 		// TODO: move it into position more flexibly (take into account sprite size rather than straight Vector2.up)
-		newPlant.transform.position = new Vector2 (transform.position.x, transform.position.y) + Vector2.up;
+		Sprite s = newPlant.GetComponent<SpriteRenderer>().sprite;
+		newPlant.transform.position = new Vector2 (transform.position.x, transform.position.y) + (Vector2)s.bounds.size;//Vector2.up;
 		newPlant.transform.parent = transform;
 		ALL_PLANTS.Add (newPlant.GetComponent<GrowingPlant>());
 		Contents = newPlant.GetComponent<GrowingPlant>();

@@ -20,6 +20,9 @@ public class GrowingPlant : Unlockable {
 	{
 		Green
 	}
+
+	// the plant's container
+	public Planter container;
 	
 	// plant setup - usable in the editor
 	// quality is calculated automatically, so no need to have a starting value

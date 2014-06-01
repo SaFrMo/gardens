@@ -10,6 +10,7 @@ public class Tutorial : MonoBehaviour {
 	private enum Step
 	{
 		Start,
+		Moving,
 		Jumping,
 		Swinging,
 		BreakingTether,
@@ -58,15 +59,19 @@ public class Tutorial : MonoBehaviour {
 			{
 
 			case Step.Start:
-				TutorialBox("[A] and [D] to move horizontally.", Step.Jumping);
+				TutorialBox("Welcome to the vertical gardens! In this game, you'll create and manage gardens that line the sides of skyscrapers in major cities.", Step.Moving);
+				break;
+
+			case Step.Moving:
+				TutorialBox("You'll need to be able to get around smoothly, though. Use [A] and [D] to move horizontally.", Step.Jumping);
 				break;
 
 			case Step.Jumping:
-				TutorialBox ("[SPACE] to jump. You can jump as many times as you like, though it's not the most efficient way to get around.", Step.Swinging);
+				TutorialBox ("[SPACE] to jump.", Step.Swinging);
 				break;
 
 			case Step.Swinging:
-				TutorialBox ("[RIGHT MOUSE CLICK] while jumping to swing.", Step.BreakingTether);
+				TutorialBox ("[RIGHT MOUSE CLICK] to swing. You can only swing if you're in the air already.", Step.BreakingTether);
 				break;
 
 			case Step.BreakingTether:
@@ -74,20 +79,20 @@ public class Tutorial : MonoBehaviour {
 				break;
 
 			case Step.LengthenShorten:
-				TutorialBox ("[W] and [S] lengthen or shorten the tether.", Step.Gardening);
+				TutorialBox ("[W] and [S] will lengthen or shorten the tether.", Step.Gardening);
 				break;
 
 			case Step.Gardening:
-				TutorialBox ("Land on a planter (gray box) and press [Q] to bring up the catalog for the planter.", Step.Buying);
+				TutorialBox ("Land on a planter box (you'll see it turn green when you do so) and press [Q] to bring up the plant catalog.", Step.Buying);
 				if (Catalog.TUT_SHOW_PLANT_CATALOG) { currentStep = Step.Buying; }
 				break;
 
 			case Step.Buying:
-				TutorialBox ("Press [R] to switch between plant information views.", Step.Zooming);
+				TutorialBox ("[NOT YET IMPLEMENTED] Press [R] to switch between plant information views.", Step.Zooming);
 				break;
 
 			case Step.Zooming:
-				TutorialBox ("Use the mouse wheel to zoom in and out.", Step.Start);
+				TutorialBox ("[NOT YET IMPLEMENTED] Use the mouse wheel to zoom in and out.", Step.Start);
 				break;
 
 

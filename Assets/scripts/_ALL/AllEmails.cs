@@ -11,8 +11,8 @@ public class AllEmails {
 
 	public static Email chicago2_fireHouse = new Email(
 		GameManager.PLAYER_EMAIL, "cfd@chi.us",
-		"The Chicago Fire Department, after another year of having to hold bake sales to buy a new fire engine (we have a few $4,000 muffins left over " +
-		"if you're interested, by the way), is very interested in your ability to raise a profit from vertical gardens.\n\nIf you'd be willing to " +
+		"The Chicago Fire Department, after another year of having to hold bake sales to buy a new fire engine (we have a few muffins left over - " +
+		"adjusted to match the fire engine's scale, they're $4000 each), is very interested in your ability to raise a profit from vertical gardens.\n\nIf you'd be willing to " +
 		"work for a percentage of the money you raise, we would let you use the fire house, prime, visible real estate, for your next garden.\n\n" +
 		"We can't offer any money beyond revenue share right now, but you'd get plenty of exposure, and isn't that the most important " +
 		"thing?\n\nCordially,\n-CFD", "Chicago Fire Department Gardens");

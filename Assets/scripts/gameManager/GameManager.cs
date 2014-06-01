@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	public static GameObject PLAYER = null;
 	public static GameObject GAME_MANAGER;
 	public static GUISkin GUI_SKIN;
-	public static string GAME_NAME = "The Green Steel Canyons";
+	public static string GAME_NAME = "Vertical Gardens - ALPHA 0.1";
 	public static float SPACER = 10f;
 	public string gameName;
 	public GUISkin gameSkin;

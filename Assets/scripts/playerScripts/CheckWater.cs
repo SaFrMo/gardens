@@ -22,7 +22,7 @@ public class CheckWater : MonoBehaviour {
 	private void InfoCell (GrowingPlant plant)
 	{
 		// TODO: graphical representation
-		GUILayout.Box (string.Format ("{0}\n{1}\nWorth ${2}{3}{4}", 
+		if (GUILayout.Button (string.Format ("{0}\n{1}\nWorth ${2}{3}{4}", 
 		                              plant.name, 
 		                              // plant water percentage
 		                              (plant.CurrentWaterLevel * 100).ToString() + "%", 
@@ -30,7 +30,10 @@ public class CheckWater : MonoBehaviour {
 		                              // low water warning
 		                              (plant.CurrentWaterLevel < .5f ? "\nLow water!" : string.Empty),
 		                              // max value warning
-		                              (plant.CurrentSellingPrice >= plant.MaxSellingPrice ? "\nMaximum value!" : string.Empty)));
+		                              (plant.CurrentSellingPrice >= plant.MaxSellingPrice ? "\nMaximum value!" : string.Empty))))
+		{
+			Catalog.Sell(plant);
+		};
 	}
 
 	/*

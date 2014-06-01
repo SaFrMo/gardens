@@ -24,6 +24,7 @@ public class Goal : MonoBehaviour
 				if (!r) return;
 			}
 			Rewards ();
+			//CompletedGoals.CompletedGoalList.Add (this);
 			complete = true;
 		}
 

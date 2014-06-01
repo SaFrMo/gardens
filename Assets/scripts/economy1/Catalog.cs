@@ -79,6 +79,11 @@ public class Catalog : MonoBehaviour {
 		GUILayout.EndArea();
 	}
 
+	public static void Sell (GrowingPlant g)
+	{
+		g.container.SellContents();
+	}
+
 	// sell a plant if it's already there
 	private void SellContents () {
 		if (Planter.SELECTED_PLANTER.Contents != null) {
