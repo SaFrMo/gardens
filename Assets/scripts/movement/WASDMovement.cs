@@ -240,12 +240,13 @@ public class WASDMovement : MonoBehaviour {
 	}
 
 	// TODO: Neater way to handle switching back to Grounded type
-
+	private bool isTouchingGround = false;
 
 	private void OnCollisionEnter2D (Collision2D c) {
 		// tag all garden boxes and anything else the player can run/jump on as "Ground"
 		if (c.gameObject.CompareTag ("Ground")) {
 			// TODO: make this better
+			/*
 			RaycastHit2D hitDown = Physics2D.Raycast ((Vector2)transform.position + -Vector2.up, -Vector2.up, .5f);
 			RaycastHit2D hitUp = Physics2D.Raycast ((Vector2)transform.position + Vector2.up, Vector2.up, .5f);
 			// player is on the side of a planter
@@ -254,15 +255,26 @@ public class WASDMovement : MonoBehaviour {
 				//print ("JUMP UP!");
 				CurrentType = MovementType.Hanging;
 			}
+			*/
 			// lets the player jump again after landing on ground
-			if (CurrentType != MovementType.Grounded && CurrentType != MovementType.Running) {
 
+			if (CurrentType == MovementType.Jumping)
+			{
 				CurrentType = MovementType.Grounded;
-
-
 			}
+
+			if (!isTouchingGround) { isTouchingGround = true; }
 		}
 	}
+
+	private void OnCollisionExit2D (Collision2D c)
+	{
+		if (c.gameObject.CompareTag ("Ground"))
+		{
+			if (isTouchingGround) { isTouchingGround = false; }
+		}
+	}
+
 
 
 
@@ -300,6 +312,7 @@ public class WASDMovement : MonoBehaviour {
 	// ==============
 
 	private void Update () {
+		print (CurrentType);
 		if (CurrentType == MovementType.Grounded || CurrentType == MovementType.Jumping || CurrentType == MovementType.Running) {
 			//this.renderer.enabled = true; // this hides the player sprite when dead, there's probably a better way around but this will do for now
 			GroundedControls();
