@@ -12,6 +12,7 @@ public class Bird : MonoBehaviour {
 	private Timer landAndRest = null;
 	private Timer eat = null;
 	private Vector2 origin;
+	private bool goodbyeForever = false;
 
 	private void Start ()
 	{
@@ -44,7 +45,7 @@ public class Bird : MonoBehaviour {
 	private void Update ()
 	{
 		// wait offstage till there's a plant to eat. diabolical.
-		if (_targetPlant == null && Planter.ALL_PLANTS.Count != 0) {
+		if (_targetPlant == null && Planter.ALL_PLANTS.Count != 0 && !goodbyeForever) {
 			int targetIndex = UnityEngine.Random.Range (0, Planter.ALL_PLANTS.Count);
 			_targetPlant = Planter.ALL_PLANTS[targetIndex];
 			MyStatus = Status.FlyingTo;
@@ -78,6 +79,7 @@ public class Bird : MonoBehaviour {
 
 		case Status.Leaving:
 			rigidbody2D.MovePosition(Vector2.MoveTowards((Vector2)transform.position, origin, speed * Time.deltaTime));
+			goodbyeForever = true;
 			break;
 		}
 

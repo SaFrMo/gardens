@@ -5,6 +5,28 @@ using System.Collections.Generic;
 public static class SaFrMo {
 	
 	static System.Random rand = new System.Random();
+
+	/// <summary>
+	/// Checks if a Vector3 is close enough to a target position.
+	/// </summary>
+	/// <returns><c>true</c>, if enough was closed, <c>false</c> otherwise.</returns>
+	/// <param name="current">Current.</param>
+	/// <param name="target">Target.</param>
+	/// <param name="minDistance">Minimum distance.</param>
+	public static bool CloseEnough (Vector3 current, Vector3 target, float minDistance = .3f) {
+		return Vector3.Distance (current, target) <= minDistance;
+	}
+
+	/// <summary>
+	/// Checks if a Vector2 is close enough to a target position.
+	/// </summary>
+	/// <returns><c>true</c>, if enough was closed, <c>false</c> otherwise.</returns>
+	/// <param name="current">Current.</param>
+	/// <param name="target">Target.</param>
+	/// <param name="minDistance">Minimum distance.</param>
+	public static bool CloseEnough (Vector2 current, Vector2 target, float minDistance = .3f) {
+		return Vector2.Distance (current, target) <= minDistance;
+	}
 	
 	
 	/// <summary>
@@ -127,5 +149,5 @@ public static class SaFrMo {
 		
 		return m_lastFramerate;
 	}
-	
+
 }
