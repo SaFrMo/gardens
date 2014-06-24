@@ -59,7 +59,10 @@ public class Bird : MonoBehaviour {
 
 		case Status.Landed:
 			if (landAndRest == null)
+			{
 				landAndRest = new Timer(pauseLength);
+				_targetPlant.BeingEatenAlert();
+			}
 			if (landAndRest.RunTimer())
 				MyStatus = Status.Eating;
 			break;
@@ -78,6 +81,7 @@ public class Bird : MonoBehaviour {
 			break;
 
 		case Status.Leaving:
+			_targetPlant.DoneBeingEaten();
 			rigidbody2D.MovePosition(Vector2.MoveTowards((Vector2)transform.position, origin, speed * Time.deltaTime));
 			goodbyeForever = true;
 			break;

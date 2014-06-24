@@ -160,6 +160,15 @@ public class GrowingPlant : Unlockable {
 		// TODO: make this look nicer, too
 		GUI.Box (_thisRect, string.Format ("VALUE: ${0} out of a possible ${1}", CurrentSellingPrice.ToString(), MaxSellingPrice.ToString()));
 		*/
+
+		if (beingEaten)
+		{
+			GUI.Box (new Rect (Mathf.Clamp (_thisRect.x, GameManager.SPACER, Screen.width - GameManager.SPACER - _thisRect.width),
+			                   Mathf.Clamp (_thisRect.y, GameManager.SPACER, Screen.height - GameManager.SPACER - _thisRect.height),
+			                   _thisRect.width,
+			                   _thisRect.height),
+			         "Help! I'm being eaten!");
+		}
 	}
 
 	// auto water?
@@ -193,7 +202,26 @@ public class GrowingPlant : Unlockable {
 	{
 		if (t.RunTimer())
 			OverTime();
-		_thisRect = SaFrMo.GUIOverObject (gameObject);
+		//_thisRect = SaFrMo.GUIOverObject (gameObject);
+		if (beingEaten)
+		{
+			_thisRect = SaFrMo.GUIOverObject (container.gameObject);
+			print ("Help, I'm being eaten!");
+		}
+	}
+
+	private bool beingEaten = false;
+
+	public void BeingEatenAlert()
+	{
+		if (!beingEaten)
+			beingEaten = true;
+	}
+
+	public void DoneBeingEaten()
+	{
+		if (beingEaten)
+			beingEaten = false;
 	}
 
 
